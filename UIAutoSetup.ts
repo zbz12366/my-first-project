@@ -1,4 +1,4 @@
-// UIAutoSetup.ts - 场景树结构搭建（编辑器节点引用模式）
+// UIAutoSetup.ts - 场景树结构搭建（统一坐标系 + Widget对齐）
 import { _decorator, Component, Node, Label, Button, UITransform, Color, Vec3, Size, Prefab, find, Camera, Graphics, Widget, Canvas, view } from 'cc';
 const { ccclass, property } = _decorator;
 
@@ -27,7 +27,6 @@ export class UIAutoSetup extends Component {
     bottomUIRoot: Node = null;
     
     private canvas: Node = null;
-    private canvasComp: Canvas = null;
     private visibleSize: Size = null;
     private cellWidth: number = 0;
     private gridContainerWidth: number = 0;
@@ -37,23 +36,13 @@ export class UIAutoSetup extends Component {
         this.canvas = this.node;
         this.visibleSize = view.getVisibleSize();
         
-        this.canvasComp = this.canvas.getComponent(Canvas);
-        if (!this.canvasComp) {
-            this.canvasComp = this.canvas.addComponent(Canvas);
-        }
-        this.canvasComp.fitWidth = true;
-        
-        console.log('=== 可视区域尺寸 ===');
-        console.log('visibleSize:', this.visibleSize.width, 'x', this.visibleSize.height);
-        
         this.gridContainerWidth = this.visibleSize.width * 0.96;
         this.cellWidth = (this.gridContainerWidth - GAP * (GRID_COLS - 1)) / GRID_COLS;
         this.gridContainerHeight = (this.cellWidth + GAP) * GRID_ROWS - GAP;
         
-        console.log('=== 网格计算 ===');
-        console.log('gridContainerWidth:', this.gridContainerWidth);
+        console.log('=== 可视区域尺寸 ===');
+        console.log('visibleSize:', this.visibleSize.width, 'x', this.visibleSize.height);
         console.log('cellWidth:', this.cellWidth);
-        console.log('gridContainerHeight:', this.gridContainerHeight);
         
         this.setupCameraBackground();
         this.clearDynamicNodes();
@@ -88,9 +77,6 @@ export class UIAutoSetup extends Component {
     
     createSceneTree() {
         console.log('=== createSceneTree 开始 ===');
-        console.log('topUIRoot:', this.topUIRoot?.name);
-        console.log('gameGridRoot:', this.gameGridRoot?.name);
-        console.log('bottomUIRoot:', this.bottomUIRoot?.name);
         
         this.createBackground();
         
@@ -101,40 +87,28 @@ export class UIAutoSetup extends Component {
         gamePage.active = false;
         
         if (this.topUIRoot) {
-            console.log('添加 TopUI_Root 到 GamePage');
             gamePage.addChild(this.topUIRoot);
-            // 设置容器大小以匹配卡片
             const topUIT = this.topUIRoot.getComponent(UITransform);
             if (topUIT) {
                 topUIT.setContentSize(new Size(this.visibleSize.width, 220));
             }
-        } else {
-            console.warn('TopUI_Root 未在编辑器中设置！请在 Canvas 下创建 TopUI_Root 节点并拖拽到 UIAutoSetup 组件');
         }
         
         if (this.gameGridRoot) {
-            console.log('添加 GameGrid_Root 到 GamePage');
             gamePage.addChild(this.gameGridRoot);
-            // 设置容器大小以匹配网格
             const gridUIT = this.gameGridRoot.getComponent(UITransform);
             if (gridUIT) {
                 gridUIT.setContentSize(new Size(this.gridContainerWidth, this.gridContainerHeight));
             }
             this.buildGameGrid(this.gameGridRoot);
-        } else {
-            console.warn('GameGrid_Root 未在编辑器中设置！请在 Canvas 下创建 GameGrid_Root 节点并拖拽到 UIAutoSetup 组件');
         }
         
         if (this.bottomUIRoot) {
-            console.log('添加 BottomUI_Root 到 GamePage');
             gamePage.addChild(this.bottomUIRoot);
-            // 设置容器大小以匹配预览区
             const bottomUIT = this.bottomUIRoot.getComponent(UITransform);
             if (bottomUIT) {
                 bottomUIT.setContentSize(new Size(this.gridContainerWidth, this.cellWidth + 40));
             }
-        } else {
-            console.warn('BottomUI_Root 未在编辑器中设置！请在 Canvas 下创建 BottomUI_Root 节点并拖拽到 UIAutoSetup 组件');
         }
         
         const gameOverPanel = this.createNode('GameOverPanel', this.canvas);
@@ -142,7 +116,35 @@ export class UIAutoSetup extends Component {
         this.createGameOverPanel(gameOverPanel);
         
         this.configureGameManager(homePage, gamePage, gameOverPanel);
+        
+        // 强制同步布局
+        this.forceLayoutSync();
+        
         console.log('=== createSceneTree 完成 ===');
+    }
+    
+    // 强制同步布局 - 确保 Widget 立即生效
+    private forceLayoutSync(): void {
+        console.log('=== 强制同步布局 ===');
+        
+        // 刷新所有 Widget
+        [this.topUIRoot, this.gameGridRoot, this.bottomUIRoot].forEach(node => {
+            if (node) {
+                const widget = node.getComponent(Widget);
+                if (widget) {
+                    widget.updateAlignment();
+                    console.log(node.name, 'Widget 已刷新');
+                }
+            }
+        });
+        
+        // 构建 TopUI 和 BottomUI（在 Widget 刷新后）
+        if (this.topUIRoot) {
+            this.buildTopUI(this.topUIRoot);
+        }
+        if (this.bottomUIRoot) {
+            this.buildBottomUI(this.bottomUIRoot);
+        }
     }
     
     private createBackground(): void {
@@ -161,7 +163,6 @@ export class UIAutoSetup extends Component {
         widget.bottom = 0;
         widget.left = 0;
         widget.right = 0;
-        widget.alignMode = Widget.AlignMode.ALWAYS;
         
         const graphics = bg.addComponent(Graphics);
         graphics.fillColor = BG_COLOR;
@@ -216,41 +217,42 @@ export class UIAutoSetup extends Component {
     
     public buildTopUI(container: Node): void {
         console.log('=== buildTopUI 开始 ===');
-        console.log('container:', container?.name, 'active:', container?.active);
-        console.log('visibleSize:', this.visibleSize?.width, 'x', this.visibleSize?.height);
-        
         container.removeAllChildren();
         
         const topCardHeight = 220;
+        const cardWidth = this.visibleSize.width - 24;
         
-        // 获取容器的 UITransform 以确定锚点
+        // 获取容器锚点
         const containerUIT = container.getComponent(UITransform);
         const anchorY = containerUIT ? containerUIT.anchorY : 0.5;
         
-        // 根据锚点调整绘制位置
-        // 如果锚点是 1（顶部），原点在顶部，卡片应该向下绘制（y从0开始）
-        // 如果锚点是 0.5（中心），原点在中心，卡片应该向下绘制（y从-height/2开始）
-        const drawY = anchorY >= 0.9 ? 0 : -topCardHeight / 2;
-        
+        // 主背景卡片 - 以 (0, 0) 为中心绘制
         const topBg = this.createNode('TopBg', container);
         const topBgUIT = topBg.addComponent(UITransform);
-        topBgUIT.setContentSize(new Size(this.visibleSize.width - 24, topCardHeight));
+        topBgUIT.setContentSize(new Size(cardWidth, topCardHeight));
         const topBgGraphics = topBg.addComponent(Graphics);
         topBgGraphics.fillColor = CARD_BG_COLOR;
-        topBgGraphics.roundRect(-(this.visibleSize.width - 24) / 2, drawY, this.visibleSize.width - 24, topCardHeight, 16);
+        // 绘制以 (0, 0) 为中心
+        topBgGraphics.roundRect(-cardWidth / 2, -topCardHeight / 2, cardWidth, topCardHeight, 16);
         topBgGraphics.fill();
         
+        // 积分卡片
+        const scoreCardWidth = this.visibleSize.width - 48;
+        const scoreCardHeight = 85;
         const scoreCard = this.createNode('ScoreCard', container);
-        scoreCard.position = new Vec3(0, topCardHeight / 2 - 50, 0);
+        // 根据锚点调整位置
+        scoreCard.position = new Vec3(0, anchorY >= 0.9 ? -50 : topCardHeight / 2 - 50, 0);
+        
         const scoreCardUIT = scoreCard.addComponent(UITransform);
-        scoreCardUIT.setContentSize(new Size(this.visibleSize.width - 48, 85));
+        scoreCardUIT.setContentSize(new Size(scoreCardWidth, scoreCardHeight));
         const scoreCardGraphics = scoreCard.addComponent(Graphics);
         scoreCardGraphics.fillColor = CARD_BG_COLOR;
-        scoreCardGraphics.roundRect(-(this.visibleSize.width - 48) / 2, -42.5, this.visibleSize.width - 48, 85, 12);
+        scoreCardGraphics.roundRect(-scoreCardWidth / 2, -scoreCardHeight / 2, scoreCardWidth, scoreCardHeight, 12);
         scoreCardGraphics.fill();
         
+        // 返回按钮
         const backBtn = this.createNode('BackButton', scoreCard);
-        backBtn.position = new Vec3(-(this.visibleSize.width - 48) / 2 + 28, 0, 0);
+        backBtn.position = new Vec3(-scoreCardWidth / 2 + 28, 0, 0);
         const backBtnUIT = backBtn.addComponent(UITransform);
         backBtnUIT.setContentSize(new Size(44, 44));
         const backBtnGraphics = backBtn.addComponent(Graphics);
@@ -264,6 +266,7 @@ export class UIAutoSetup extends Component {
         backLabel.getComponent(Label).fontSize = 22;
         backLabel.getComponent(Label).color = TEXT_DARK_COLOR;
         
+        // 积分区
         const scoreSection = this.createNode('ScoreSection', scoreCard);
         const scoreTitle = this.createLabel('本局积分', scoreSection, 'ScoreTitle');
         scoreTitle.position = new Vec3(0, 18, 0);
@@ -275,8 +278,9 @@ export class UIAutoSetup extends Component {
         scoreValue.getComponent(Label).fontSize = 44;
         scoreValue.getComponent(Label).color = PRIMARY_COLOR;
         
+        // 最高分区
         const bestSection = this.createNode('BestSection', scoreCard);
-        bestSection.position = new Vec3((this.visibleSize.width - 48) / 2 - 55, 0, 0);
+        bestSection.position = new Vec3(scoreCardWidth / 2 - 55, 0, 0);
         const bestTitle = this.createLabel('最高分', bestSection, 'BestTitle');
         bestTitle.position = new Vec3(0, 14, 0);
         bestTitle.getComponent(Label).fontSize = 11;
@@ -287,22 +291,26 @@ export class UIAutoSetup extends Component {
         bestValue.getComponent(Label).fontSize = 22;
         bestValue.getComponent(Label).color = TEXT_DARK_COLOR;
         
+        // 道具卡片
+        const propCardHeight = 120;
         const propCard = this.createNode('PropCard', container);
-        propCard.position = new Vec3(0, -topCardHeight / 2 + 70, 0);
+        propCard.position = new Vec3(0, anchorY >= 0.9 ? -topCardHeight + 70 : -topCardHeight / 2 + 70, 0);
+        
         const propCardUIT = propCard.addComponent(UITransform);
-        propCardUIT.setContentSize(new Size(this.visibleSize.width - 48, 120));
+        propCardUIT.setContentSize(new Size(scoreCardWidth, propCardHeight));
         const propCardGraphics = propCard.addComponent(Graphics);
         propCardGraphics.fillColor = CARD_BG_COLOR;
-        propCardGraphics.roundRect(-(this.visibleSize.width - 48) / 2, -60, this.visibleSize.width - 48, 120, 12);
+        propCardGraphics.roundRect(-scoreCardWidth / 2, -propCardHeight / 2, scoreCardWidth, propCardHeight, 12);
         propCardGraphics.fill();
         
         const propLabel = this.createLabel('道具', propCard, 'PropLabel');
-        propLabel.position = new Vec3(-(this.visibleSize.width - 48) / 2 + 40, 42, 0);
+        propLabel.position = new Vec3(-scoreCardWidth / 2 + 40, propCardHeight / 2 - 18, 0);
         propLabel.getComponent(Label).fontSize = 14;
         propLabel.getComponent(Label).color = TEXT_DARK_COLOR;
         
+        // 进度条
         const progressContainer = this.createNode('ProgressContainer', propCard);
-        progressContainer.position = new Vec3(0, 42, 0);
+        progressContainer.position = new Vec3(0, propCardHeight / 2 - 18, 0);
         
         const progressBg = this.createNode('ProgressBg', progressContainer);
         const progressBgUIT = progressBg.addComponent(UITransform);
@@ -327,6 +335,7 @@ export class UIAutoSetup extends Component {
         progressText.getComponent(Label).fontSize = 12;
         progressText.getComponent(Label).color = TEXT_GRAY_COLOR;
         
+        // 道具按钮
         const freezeBtn = this.createPropButton(propCard, 'FreezeButton', '❄️', '冻结', '3轮');
         freezeBtn.position = new Vec3(-85, -18, 0);
         this.setupButtonClick(freezeBtn, 'onUseFreezeProp');
@@ -336,12 +345,12 @@ export class UIAutoSetup extends Component {
         this.setupButtonClick(shrinkBtn, 'onUseShrinkProp');
         
         console.log('=== TopUI_Root 构建完成 ===');
-        console.log('TopUI_Root 子节点数:', container.children.length);
     }
     
     private buildGameGrid(container: Node): void {
         container.removeAllChildren();
         
+        // 网格背景 - 以 (0, 0) 为中心绘制
         const gridBg = this.createNode('GridBg', container);
         const gridBgUIT = gridBg.addComponent(UITransform);
         gridBgUIT.setContentSize(new Size(this.gridContainerWidth, this.gridContainerHeight));
@@ -350,61 +359,59 @@ export class UIAutoSetup extends Component {
         gridBgGraphics.roundRect(-this.gridContainerWidth / 2, -this.gridContainerHeight / 2, this.gridContainerWidth, this.gridContainerHeight, 12);
         gridBgGraphics.fill();
         
+        // 网格线
         const gridLinesNode = this.createNode('GridLines', container);
         const gridGraphics = gridLinesNode.addComponent(Graphics);
         gridGraphics.strokeColor = new Color(229, 231, 235);
         gridGraphics.lineWidth = 1;
         
-        const gridStartX = -this.gridContainerWidth / 2;
-        const gridStartY = this.gridContainerHeight / 2;
+        // 从左下角开始画线
+        const startX = -this.gridContainerWidth / 2;
+        const startY = this.gridContainerHeight / 2;
         
         for (let i = 0; i <= GRID_COLS; i++) {
-            const x = gridStartX + i * (this.cellWidth + GAP);
-            gridGraphics.moveTo(x, gridStartY);
-            gridGraphics.lineTo(x, gridStartY - this.gridContainerHeight);
+            const x = startX + i * (this.cellWidth + GAP);
+            gridGraphics.moveTo(x, startY);
+            gridGraphics.lineTo(x, startY - this.gridContainerHeight);
         }
         for (let i = 0; i <= GRID_ROWS; i++) {
-            const y = gridStartY - i * (this.cellWidth + GAP);
-            gridGraphics.moveTo(gridStartX, y);
-            gridGraphics.lineTo(gridStartX + this.gridContainerWidth, y);
+            const y = startY - i * (this.cellWidth + GAP);
+            gridGraphics.moveTo(startX, y);
+            gridGraphics.lineTo(startX + this.gridContainerWidth, y);
         }
         gridGraphics.stroke();
         
+        // BlocksLayer - 锚点 (0.5, 0.5)，居中对齐
         const blocksLayer = this.createNode('BlocksLayer', container);
         const blocksLayerUIT = blocksLayer.addComponent(UITransform);
         blocksLayerUIT.setContentSize(new Size(this.gridContainerWidth, this.gridContainerHeight));
-        blocksLayerUIT.anchorX = 0;
-        blocksLayerUIT.anchorY = 0;
-        blocksLayer.position = new Vec3(-this.gridContainerWidth / 2, -this.gridContainerHeight / 2, 0);
+        blocksLayerUIT.anchorX = 0.5;
+        blocksLayerUIT.anchorY = 0.5;
+        blocksLayer.position = new Vec3(0, 0, 0);
         
         console.log('=== GameGrid_Root 构建完成 ===');
-        console.log('BlocksLayer 锚点: (0, 0)');
-        console.log('BlocksLayer 位置:', blocksLayer.position);
-        console.log('BlocksLayer 尺寸:', this.gridContainerWidth, 'x', this.gridContainerHeight);
     }
     
     public buildBottomUI(container: Node): void {
+        console.log('=== buildBottomUI 开始 ===');
         container.removeAllChildren();
         
         const previewHeight = this.cellWidth + 40;
         
-        // 获取容器的 UITransform 以确定锚点
+        // 获取容器锚点
         const containerUIT = container.getComponent(UITransform);
         const anchorY = containerUIT ? containerUIT.anchorY : 0.5;
         
-        // 根据锚点调整绘制位置
-        // 如果锚点是 0（底部），原点在底部，卡片应该向上绘制（y从-height开始）
-        // 如果锚点是 0.5（中心），原点在中心，卡片应该向上绘制（y从-height/2开始）
-        const drawY = anchorY <= 0.1 ? -previewHeight : -previewHeight / 2;
-        
+        // 底部背景卡片 - 以 (0, 0) 为中心绘制
         const bottomBg = this.createNode('BottomBg', container);
         const bottomBgUIT = bottomBg.addComponent(UITransform);
         bottomBgUIT.setContentSize(new Size(this.gridContainerWidth, previewHeight));
         const bottomBgGraphics = bottomBg.addComponent(Graphics);
         bottomBgGraphics.fillColor = CARD_BG_COLOR;
-        bottomBgGraphics.roundRect(-this.gridContainerWidth / 2, drawY, this.gridContainerWidth, previewHeight, 12);
+        bottomBgGraphics.roundRect(-this.gridContainerWidth / 2, -previewHeight / 2, this.gridContainerWidth, previewHeight, 12);
         bottomBgGraphics.fill();
         
+        // 标签
         const previewLabel = this.createLabel('下一行', container, 'PreviewLabel');
         previewLabel.position = new Vec3(-this.gridContainerWidth / 2 + 45, previewHeight / 2 - 18, 0);
         previewLabel.getComponent(Label).fontSize = 12;
@@ -415,16 +422,15 @@ export class UIAutoSetup extends Component {
         turnLabel.getComponent(Label).fontSize = 12;
         turnLabel.getComponent(Label).color = TEXT_GRAY_COLOR;
         
+        // PreviewBlocksLayer - 锚点 (0.5, 0.5)，居中对齐
         const previewBlocksLayer = this.createNode('PreviewBlocksLayer', container);
         const previewBlocksLayerUIT = previewBlocksLayer.addComponent(UITransform);
         previewBlocksLayerUIT.setContentSize(new Size(this.gridContainerWidth, this.cellWidth));
-        previewBlocksLayerUIT.anchorX = 0;
-        previewBlocksLayerUIT.anchorY = 0;
-        previewBlocksLayer.position = new Vec3(-this.gridContainerWidth / 2, -previewHeight / 2 + 8, 0);
+        previewBlocksLayerUIT.anchorX = 0.5;
+        previewBlocksLayerUIT.anchorY = 0.5;
+        previewBlocksLayer.position = new Vec3(0, -previewHeight / 2 + this.cellWidth / 2 + 8, 0);
         
         console.log('=== BottomUI_Root 构建完成 ===');
-        console.log('PreviewBlocksLayer 锚点: (0, 0)');
-        console.log('PreviewBlocksLayer 位置:', previewBlocksLayer.position);
     }
     
     createGameOverPanel(parent: Node) {
@@ -560,14 +566,9 @@ export class UIAutoSetup extends Component {
             gameManager.topUIRoot = this.topUIRoot;
             gameManager.gameGridRoot = this.gameGridRoot;
             gameManager.bottomUIRoot = this.bottomUIRoot;
-            console.log('=== UIAutoSetup: 场景树搭建完成 ===');
-            console.log('cellWidth:', this.cellWidth);
-            console.log('gap:', GAP);
             if (typeof gameManager.initUI === 'function') {
                 gameManager.initUI();
             }
-        } else {
-            console.error('UIAutoSetup: GameManager 组件未找到！');
         }
     }
 }
