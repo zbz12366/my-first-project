@@ -1,0 +1,185 @@
+第一阶段：保留与移植核心纯逻辑
+Cocos Creator 完全支持 TypeScript，你可以将现有的纯业务逻辑文件无缝迁移过来，只需去掉 React 的 useState 即可，改为普通的面向对象或单例类。
+
+移植 types.ts： 完全不用改，直接放到 Cocos 项目的 scripts/types.ts 中。
+
+改造 useGameEngine.ts -> GameEngine.ts： 把原来依赖 React 状态 Hook 的代码，改造成一个普通的类，通过事件总线（EventTarget）或者回调函数来通知 UI 层更新。
+
+// scripts/GameEngine.ts
+import { Block, GameState, BOARD_WIDTH, BOARD_HEIGHT, BLOCK_SCORES } from './types';
+import { sys } from 'cc'; // Cocos 的系统 API
+
+export class GameEngine {
+    public gameState: GameState;
+    public isProcessing: boolean = false;
+    
+    // UI 层可以通过注册这个回调，来接收需要播放消除动画的行
+    public onRowsCleared: (rows: {y: number, score: number}[]) => void = null;
+    public onGameStateChanged: () => void = null;
+
+    constructor() {
+        this.loadSave();
+    }
+
+    private loadSave() {
+        // 替换 localStorage 为 Cocos 提供的本地存储 sys.localStorage
+        const saved = sys.localStorage.getItem('blockPuzzleState');
+        if (saved) {
+            this.gameState = JSON.parse(saved);
+        } else {
+            this.gameState = { blocks: [], nextRow: [], score: 0 /*...*/ };
+        }
+    }
+
+    public save() {
+        sys.localStorage.setItem('blockPuzzleState', JSON.stringify(this.gameState));
+    }
+
+    // 生成方块、重力下落、消除检测、移位逻辑全部保留
+    // 只要把原先 setGameState(...) 的地方改为修改 this.gameState 
+    // 并调用 this.onGameStateChanged() 通知 UI 刷新即可。
+    
+    public moveBlock(id: string, newX: number) {
+        // 逻辑与之前完全一致
+        // ...
+        this.processPhysics(this.gameState.blocks, true);
+    }
+    
+    // ... 原本的所有逻辑代码
+}
+第二阶段：在 Cocos Creator 中重构 UI 与节点
+原先的 React 组件 <GameBoard> 和 <Block> 将被 Cocos 中的 Node（节点） 和 Sprite（精灵） 所替代。
+
+1. 搭建场景树 (Scene Tree)
+在 Cocos 的层级管理器中搭建如下结构：
+
+Canvas (画布)
+ ├── GameController (挂载入口脚本，实例化 GameEngine)
+ ├── Background (背景图/网格)
+ ├── BoardArea (游戏主区域，设置宽度和高度，例如 900x1100)
+ │    ├── BlocksLayer (专门挂载所有滑块节点)
+ │    ├── DangerOverlay (顶部红色闪烁警告节点，平时透明度0)
+ │    └── FXLayer (挂载消除飘分动画等特效)
+ ├── PreviewArea (底部预览区)
+ └── UI_Layer
+      ├── ScoreLabel (本局积分)
+      ├── PropBar (道具能量槽 ProgressBar)
+      ├── Btn_Freeze (冻结按钮)
+      └── Btn_Shrink (缩减按钮)
+2. 制作滑块预制体 (Prefab)
+在 React 中，我们是通过循环 .map() 渲染 div 的。在 Cocos 中，我们需要制作一个 Prefab（预制体）。
+
+创建一个节点命名为 BlockPrefab。
+添加 Sprite 组件（可以是纯色图片，带圆角）。
+挂载一个自定义脚本 BlockCtrl.ts。
+// scripts/BlockCtrl.ts
+import { _decorator, Component, Node, Sprite, color, Color, UITransform, tween, Vec3 } from 'cc';
+const { ccclass, property } = _decorator;
+
+@ccclass('BlockCtrl')
+export class BlockCtrl extends Component {
+    @property(Sprite)
+    bgSprite: Sprite = null;
+    
+    public id: string;
+    
+    // 动态设置颜色和宽度 (替代 Tailwind 的类名)
+    public init(id: string, type: number, width: number, cellWidth: number, cellHeight: number) {
+        this.id = id;
+        
+        // 设置节点尺寸
+        const uiTransform = this.node.getComponent(UITransform);
+        uiTransform.setContentSize(width * cellWidth, cellHeight);
+        
+        // 设置颜色
+        const colors = [
+            color(165, 243, 252), // Cyan-200
+            color(196, 181, 253), // Violet-300
+            // ... 映射原来 tailwind 的颜色
+        ];
+        this.bgSprite.color = colors[type - 1];
+    }
+
+    // 替代 Framer Motion 的位移动画
+    public moveTo(targetX: number, targetY: number, animated: boolean = true) {
+        if (animated) {
+            // Cocos 内置补间动画 Tween
+            tween(this.node)
+                .to(0.3, { position: new Vec3(targetX, targetY, 0) }, { easing: 'cubicOut' })
+                .start();
+        } else {
+            this.node.setPosition(targetX, targetY, 0);
+        }
+    }
+}
+第三阶段：手势拖拽（取代 pointer 事件）
+在 Web 开发中，我们监听 DOM 事件；在 Cocos 中，我们监听节点上的触摸事件 (TOUCH_START, TOUCH_MOVE, TOUCH_END)。
+
+我们将拖拽逻辑写在 GameBoardCtrl.ts (挂载在 BoardArea 节点上)：
+
+import { _decorator, Component, Node, EventTouch, UITransform, Vec3 } from 'cc';
+const { ccclass, property } = _decorator;
+
+@ccclass('GameBoardCtrl')
+export class GameBoardCtrl extends Component {
+    private cellWidth: number;
+    private cellHeight: number;
+    private draggingBlockId: string = null;
+    private startX: number;
+    private initialCellX: number;
+    // ... 等拖拽边界变量，和原先 GameBoard 的 dragState 类似
+
+    start() {
+        // 计算每个格子的像素尺寸
+        const size = this.node.getComponent(UITransform).contentSize;
+        this.cellWidth = size.width / 9; // BOARD_WIDTH
+        this.cellHeight = size.height / 11; // BOARD_HEIGHT
+
+        // 注册全局触摸事件
+        this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
+        this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
+    }
+
+    onTouchStart(event: EventTouch) {
+        // 1. 获取触摸点相对于 Board 的本地坐标
+        const localPos = this.node.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(event.getUILocation().x, event.getUILocation().y, 0));
+        
+        // 2. 根据坐标反推点击了网格的哪一行、哪一列 (x, y)
+        const gridX = Math.floor(localPos.x / this.cellWidth);
+        const gridY = Math.floor(localPos.y / this.cellHeight);
+
+        // 3. 查找是否点击到了方块 (调用 GameEngine 数据)
+        // const hitBlock = engine.gameState.blocks.find(...)
+        // 4. 设置拖拽初始状态 (计算出 minX 和 maxX边界)
+    }
+
+    onTouchMove(event: EventTouch) {
+        if (!this.draggingBlockId) return;
+        // 计算手指横向移动了多少个格子，更新方块节点的临时位置
+    }
+
+    onTouchEnd(event: EventTouch) {
+        if (!this.draggingBlockId) return;
+        // 如果格数发生了变化，通知引擎
+        // engine.moveBlock(this.draggingBlockId, newX);
+        this.draggingBlockId = null;
+    }
+}
+第四阶段：视觉特效替换
+由于没有了 CSS 动画，微信小游戏的高性能优势就体现在引擎层处理动画和粒子特效上。
+
+危险红光闪烁 (Danger Overlay) 不需要 CSS 的 animate-pulse，直接挂载一个带有 Tween 的透明度补间动画：
+
+// 当检测到最高方块 y <= 2 时触发
+tween(dangerSprite.node.getComponent(UIOpacity))
+    .to(0.75, { opacity: 150 })
+    .to(0.75, { opacity: 0 })
+    .union()
+    .repeatForever()
+    .start();
+消除闪烁与飘分 消除方块时，可以使用 Cocos 内置的 cc.ParticleSystem（粒子特效），或者使用 Tween 让方块产生 .to(0.2, { scale: new Vec3(1.2, 1.2, 1) }).to(0.2, { scale: Vec3.ZERO }) 的缩放爆破感。
+
+渲染优化（DrawCall 优化） 因为是 Canvas 渲染，如果有大量的纯色方块拼合，在 Cocos 中可以使用同一个贴图材质，勾选 Auto Atlas（自动图集），这比 DOM 操作有几何级数的性能提升。
+
