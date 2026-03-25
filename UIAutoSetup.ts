@@ -38,7 +38,7 @@ export class UIAutoSetup extends Component {
         
         this.gridContainerWidth = this.visibleSize.width * 0.96;
         this.cellWidth = (this.gridContainerWidth - GAP * (GRID_COLS - 1)) / GRID_COLS;
-        this.gridContainerHeight = (this.cellWidth + GAP) * GRID_ROWS - GAP;
+        this.gridContainerHeight = (this.cellWidth + GAP) * GRID_ROWS + GAP;
         
         console.log('=== 可视区域尺寸 ===');
         console.log('visibleSize:', this.visibleSize.width, 'x', this.visibleSize.height);
@@ -384,12 +384,15 @@ export class UIAutoSetup extends Component {
         // BlocksLayer - 锚点 (0.5, 0.5)，居中对齐
         const blocksLayer = this.createNode('BlocksLayer', container);
         const blocksLayerUIT = blocksLayer.addComponent(UITransform);
-        blocksLayerUIT.setContentSize(new Size(this.gridContainerWidth, this.gridContainerHeight));
+        blocksLayerUIT.setContentSize(this.gridContainerWidth, this.gridContainerHeight);
         blocksLayerUIT.anchorX = 0.5;
         blocksLayerUIT.anchorY = 0.5;
         blocksLayer.position = new Vec3(0, 0, 0);
         
         console.log('=== GameGrid_Root 构建完成 ===');
+        console.log('BlocksLayer 尺寸:', this.gridContainerWidth, 'x', this.gridContainerHeight);
+        console.log('BlocksLayer 锚点: (0.5, 0.5)');
+        console.log('BlocksLayer 位置: (0, 0)');
     }
     
     public buildBottomUI(container: Node): void {
@@ -563,6 +566,8 @@ export class UIAutoSetup extends Component {
             gameManager.blockPrefab = this.blockPrefab;
             gameManager.cellWidth = this.cellWidth;
             gameManager.gap = GAP;
+            gameManager.gridContainerWidth = this.gridContainerWidth;
+            gameManager.gridContainerHeight = this.gridContainerHeight;
             gameManager.topUIRoot = this.topUIRoot;
             gameManager.gameGridRoot = this.gameGridRoot;
             gameManager.bottomUIRoot = this.bottomUIRoot;
