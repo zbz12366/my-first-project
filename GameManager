@@ -269,8 +269,7 @@ export class GameManager extends Component {
         outlineGraphics.markForUpdateRenderData();
         blockNode.addChild(outlineNode);
         // 滑块位置计算 - 对齐网格
-        // 坐标系定义：y=0 为底部，y=BOARD_HEIGHT-1 为顶部
-        // BlocksLayer 锚点是 (0,0)，子节点位置相对于左下角
+        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
         const posX = block.x * this.cellWidth + block.w * this.cellWidth / 2;
         const posY = block.y * this.cellWidth + this.cellWidth / 2;
         blockNode.setPosition(new Vec3(posX, posY, 0));
@@ -348,18 +347,13 @@ export class GameManager extends Component {
             return;
         }
         
-        // 使用 convertToNodeSpaceAR，由于 BlocksLayer 锚点是 (0,0)，返回坐标相对于左下角
+        // 使用 convertToNodeSpaceAR 获取相对于 BlocksLayer 的坐标
         const localPos = new Vec3();
         blocksLayerUIT.convertToNodeSpaceAR(new Vec3(worldPos.x, worldPos.y, 0), localPos);
         
-        // 由于 BlocksLayer 锚点是 (0,0) 且位置在 (-width/2, -height/2)，
-        // convertToNodeSpaceAR 返回的是相对于锚点的坐标
-        // 需要加上 width/2 和 height/2 来得到相对于左下角的坐标
-        const blSize = blocksLayerUIT.contentSize;
-        const adjustedX = localPos.x + blSize.width / 2;
-        const adjustedY = localPos.y + blSize.height / 2;
+        console.log('Touch: world=(' + worldPos.x.toFixed(1) + ', ' + worldPos.y.toFixed(1) + '), local=(' + localPos.x.toFixed(1) + ', ' + localPos.y.toFixed(1) + ')');
         
-        const block = this.getBlockAtPosition(new Vec3(adjustedX, adjustedY, 0));
+        const block = this.getBlockAtPosition(localPos);
         if (block) {
             if (this.activeProp === 'shrink') {
                 if (block.w === 5) {
@@ -402,7 +396,7 @@ export class GameManager extends Component {
         ghostSprite.color = new Color(colorData.r, colorData.g, colorData.b, 80);
         ghostSprite.type = Sprite.Type.SLICED;
         const x = block.x * this.cellWidth + block.w * this.cellWidth / 2;
-        // 坐标系：y=0 为底部
+        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
         const y = block.y * this.cellWidth + this.cellWidth / 2;
         this.ghostBlock.setPosition(new Vec3(x, y, 0));
         this.blocksLayer.addChild(this.ghostBlock);
@@ -412,7 +406,7 @@ export class GameManager extends Component {
 
     createAlignmentGuides(block: BlockData) {
         if (!this.blocksLayer) return;
-        // 坐标系：y=0 为底部
+        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
         const rowY = block.y * this.cellWidth + this.cellWidth / 2;
         const state = this.engine.getState();
         const rowBlocks = state.blocks.filter(b => b.y === block.y && b.id !== block.id);
@@ -466,7 +460,7 @@ export class GameManager extends Component {
             const block = state.blocks.find(b => b.id === this.dragState.id);
             if (block) {
                 const x = newX * this.cellWidth + block.w * this.cellWidth / 2;
-                // 坐标系：y=0 为底部
+                // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
                 const y = block.y * this.cellWidth + this.cellWidth / 2;
                 blockNode.setPosition(new Vec3(x, y, 0));
             }
@@ -500,16 +494,23 @@ export class GameManager extends Component {
     }
 
     getBlockAtPosition(pos: Vec3): BlockData | null {
-        // pos 是相对于 BlocksLayer 左下角的坐标
-        // 坐标系定义：y=0 为底部，y=BOARD_HEIGHT-1 为顶部
+        // pos 是相对于 BlocksLayer 的坐标，y=0 在底部，y 向上为正
         const col = Math.floor(pos.x / this.cellWidth);
         const row = Math.floor(pos.y / this.cellWidth);
+        
+        console.log('Click: pos.x=' + pos.x.toFixed(1) + ', pos.y=' + pos.y.toFixed(1) + ', col=' + col + ', row=' + row);
         
         if (row >= 0 && row < BOARD_HEIGHT && col >= 0 && col < BOARD_WIDTH) {
             const state = this.engine.getState();
             const block = state.blocks.find(b => b.y === row && col >= b.x && col < b.x + b.w);
+            if (block) {
+                console.log('Found block: ' + block.id.substring(0,6) + ' at y=' + block.y);
+            } else {
+                console.log('No block at row=' + row + ', col=' + col);
+            }
             return block || null;
         }
+        console.log('Out of bounds');
         return null;
     }
 
@@ -520,7 +521,7 @@ export class GameManager extends Component {
                 clears.forEach((clear, index) => {
                     setTimeout(() => {
                         const x = this.gridContainerWidth / 2;
-                        // 坐标系：y=0 为底部
+                        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
                         const y = clear.y * this.cellWidth + this.cellWidth / 2;
                         this.createFloatingScore(clear.score, x, y);
                     }, index * 100);
