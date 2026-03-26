@@ -12,8 +12,8 @@ const BLOCK_COLORS: Record<number, { r: number; g: number; b: number }> = {
 
 @ccclass('GameManager')
 export class GameManager extends Component {
-    @property(Prefab)
-    blockPrefab: Prefab = null;
+    @property(Node)
+    blockPrefab: Node | null = null;
 
     public cellWidth = 0;
     public gap = 4;
@@ -268,10 +268,13 @@ export class GameManager extends Component {
         outlineGraphics.stroke();
         outlineGraphics.markForUpdateRenderData();
         blockNode.addChild(outlineNode);
+        
+        // 使用设计尺寸 gridContainerWidth/Height 与 cellWidth 保持一致
         // 滑块位置计算 - 对齐网格
-        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
-        const posX = block.x * this.cellWidth + block.w * this.cellWidth / 2;
-        const posY = block.y * this.cellWidth + this.cellWidth / 2;
+        // 使用与 getBlockAtPosition 相同的坐标系：从 BlocksLayer 锚点开始
+        const posX = block.x * this.cellWidth + block.w * this.cellWidth / 2 - this.gridContainerWidth / 2;
+        const posY = block.y * this.cellWidth + this.cellWidth / 2 - this.gridContainerHeight / 2;
+        console.log(`Creating block ${block.id.substring(0,6)} at x=${block.x}, y=${block.y}, posX=${posX.toFixed(1)}, posY=${posY.toFixed(1)}, cellW=${this.cellWidth.toFixed(1)}`);
         blockNode.setPosition(new Vec3(posX, posY, 0));
         this.blocksLayer.addChild(blockNode);
         this.blockNodes.set(block.id, blockNode);
@@ -341,20 +344,38 @@ export class GameManager extends Component {
         }
         
         const worldPos = event.getUILocation();
-        const blocksLayerUIT = this.blocksLayer.getComponent(UITransform);
-        if (!blocksLayerUIT) {
-            console.warn('BlocksLayer UITransform not found');
-            return;
-        }
         
-        // 使用 convertToNodeSpaceAR 获取相对于 BlocksLayer 的坐标
+        // 获取触摸点在 GameGrid_Root（BlocksLayer 的父节点）坐标系中的位置
+        const gridRootUIT = this.blocksLayer.parent!.getComponent(UITransform)!;
         const localPos = new Vec3();
-        blocksLayerUIT.convertToNodeSpaceAR(new Vec3(worldPos.x, worldPos.y, 0), localPos);
+        gridRootUIT.convertToNodeSpaceAR(new Vec3(worldPos.x, worldPos.y, 0), localPos);
         
-        console.log('Touch: world=(' + worldPos.x.toFixed(1) + ', ' + worldPos.y.toFixed(1) + '), local=(' + localPos.x.toFixed(1) + ', ' + localPos.y.toFixed(1) + ')');
+        console.log('worldPos:', worldPos.x, worldPos.y);
+        console.log('localPos in GridRoot:', localPos.x, localPos.y);
         
-        const block = this.getBlockAtPosition(localPos);
+        // 使用设计尺寸计算 col 和 row
+        const containerWidth = this.gridContainerWidth;
+        const containerHeight = this.gridContainerHeight;
+        
+        // localPos 是相对于 GridRoot 左下角的坐标（因为锚点可能是 (0,0) 或其他）
+        // 需要根据 GridRoot 的锚点进行调整
+        const gridRootAnchor = gridRootUIT.anchorPoint;
+        console.log('GridRoot anchor:', gridRootAnchor.x, gridRootAnchor.y);
+        
+        // 计算相对于 GridRoot 锚点的坐标
+        const adjustedX = localPos.x + containerWidth * gridRootAnchor.x - containerWidth / 2;
+        const adjustedY = localPos.y + containerHeight * gridRootAnchor.y - containerHeight / 2;
+        
+        const col = Math.floor((adjustedX + containerWidth / 2) / this.cellWidth);
+        const row = Math.floor((adjustedY + containerHeight / 2) / this.cellWidth);
+        
+        console.log('adjustedX:', adjustedX, 'adjustedY:', adjustedY);
+        console.log('calc: col=' + col + ', row=' + row);
+
+        const block = this.getBlockAtPosition(new Vec3(adjustedX, adjustedY, 0), containerWidth, containerHeight);
+        console.log('getBlockAtPosition returned: ' + (block ? block.id.substring(0,6) + ', x=' + block.x + ', y=' + block.y : 'null'));
         if (block) {
+            console.log('Drag Started for Block: ' + block.id.substring(0,6) + ' at x=' + block.x + ', y=' + block.y);
             if (this.activeProp === 'shrink') {
                 if (block.w === 5) {
                     this.engine.applyShrinkProp(block.id);
@@ -370,6 +391,9 @@ export class GameManager extends Component {
                 if (other.x < block.x) minX = Math.max(minX, other.x + other.w);
                 if (other.x > block.x) maxX = Math.min(maxX, other.x - block.w);
             });
+            
+            console.log(`Drag init: block.x=${block.x}, minX=${minX}, maxX=${maxX}, rowBlocks=${rowBlocks.length}`);
+            
             this.dragState = {
                 id: block.id,
                 startX: worldPos.x,
@@ -395,9 +419,9 @@ export class GameManager extends Component {
         const colorData = BLOCK_COLORS[block.w] || BLOCK_COLORS[1];
         ghostSprite.color = new Color(colorData.r, colorData.g, colorData.b, 80);
         ghostSprite.type = Sprite.Type.SLICED;
-        const x = block.x * this.cellWidth + block.w * this.cellWidth / 2;
-        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
-        const y = block.y * this.cellWidth + this.cellWidth / 2;
+        const x = -this.gridContainerWidth / 2 + block.x * this.cellWidth + block.w * this.cellWidth / 2;
+        // BlocksLayer 锚点是 (0.5, 0.5)，需要减去半个容器宽高
+        const y = -this.gridContainerHeight / 2 + block.y * this.cellWidth + this.cellWidth / 2;
         this.ghostBlock.setPosition(new Vec3(x, y, 0));
         this.blocksLayer.addChild(this.ghostBlock);
         this.ghostBlock.setSiblingIndex(0);
@@ -406,8 +430,8 @@ export class GameManager extends Component {
 
     createAlignmentGuides(block: BlockData) {
         if (!this.blocksLayer) return;
-        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
-        const rowY = block.y * this.cellWidth + this.cellWidth / 2;
+        // BlocksLayer 锚点是 (0.5, 0.5)，需要减去半个容器宽高
+        const rowY = -this.gridContainerHeight / 2 + block.y * this.cellWidth + this.cellWidth / 2;
         const state = this.engine.getState();
         const rowBlocks = state.blocks.filter(b => b.y === block.y && b.id !== block.id);
         let minX = 0;
@@ -450,19 +474,26 @@ export class GameManager extends Component {
         }
         const worldPos = event.getUILocation();
         const deltaX = worldPos.x - this.dragState.startX;
+        
+        // 计算新的网格位置（用于限制范围）
         const deltaCells = Math.round(deltaX / this.cellWidth);
         let newX = this.dragState.initialCellX + deltaCells;
         newX = Math.max(this.dragState.minX, Math.min(newX, this.dragState.maxX));
         this.dragState.currentX = newX;
+        
+        // 滑块平滑移动到新的网格位置
         const blockNode = this.blockNodes.get(this.dragState.id);
         if (blockNode) {
             const state = this.engine.getState();
             const block = state.blocks.find(b => b.id === this.dragState.id);
             if (block) {
-                const x = newX * this.cellWidth + block.w * this.cellWidth / 2;
-                // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
-                const y = block.y * this.cellWidth + this.cellWidth / 2;
-                blockNode.setPosition(new Vec3(x, y, 0));
+                // 计算目标位置（基于新的网格位置）
+                const targetX = -this.gridContainerWidth / 2 + newX * this.cellWidth + block.w * this.cellWidth / 2;
+                const y = -this.gridContainerHeight / 2 + block.y * this.cellWidth + this.cellWidth / 2;
+                // 使用 tween 平滑移动
+                tween(blockNode)
+                    .to(0.1, { position: new Vec3(targetX, y, 0) })
+                    .start();
             }
         }
     }
@@ -493,24 +524,33 @@ export class GameManager extends Component {
         this.dragState = null;
     }
 
-    getBlockAtPosition(pos: Vec3): BlockData | null {
-        // pos 是相对于 BlocksLayer 的坐标，y=0 在底部，y 向上为正
-        const col = Math.floor(pos.x / this.cellWidth);
-        const row = Math.floor(pos.y / this.cellWidth);
+    getBlockAtPosition(pos: Vec3, containerWidth: number, containerHeight: number): BlockData | null {
+        // pos 是相对于 BlocksLayer 锚点（中心）的坐标
+        // containerWidth 和 containerHeight 是 BlocksLayer 的实际尺寸
+        // createBlockNode 中：posX = block.x * cellWidth + block.w * cellWidth / 2 - containerWidth / 2
+        // 所以 block.x 的中心点对应的 posX = block.x * cellWidth + block.w * cellWidth / 2 - containerWidth / 2
         
-        console.log('Click: pos.x=' + pos.x.toFixed(1) + ', pos.y=' + pos.y.toFixed(1) + ', col=' + col + ', row=' + row);
+        // 点击位置对应的网格列（从左到右，0-8）
+        const col = Math.floor((pos.x + containerWidth / 2) / this.cellWidth);
+        // 点击位置对应的网格行（从下到上，0-10）
+        const row = Math.floor((pos.y + containerHeight / 2) / this.cellWidth);
+        
+        console.log('getBlockAtPosition: pos=(' + pos.x.toFixed(1) + ', ' + pos.y.toFixed(1) + '), col=' + col + ', row=' + row + ', containerSize=' + containerWidth.toFixed(1) + 'x' + containerHeight.toFixed(1));
         
         if (row >= 0 && row < BOARD_HEIGHT && col >= 0 && col < BOARD_WIDTH) {
             const state = this.engine.getState();
+            console.log('All blocks: ' + state.blocks.map(b => 'y=' + b.y + ',x=' + b.x + ',w=' + b.w).join(' | '));
+            
+            // 查找包含点击位置的方块
             const block = state.blocks.find(b => b.y === row && col >= b.x && col < b.x + b.w);
             if (block) {
-                console.log('Found block: ' + block.id.substring(0,6) + ' at y=' + block.y);
-            } else {
-                console.log('No block at row=' + row + ', col=' + col);
+                console.log('Found block: ' + block.id.substring(0,6) + ' at y=' + block.y + ', x=' + block.x + ', w=' + block.w);
+                return block;
             }
-            return block || null;
+            console.log('No block at row=' + row + ', col=' + col);
+            return null;
         }
-        console.log('Out of bounds');
+        console.log('Out of bounds: row=' + row + ', col=' + col);
         return null;
     }
 
@@ -520,48 +560,8 @@ export class GameManager extends Component {
             if (clears && clears.length > 0) {
                 clears.forEach((clear, index) => {
                     setTimeout(() => {
-                        const x = this.gridContainerWidth / 2;
-                        // 坐标系：y=0 在 BlocksLayer 底部，y 向上为正
-                        const y = clear.y * this.cellWidth + this.cellWidth / 2;
+                        const x = 0; // 容器中心
+                        // BlocksLayer 锚点是 (0.5, 0.5)，需要减去半个容器宽高
+                        const y = -this.gridContainerHeight / 2 + clear.y * this.cellWidth + this.cellWidth / 2;
                         this.createFloatingScore(clear.score, x, y);
                     }, index * 100);
-                });
-            }
-        });
-        this.isProcessing = false;
-    }
-
-    createFloatingScore(score: number, x: number, y: number) {
-        const scoreNode = new Node('FloatingScore');
-        const scoreTransform = scoreNode.addComponent(UITransform);
-        scoreTransform.setContentSize(100, 40);
-        const label = scoreNode.addComponent(Label);
-        label.string = `+${Math.floor(score)}`;
-        label.fontSize = 32;
-        label.color = new Color(255, 193, 7, 255);
-        label.isBold = true;
-        scoreNode.position = new Vec3(x, y, 0);
-        this.blocksLayer.addChild(scoreNode);
-        tween(scoreNode)
-            .by(0.8, { position: new Vec3(0, 60, 0) })
-            .parallel(
-                tween().to(0.8, { scale: new Vec3(1.3, 1.3, 1) }),
-                tween().to(0.6, { scale: new Vec3(0.8, 0.8, 1) }).delay(0.2)
-            )
-            .call(() => scoreNode.destroy())
-            .start();
-    }
-
-    onUseFreezeProp() {
-        if (this.engine.canUseProp() && !this.isProcessing) {
-            this.engine.applyFreezeProp();
-            this.updateScoreDisplay();
-        }
-    }
-
-    onUseShrinkProp() {
-        if (this.engine.canUseProp() && !this.isProcessing) {
-            this.activeProp = this.activeProp === 'shrink' ? null : 'shrink';
-        }
-    }
-}
