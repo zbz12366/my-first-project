@@ -1,0 +1,566 @@
+import { _decorator, Component, Prefab, instantiate, Node, Vec3, EventTouch, tween, Label, Graphics, Color, UITransform, input, Input, Sprite } from 'cc';
+import { GameEngine, BlockData, BOARD_WIDTH, BOARD_HEIGHT } from './BoardModel';
+const { ccclass, property } = _decorator;
+
+const BLOCK_COLORS: Record<number, { r: number; g: number; b: number }> = {
+    1: { r: 128, g: 243, b: 255 },
+    2: { r: 193, g: 176, b: 255 },
+    3: { r: 255, g: 235, b: 59 },
+    4: { r: 255, g: 183, b: 77 },
+    5: { r: 129, g: 199, b: 132 },
+};
+
+@ccclass('GameManager')
+export class GameManager extends Component {
+    @property(Prefab)
+    blockPrefab: Prefab = null;
+
+    public cellWidth = 0;
+    public gap = 4;
+    public gridContainerWidth = 0;
+    public gridContainerHeight = 0;
+    public homePage: Node = null;
+    public gamePage: Node = null;
+    public gameOverPanel: Node = null;
+    public topUIRoot: Node = null;
+    public gameGridRoot: Node = null;
+    public bottomUIRoot: Node = null;
+
+    private engine: GameEngine;
+    private isProcessing = false;
+    private blockNodes: Map<string, Node> = new Map();
+    private nextRowNodes: Map<string, Node> = new Map();
+    private blocksLayer: Node = null;
+    private previewBlocksLayer: Node = null;
+    private dragState: { id: string; startX: number; currentX: number; initialCellX: number; minX: number; maxX: number } | null = null;
+    private activeProp: 'shrink' | null = null;
+    private ghostBlock: Node = null;
+    private dragGuides: Node[] = [];
+
+    onLoad() {
+        // 延迟绑定事件，确保 blocksLayer 已创建
+        this.scheduleOnce(() => {
+            this.setupInputHandlers();
+        }, 0.5);
+    }
+
+    setupInputHandlers() {
+        if (!this.blocksLayer) {
+            this.findContainers();
+        }
+        if (!this.blocksLayer) {
+            console.warn('Cannot setup input handlers: blocksLayer not found');
+            return;
+        }
+        
+        // 在 blocksLayer 上绑定事件，而不是全局
+        this.blocksLayer.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
+        this.blocksLayer.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.blocksLayer.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        this.blocksLayer.on(Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+        console.log('Input handlers setup on blocksLayer');
+    }
+
+    onDestroy() {
+        if (this.blocksLayer) {
+            this.blocksLayer.off(Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.blocksLayer.off(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+            this.blocksLayer.off(Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            this.blocksLayer.off(Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+        }
+    }
+
+    start() {
+        console.log('GameManager start');
+        this.engine = new GameEngine();
+        this.engine.subscribe((state) => {
+            if (this.gamePage && this.gamePage.active) {
+                this.onStateChanged(state);
+            }
+        });
+        this.scheduleOnce(() => {
+            this.initUI();
+        }, 0.2);
+    }
+
+    initUI() {
+        console.log('GameManager initUI');
+        this.setupHomePageButtons();
+        this.showHomePage();
+    }
+
+    setupHomePageButtons() {
+        if (!this.homePage) return;
+        const startBtn = this.homePage.getChildByName('StartBtn');
+        if (startBtn) {
+            startBtn.off(Node.EventType.TOUCH_END);
+            startBtn.on(Node.EventType.TOUCH_END, (e: EventTouch) => {
+                e.propagationStopped = true;
+                this.onStartNewGame();
+            }, this);
+        }
+        const continueBtn = this.homePage.getChildByName('ContinueBtn');
+        if (continueBtn) {
+            continueBtn.off(Node.EventType.TOUCH_END);
+            continueBtn.on(Node.EventType.TOUCH_END, (e: EventTouch) => {
+                e.propagationStopped = true;
+                this.onContinueGame();
+            }, this);
+        }
+    }
+
+    showHomePage() {
+        console.log('Show home page');
+        if (this.homePage) {
+            this.homePage.active = true;
+            this.homePage.setSiblingIndex(1000);
+        }
+        if (this.gamePage) this.gamePage.active = false;
+        if (this.gameOverPanel) this.gameOverPanel.active = false;
+    }
+
+    showGamePage() {
+        console.log('Show game page');
+        if (this.homePage) this.homePage.active = false;
+        if (this.gamePage) {
+            this.gamePage.active = true;
+            this.gamePage.children.forEach(child => child.active = true);
+        }
+        if (this.gameOverPanel) this.gameOverPanel.active = false;
+        this.findContainers();
+        
+        // 确保 blocksLayer 在最上层并设置事件
+        if (this.blocksLayer) {
+            this.blocksLayer.setSiblingIndex(999);
+            this.setupInputHandlers();
+        }
+        
+        this.setupPropButtons();
+        this.updateScoreDisplay();
+    }
+
+    setupPropButtons() {
+        if (!this.topUIRoot) return;
+        const freezeBtn = this.topUIRoot.getChildByName('FreezeBtn');
+        if (freezeBtn) {
+            freezeBtn.off(Node.EventType.TOUCH_END);
+            freezeBtn.on(Node.EventType.TOUCH_END, (e: EventTouch) => {
+                e.propagationStopped = true;
+                this.onUseFreezeProp();
+            }, this);
+        }
+        const shrinkBtn = this.topUIRoot.getChildByName('ShrinkBtn');
+        if (shrinkBtn) {
+            shrinkBtn.off(Node.EventType.TOUCH_END);
+            shrinkBtn.on(Node.EventType.TOUCH_END, (e: EventTouch) => {
+                e.propagationStopped = true;
+                this.onUseShrinkProp();
+            }, this);
+        }
+    }
+
+    onStartNewGame() {
+        console.log('Start new game');
+        this.engine.clearState();
+        this.showGamePage();
+        this.engine.initialize();
+        this.refreshUI();
+        this.updateScoreDisplay();
+    }
+
+    onContinueGame() {
+        console.log('Continue game');
+        this.showGamePage();
+        if (!this.engine.hasSave()) {
+            this.engine.initialize();
+        }
+        this.refreshUI();
+        this.updateScoreDisplay();
+    }
+
+    onRestartGame() {
+        this.engine.restartGame();
+        if (this.gameOverPanel) this.gameOverPanel.active = false;
+        this.refreshUI();
+        this.updateScoreDisplay();
+    }
+
+    findContainers() {
+        if (this.gameGridRoot) {
+            this.blocksLayer = this.gameGridRoot.getChildByName('BlocksLayer');
+        }
+        if (this.bottomUIRoot) {
+            this.previewBlocksLayer = this.bottomUIRoot.getChildByName('PreviewBlocksLayer');
+        }
+    }
+
+    onStateChanged(state: any) {
+        if (!this.gamePage || !this.gamePage.active) return;
+        if (!this.blocksLayer) this.findContainers();
+        this.refreshUI();
+        this.updateScoreDisplay();
+        if (state.gameOver && this.gameOverPanel) {
+            this.gameOverPanel.active = true;
+        }
+    }
+
+    refreshUI() {
+        if (!this.blockPrefab || !this.blocksLayer) {
+            this.findContainers();
+            if (!this.blocksLayer) return;
+        }
+        const state = this.engine.getState();
+        this.blockNodes.clear();
+        this.nextRowNodes.clear();
+        this.blocksLayer.removeAllChildren();
+        if (this.previewBlocksLayer) {
+            this.previewBlocksLayer.removeAllChildren();
+        }
+        for (const block of state.blocks) {
+            this.createBlockNode(block);
+        }
+        for (const block of state.nextRow) {
+            this.createNextRowNode(block);
+        }
+    }
+
+    createBlockNode(block: BlockData) {
+        if (!this.blocksLayer) return;
+        
+        // 检查 blockPrefab
+        if (!this.blockPrefab) {
+            console.warn('BlockPrefab is null!');
+            return;
+        }
+        
+        const blockNode = instantiate(this.blockPrefab);
+        if (!blockNode) {
+            console.warn('Failed to instantiate blockPrefab');
+            return;
+        }
+        
+        let uiTransform = blockNode.getComponent(UITransform);
+        if (!uiTransform) {
+            uiTransform = blockNode.addComponent(UITransform);
+        }
+        const PADDING = 3;
+        const blockWidth = block.w * this.cellWidth - PADDING * 2;
+        const blockHeight = this.cellWidth - PADDING * 2;
+        uiTransform.setContentSize(blockWidth, blockHeight);
+        const sprite = blockNode.getComponent(Sprite);
+        if (sprite) {
+            const colorData = BLOCK_COLORS[block.w] || BLOCK_COLORS[1];
+            sprite.color = new Color(colorData.r, colorData.g, colorData.b, 255);
+            sprite.type = Sprite.Type.SLICED;
+        }
+        // 添加描边效果 - 设置为不拦截事件
+        const outlineNode = new Node('Outline');
+        outlineNode.layer = 0; // 确保不拦截事件
+        const outlineTransform = outlineNode.addComponent(UITransform);
+        outlineTransform.setContentSize(blockWidth + 4, blockHeight + 4);
+        const outlineGraphics = outlineNode.addComponent(Graphics);
+        outlineGraphics.fillColor = new Color(255, 255, 255, 102);
+        outlineGraphics.roundRect(-(blockWidth + 4) / 2, -(blockHeight + 4) / 2, blockWidth + 4, blockHeight + 4, 4);
+        outlineGraphics.fill();
+        outlineGraphics.strokeColor = new Color(255, 255, 255, 204);
+        outlineGraphics.lineWidth = 2;
+        outlineGraphics.roundRect(-(blockWidth + 4) / 2, -(blockHeight + 4) / 2, blockWidth + 4, blockHeight + 4, 4);
+        outlineGraphics.stroke();
+        outlineGraphics.markForUpdateRenderData();
+        blockNode.addChild(outlineNode);
+        // 滑块位置计算 - 对齐网格
+        // 坐标系定义：y=0 为底部，y=BOARD_HEIGHT-1 为顶部
+        // BlocksLayer 锚点是 (0,0)，子节点位置相对于左下角
+        const posX = block.x * this.cellWidth + block.w * this.cellWidth / 2;
+        const posY = block.y * this.cellWidth + this.cellWidth / 2;
+        blockNode.setPosition(new Vec3(posX, posY, 0));
+        this.blocksLayer.addChild(blockNode);
+        this.blockNodes.set(block.id, blockNode);
+    }
+
+    createNextRowNode(block: BlockData) {
+        if (!this.previewBlocksLayer) return;
+        const blockNode = instantiate(this.blockPrefab);
+        let uiTransform = blockNode.getComponent(UITransform);
+        if (!uiTransform) uiTransform = blockNode.addComponent(UITransform);
+        // 预览区滑块高度减少40% - 从30减到18
+        const PREVIEW_BLOCK_HEIGHT = 18;
+        const PADDING = 2;
+        const blockWidth = block.w * this.cellWidth - PADDING * 2;
+        const blockHeight = PREVIEW_BLOCK_HEIGHT - PADDING * 2;
+        uiTransform.setContentSize(blockWidth, blockHeight);
+        const sprite = blockNode.getComponent(Sprite);
+        if (sprite) {
+            sprite.color = new Color(156, 163, 175, 255);
+            sprite.type = Sprite.Type.SLICED;
+        }
+        // 预览区滑块位置 - 锚点 (0, 0.5) 的容器中，Y=0 是垂直中心
+        const x = block.x * this.cellWidth + block.w * this.cellWidth / 2;
+        const y = 0; // 在锚点 (0, 0.5) 的容器中 y=0 就是垂直居中
+        blockNode.setPosition(new Vec3(x, y, 0));
+        this.previewBlocksLayer.addChild(blockNode);
+        this.nextRowNodes.set(block.id, blockNode);
+    }
+
+    updateScoreDisplay() {
+        const state = this.engine.getState();
+        if (!this.topUIRoot) return;
+        const scoreValue = this.topUIRoot.getChildByName('ScoreValue')?.getComponent(Label);
+        if (scoreValue) scoreValue.string = `${state.score}`;
+        const progressBg = this.topUIRoot.getChildByName('ProgressBg');
+        if (progressBg) {
+            const progressText = progressBg.getChildByName('ProgressText')?.getComponent(Label);
+            if (progressText) progressText.string = `${Math.floor(state.propEnergy)}/${state.propTarget}`;
+            const progressFill = progressBg.getChildByName('ProgressFill');
+            if (progressFill) {
+                const progress = Math.min(1, state.propEnergy / state.propTarget);
+                const fillUIT = progressFill.getComponent(UITransform);
+                if (fillUIT) {
+                    const maxWidth = progressBg.getComponent(UITransform)?.width || 200;
+                    fillUIT.setContentSize(Math.max(1, progress * (maxWidth - 4)), fillUIT.height);
+                }
+            }
+        }
+        const bestScore = localStorage.getItem('bestScore') || '0';
+        if (state.score > parseInt(bestScore)) {
+            localStorage.setItem('bestScore', state.score.toString());
+        }
+    }
+
+    onTouchStart(event: EventTouch) {
+        if (this.isProcessing) return;
+        const state = this.engine.getState();
+        if (state.gameOver) return;
+        
+        // 确保 blocksLayer 已找到
+        if (!this.blocksLayer) {
+            this.findContainers();
+            if (!this.blocksLayer) {
+                console.warn('BlocksLayer not found');
+                return;
+            }
+        }
+        
+        const worldPos = event.getUILocation();
+        const blocksLayerUIT = this.blocksLayer.getComponent(UITransform);
+        if (!blocksLayerUIT) {
+            console.warn('BlocksLayer UITransform not found');
+            return;
+        }
+        
+        // 使用 convertToNodeSpaceAR，由于 BlocksLayer 锚点是 (0,0)，返回坐标相对于左下角
+        const localPos = new Vec3();
+        blocksLayerUIT.convertToNodeSpaceAR(new Vec3(worldPos.x, worldPos.y, 0), localPos);
+        
+        // 由于 BlocksLayer 锚点是 (0,0) 且位置在 (-width/2, -height/2)，
+        // convertToNodeSpaceAR 返回的是相对于锚点的坐标
+        // 需要加上 width/2 和 height/2 来得到相对于左下角的坐标
+        const blSize = blocksLayerUIT.contentSize;
+        const adjustedX = localPos.x + blSize.width / 2;
+        const adjustedY = localPos.y + blSize.height / 2;
+        
+        const block = this.getBlockAtPosition(new Vec3(adjustedX, adjustedY, 0));
+        if (block) {
+            if (this.activeProp === 'shrink') {
+                if (block.w === 5) {
+                    this.engine.applyShrinkProp(block.id);
+                    this.activeProp = null;
+                    this.processPhysics(false);
+                }
+                return;
+            }
+            const rowBlocks = state.blocks.filter(b => b.y === block.y && b.id !== block.id);
+            let minX = 0;
+            let maxX = BOARD_WIDTH - block.w;
+            rowBlocks.forEach(other => {
+                if (other.x < block.x) minX = Math.max(minX, other.x + other.w);
+                if (other.x > block.x) maxX = Math.min(maxX, other.x - block.w);
+            });
+            this.dragState = {
+                id: block.id,
+                startX: worldPos.x,
+                currentX: block.x,
+                initialCellX: block.x,
+                minX,
+                maxX
+            };
+            this.createDragGuides(block);
+        }
+    }
+
+    createDragGuides(block: BlockData) {
+        if (!this.blocksLayer) return;
+        this.clearDragGuides();
+        this.ghostBlock = new Node('GhostBlock');
+        const ghostTransform = this.ghostBlock.addComponent(UITransform);
+        const PADDING = 3;
+        const blockWidth = block.w * this.cellWidth - PADDING * 2;
+        const blockHeight = this.cellWidth - PADDING * 2;
+        ghostTransform.setContentSize(blockWidth, blockHeight);
+        const ghostSprite = this.ghostBlock.addComponent(Sprite);
+        const colorData = BLOCK_COLORS[block.w] || BLOCK_COLORS[1];
+        ghostSprite.color = new Color(colorData.r, colorData.g, colorData.b, 80);
+        ghostSprite.type = Sprite.Type.SLICED;
+        const x = block.x * this.cellWidth + block.w * this.cellWidth / 2;
+        // 坐标系：y=0 为底部
+        const y = block.y * this.cellWidth + this.cellWidth / 2;
+        this.ghostBlock.setPosition(new Vec3(x, y, 0));
+        this.blocksLayer.addChild(this.ghostBlock);
+        this.ghostBlock.setSiblingIndex(0);
+        this.createAlignmentGuides(block);
+    }
+
+    createAlignmentGuides(block: BlockData) {
+        if (!this.blocksLayer) return;
+        // 坐标系：y=0 为底部
+        const rowY = block.y * this.cellWidth + this.cellWidth / 2;
+        const state = this.engine.getState();
+        const rowBlocks = state.blocks.filter(b => b.y === block.y && b.id !== block.id);
+        let minX = 0;
+        let maxX = BOARD_WIDTH - block.w;
+        rowBlocks.forEach(other => {
+            if (other.x < block.x) minX = Math.max(minX, other.x + other.w);
+            if (other.x > block.x) maxX = Math.min(maxX, other.x - block.w);
+        });
+        this.dragGuides.push(this.createGuideLine(minX * this.cellWidth, rowY - this.cellWidth / 2, minX * this.cellWidth, rowY + this.cellWidth / 2, new Color(74, 108, 247, 150)));
+        this.dragGuides.push(this.createGuideLine((maxX + block.w) * this.cellWidth, rowY - this.cellWidth / 2, (maxX + block.w) * this.cellWidth, rowY + this.cellWidth / 2, new Color(74, 108, 247, 150)));
+        this.dragGuides.push(this.createGuideLine(block.x * this.cellWidth, rowY - this.cellWidth / 2, block.x * this.cellWidth, rowY + this.cellWidth / 2, new Color(255, 152, 0, 100), 2));
+        this.dragGuides.push(this.createGuideLine((block.x + block.w) * this.cellWidth, rowY - this.cellWidth / 2, (block.x + block.w) * this.cellWidth, rowY + this.cellWidth / 2, new Color(255, 152, 0, 100), 2));
+    }
+
+    createGuideLine(x1: number, y1: number, x2: number, y2: number, color: Color, lineWidth = 3): Node {
+        const guideNode = new Node('GuideLine');
+        const guideTransform = guideNode.addComponent(UITransform);
+        guideTransform.setContentSize(Math.abs(x2 - x1) || lineWidth, Math.abs(y2 - y1) || lineWidth);
+        const graphics = guideNode.addComponent(Graphics);
+        graphics.strokeColor = color;
+        graphics.lineWidth = lineWidth;
+        graphics.moveTo(0, 0);
+        graphics.lineTo(x2 - x1, y2 - y1);
+        graphics.stroke();
+        guideNode.position = new Vec3(x1, y1, 0);
+        this.blocksLayer.addChild(guideNode);
+        return guideNode;
+    }
+
+    clearDragGuides() {
+        this.dragGuides.forEach(guide => {
+            if (guide && guide.isValid) guide.destroy();
+        });
+        this.dragGuides = [];
+    }
+
+    onTouchMove(event: EventTouch) {
+        if (!this.dragState || this.isProcessing) {
+            return;
+        }
+        const worldPos = event.getUILocation();
+        const deltaX = worldPos.x - this.dragState.startX;
+        const deltaCells = Math.round(deltaX / this.cellWidth);
+        let newX = this.dragState.initialCellX + deltaCells;
+        newX = Math.max(this.dragState.minX, Math.min(newX, this.dragState.maxX));
+        this.dragState.currentX = newX;
+        const blockNode = this.blockNodes.get(this.dragState.id);
+        if (blockNode) {
+            const state = this.engine.getState();
+            const block = state.blocks.find(b => b.id === this.dragState.id);
+            if (block) {
+                const x = newX * this.cellWidth + block.w * this.cellWidth / 2;
+                // 坐标系：y=0 为底部
+                const y = block.y * this.cellWidth + this.cellWidth / 2;
+                blockNode.setPosition(new Vec3(x, y, 0));
+            }
+        }
+    }
+
+    onTouchEnd(event: EventTouch) {
+        if (!this.dragState) return;
+        if (this.ghostBlock) {
+            this.ghostBlock.destroy();
+            this.ghostBlock = null;
+        }
+        this.clearDragGuides();
+        if (this.dragState.currentX !== this.dragState.initialCellX) {
+            this.engine.moveBlock(this.dragState.id, this.dragState.currentX);
+            this.processPhysics(true);
+        }
+        this.dragState = null;
+    }
+
+    onTouchCancel(event: EventTouch) {
+        if (this.dragState) {
+            if (this.ghostBlock) {
+                this.ghostBlock.destroy();
+                this.ghostBlock = null;
+            }
+            this.clearDragGuides();
+            this.refreshUI();
+        }
+        this.dragState = null;
+    }
+
+    getBlockAtPosition(pos: Vec3): BlockData | null {
+        // pos 是相对于 BlocksLayer 左下角的坐标
+        // 坐标系定义：y=0 为底部，y=BOARD_HEIGHT-1 为顶部
+        const col = Math.floor(pos.x / this.cellWidth);
+        const row = Math.floor(pos.y / this.cellWidth);
+        
+        if (row >= 0 && row < BOARD_HEIGHT && col >= 0 && col < BOARD_WIDTH) {
+            const state = this.engine.getState();
+            const block = state.blocks.find(b => b.y === row && col >= b.x && col < b.x + b.w);
+            return block || null;
+        }
+        return null;
+    }
+
+    async processPhysics(isTurnAdvance: boolean) {
+        this.isProcessing = true;
+        await this.engine.processPhysics(isTurnAdvance, (clears) => {
+            if (clears && clears.length > 0) {
+                clears.forEach((clear, index) => {
+                    setTimeout(() => {
+                        const x = this.gridContainerWidth / 2;
+                        // 坐标系：y=0 为底部
+                        const y = clear.y * this.cellWidth + this.cellWidth / 2;
+                        this.createFloatingScore(clear.score, x, y);
+                    }, index * 100);
+                });
+            }
+        });
+        this.isProcessing = false;
+    }
+
+    createFloatingScore(score: number, x: number, y: number) {
+        const scoreNode = new Node('FloatingScore');
+        const scoreTransform = scoreNode.addComponent(UITransform);
+        scoreTransform.setContentSize(100, 40);
+        const label = scoreNode.addComponent(Label);
+        label.string = `+${Math.floor(score)}`;
+        label.fontSize = 32;
+        label.color = new Color(255, 193, 7, 255);
+        label.isBold = true;
+        scoreNode.position = new Vec3(x, y, 0);
+        this.blocksLayer.addChild(scoreNode);
+        tween(scoreNode)
+            .by(0.8, { position: new Vec3(0, 60, 0) })
+            .parallel(
+                tween().to(0.8, { scale: new Vec3(1.3, 1.3, 1) }),
+                tween().to(0.6, { scale: new Vec3(0.8, 0.8, 1) }).delay(0.2)
+            )
+            .call(() => scoreNode.destroy())
+            .start();
+    }
+
+    onUseFreezeProp() {
+        if (this.engine.canUseProp() && !this.isProcessing) {
+            this.engine.applyFreezeProp();
+            this.updateScoreDisplay();
+        }
+    }
+
+    onUseShrinkProp() {
+        if (this.engine.canUseProp() && !this.isProcessing) {
+            this.activeProp = this.activeProp === 'shrink' ? null : 'shrink';
+        }
+    }
+}
