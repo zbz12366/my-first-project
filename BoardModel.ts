@@ -174,6 +174,8 @@ export class GameEngine {
     }
     
     // 初始化游戏
+    // 坐标系定义：y=0 为底部（逻辑 Row 10），y=BOARD_HEIGHT-1 为顶部（逻辑 Row 0）
+    // 新行从顶部推入，重力使方块向 y 减小方向掉落
     initialize(): void {
         const firstRow = generateRow(0).map(b => ({ ...b, y: BOARD_HEIGHT - 1 }));
         const nextRow = generateRow(1);
@@ -189,7 +191,9 @@ export class GameEngine {
             gameOver: false,
         };
         
-        // 注意：不在这里调用 notifyState，让调用者决定何时通知
+        // 应用重力让方块掉落到正确位置
+        const { newBlocks } = this.applyGravity(this.state.blocks);
+        this.state.blocks = newBlocks;
     }
     
     // 重启游戏
@@ -199,25 +203,29 @@ export class GameEngine {
     }
     
     // 应用重力
+    // 坐标系：y=0 为底部，y=BOARD_HEIGHT-1 为顶部
+    // 重力使方块向 y 减小方向掉落
     applyGravity(blocks: BlockData[]): { newBlocks: BlockData[], moved: boolean } {
         let moved = false;
-        let newBlocks = [...blocks].sort((a, b) => b.y - a.y); // 从下往上排序
+        // 从上往下排序（y 大的先处理，这样下面的方块不会阻挡上面的）
+        let newBlocks = [...blocks].sort((a, b) => b.y - a.y);
 
         for (let i = 0; i < newBlocks.length; i++) {
             let b = newBlocks[i];
             let fallY = b.y;
             let canFall = true;
 
-            while (canFall && fallY < BOARD_HEIGHT - 1) {
-                // 检查下方是否有方块阻挡
+            // 向 y 减小方向掉落（向底部）
+            while (canFall && fallY > 0) {
+                // 检查下方（y-1 位置）是否有方块阻挡
                 const overlaps = newBlocks.some(other => 
                     other.id !== b.id && 
-                    other.y === fallY + 1 && 
+                    other.y === fallY - 1 && 
                     !(b.x + b.w <= other.x || b.x >= other.x + other.w)
                 );
 
                 if (!overlaps) {
-                    fallY++;
+                    fallY--;
                     moved = true;
                 } else {
                     canFall = false;
@@ -333,16 +341,16 @@ export class GameEngine {
             if (this.state.freezeTurns > 0) {
                 this.setState({ freezeTurns: this.state.freezeTurns - 1 });
             } else {
-                // 所有方块上移一行
-                let nextBlocks = currentBlocks.map(b => ({ ...b, y: b.y - 1 }));
+                // 所有方块向顶部移动一行（y 增大方向）
+                let nextBlocks = currentBlocks.map(b => ({ ...b, y: b.y + 1 }));
                 
-                // 游戏结束检查
-                if (nextBlocks.some(b => b.y < 0)) {
+                // 游戏结束检查：如果方块到达顶部（y >= BOARD_HEIGHT - 1），游戏结束
+                if (nextBlocks.some(b => b.y >= BOARD_HEIGHT - 1)) {
                     this.setState({ gameOver: true });
                     return;
                 }
 
-                // 添加新行
+                // 添加新行（从顶部进入）
                 const newRowBlocks = this.state.nextRow.map(b => ({ ...b, y: BOARD_HEIGHT - 1 }));
                 nextBlocks = [...nextBlocks, ...newRowBlocks];
                 
@@ -443,11 +451,3 @@ export class GameEngine {
     
     // 获取道具进度百分比
     getPropProgress(): number {
-        return Math.min(100, (this.state.propEnergy / this.state.propTarget) * 100);
-    }
-    
-    // 检查是否危险（方块接近顶部）
-    isDanger(): boolean {
-        return this.state.blocks.some(b => b.y <= 2);
-    }
-}
