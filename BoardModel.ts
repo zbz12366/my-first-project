@@ -177,11 +177,28 @@ export class GameEngine {
     // 坐标系定义：y=0 为底部（逻辑 Row 10），y=BOARD_HEIGHT-1 为顶部（逻辑 Row 0）
     // 新行从顶部推入，重力使方块向 y 减小方向掉落
     initialize(): void {
-        const firstRow = generateRow(0).map(b => ({ ...b, y: BOARD_HEIGHT - 1 }));
-        const nextRow = generateRow(1);
+        // 生成初始多行方块，让它们堆叠在底部
+        const initialBlocks: BlockData[] = [];
+        const numInitialRows = 5; // 初始生成5行
+        
+        for (let row = 0; row < numInitialRows; row++) {
+            const rowBlocks = generateRow(row);
+            // 将每一行放在不同的y位置，从底部开始堆叠
+            rowBlocks.forEach(b => {
+                initialBlocks.push({
+                    ...b,
+                    y: row, // 第0行在y=0，第1行在y=1，以此类推
+                    id: generateId() // 重新生成ID避免重复
+                });
+            });
+        }
+        
+        const nextRow = generateRow(numInitialRows);
+        
+        console.log('Initial blocks:', initialBlocks.map(b => `y=${b.y},x=${b.x}`).join(' | '));
         
         this.state = {
-            blocks: firstRow,
+            blocks: initialBlocks,
             nextRow: nextRow,
             score: 0,
             turn: 0,
@@ -190,10 +207,6 @@ export class GameEngine {
             freezeTurns: 0,
             gameOver: false,
         };
-        
-        // 应用重力让方块掉落到正确位置
-        const { newBlocks } = this.applyGravity(this.state.blocks);
-        this.state.blocks = newBlocks;
     }
     
     // 重启游戏
@@ -207,32 +220,43 @@ export class GameEngine {
     // 重力使方块向 y 减小方向掉落
     applyGravity(blocks: BlockData[]): { newBlocks: BlockData[], moved: boolean } {
         let moved = false;
-        // 从上往下排序（y 大的先处理，这样下面的方块不会阻挡上面的）
-        let newBlocks = [...blocks].sort((a, b) => b.y - a.y);
+        // 按 x 然后 y 排序，确保处理顺序稳定
+        let newBlocks = [...blocks].sort((a, b) => {
+            if (a.x !== b.x) return a.x - b.x;
+            return a.y - b.y;
+        });
 
-        for (let i = 0; i < newBlocks.length; i++) {
-            let b = newBlocks[i];
-            let fallY = b.y;
-            let canFall = true;
+        console.log('applyGravity start:', newBlocks.map(b => `y=${b.y},x=${b.x},w=${b.w}`).join(' | '));
 
-            // 向 y 减小方向掉落（向底部）
-            while (canFall && fallY > 0) {
-                // 检查下方（y-1 位置）是否有方块阻挡
+        // 迭代直到没有方块移动
+        let changed = true;
+        let iterations = 0;
+        while (changed && iterations < 20) {
+            changed = false;
+            iterations++;
+            for (let i = 0; i < newBlocks.length; i++) {
+                let b = newBlocks[i];
+                if (b.y <= 0) continue; // 已经在底部
+
+                const targetY = b.y - 1;
+                // 检查目标位置是否有其他方块阻挡
                 const overlaps = newBlocks.some(other => 
                     other.id !== b.id && 
-                    other.y === fallY - 1 && 
+                    other.y === targetY && 
                     !(b.x + b.w <= other.x || b.x >= other.x + other.w)
                 );
 
                 if (!overlaps) {
-                    fallY--;
+                    console.log(`Block ${b.id.substring(0,6)} at x=${b.x} falls from y=${b.y} to y=${targetY}`);
+                    newBlocks[i] = { ...b, y: targetY };
                     moved = true;
-                } else {
-                    canFall = false;
+                    changed = true;
                 }
             }
-            newBlocks[i] = { ...b, y: fallY };
         }
+        
+        console.log('applyGravity end after', iterations, 'iterations:', newBlocks.map(b => `y=${b.y},x=${b.x}`).join(' | '));
+        
         return { newBlocks, moved };
     }
     
@@ -451,3 +475,11 @@ export class GameEngine {
     
     // 获取道具进度百分比
     getPropProgress(): number {
+        return Math.min(100, (this.state.propEnergy / this.state.propTarget) * 100);
+    }
+    
+    // 检查是否危险（方块接近顶部）
+    isDanger(): boolean {
+        return this.state.blocks.some(b => b.y <= 2);
+    }
+}
