@@ -1,485 +1,347 @@
-// BlockData 类型定义
-export type BlockData = {
-    id: string;
-    x: number;
-    y: number;
-    w: number;
-    colorType: 1 | 2 | 3 | 4 | 5;
-};
+import { _decorator, Component, Node, Vec3, view, Widget, UITransform, Graphics, Color, Label, instantiate, Button, Sprite, director, Director } from 'cc';
 
-// 游戏状态
-export type GameStateData = {
-    blocks: BlockData[];
-    nextRow: BlockData[];
-    score: number;
-    turn: number;
-    propEnergy: number;
-    propTarget: number;
-    freezeTurns: number;
-    gameOver: boolean;
-};
+const { ccclass, property } = _decorator;
 
-// 常量
-export const BOARD_WIDTH = 9;
-export const BOARD_HEIGHT = 11;
+const GRID_COLS = 9;
+const GRID_ROWS = 11;
+const HEADER_HEIGHT = 180;
+const PREVIEW_HEIGHT = 30;
+const MAX_WIDTH = 640;
+const OFFSET = 30;
+const PRIMARY_COLOR = new Color(74, 108, 247, 255);
+const TEXT_GRAY_COLOR = new Color(128, 128, 128, 255);
+const GRID_BG_COLOR = new Color(240, 240, 240, 255);
 
-// 分数配置
-export const BLOCK_SCORES: Record<number, number> = {
-    1: 10,
-    2: 30,
-    3: 60,
-    4: 100,
-    5: 150,
-};
+@ccclass('UIAutoSetup')
+export class UIAutoSetup extends Component {
+    @property({ type: Node })
+    gamePage: Node = null;
+    @property({ type: Node })
+    topUIRoot: Node = null;
+    @property({ type: Node })
+    gameGridRoot: Node = null;
+    @property({ type: Node })
+    bottomUIRoot: Node = null;
+    @property({ type: Node })
+    homePage: Node = null;
+    @property(Node)
+    blockTemplate: Node | null = null;
 
-// 颜色配置 (RGB) - 根据方块宽度
-export const BLOCK_COLORS: Record<number, { r: number; g: number; b: number }> = {
-    1: { r: 128, g: 243, b: 255 },  // 青色 #80F3FF
-    2: { r: 193, g: 176, b: 255 },  // 紫色 #C1B0FF
-    3: { r: 255, g: 235, b: 59 },   // 黄色 #FFEB3B
-    4: { r: 255, g: 167, b: 38 },   // 橙色 #FFA726
-    5: { r: 92, g: 107, b: 192 },   // 靛蓝色 #5C6BC0
-};
+    private gridContainerWidth = 0;
+    private gridContainerHeight = 0;
+    private cellWidth = 0;
 
-const INITIAL_PROP_TARGET = 2000;
+    onLoad() {
+        console.log('UIAutoSetup onLoad');
+        this.ensureNodesActive();
+        this.setupWidgetLayout();
+    }
 
-// 生成唯一ID
-export function generateId(): string {
-    return Math.random().toString(36).substring(2, 9);
-}
+    start() {
+        console.log('UIAutoSetup start');
+        this.scheduleOnce(() => {
+            this.calculateGridSize();
+            this.buildUI();
+            this.configureGameManager();
+            console.log('UIAutoSetup init done');
+        }, 0);
+    }
 
-// 根据回合数生成一行方块
-export function generateRow(turn: number): BlockData[] {
-    let availableSpaces = BOARD_WIDTH;
-    const blocks: BlockData[] = [];
-    
-    // 保证每行至少有1-2个空格，不会立即消除
-    const maxFill = BOARD_WIDTH - Math.floor(Math.random() * 2 + 1);
-    
-    let currentFill = 0;
-    let currentX = 0;
+    private ensureNodesActive() {
+        if (this.node) this.node.active = true;
+        if (this.homePage) {
+            this.homePage.active = true;
+            this.homePage.setSiblingIndex(999);
+        }
+        if (this.gamePage) this.gamePage.active = false;
+        if (this.topUIRoot) this.topUIRoot.active = true;
+        if (this.gameGridRoot) this.gameGridRoot.active = true;
+        if (this.bottomUIRoot) this.bottomUIRoot.active = true;
+    }
 
-    while (currentFill < maxFill && currentX < BOARD_WIDTH) {
-        // 计算当前位置能生成的最大长度
-        const maxLen = Math.min(5, maxFill - currentFill, BOARD_WIDTH - currentX);
-        if (maxLen <= 0) break;
-
-        // 根据难度权重池
-        let pool: number[] = [];
-        if (turn < 10) pool = [1, 1, 1, 2, 2, 3];
-        else if (turn < 30) pool = [1, 2, 2, 3, 3, 4];
-        else if (turn < 60) pool = [2, 3, 3, 4, 4, 5];
-        else pool = [3, 4, 4, 5, 5];
-
-        pool = pool.filter(l => l <= maxLen);
-        if (pool.length === 0) pool = [1];
-        
-        const len = pool[Math.floor(Math.random() * pool.length)];
-
-        // 随机跳过空格创造间隙
-        if (Math.random() > 0.6 && currentX + len < BOARD_WIDTH) {
-            currentX++;
+    private setupWidgetLayout() {
+        if (this.topUIRoot) {
+            let widget = this.topUIRoot.getComponent(Widget);
+            if (!widget) widget = this.topUIRoot.addComponent(Widget);
+            widget.enabled = true;
+            widget.isAlignTop = true;
+            widget.top = OFFSET;
+            widget.isAlignHorizontalCenter = true;
+            widget.horizontalCenter = 0;
+            widget.isAlignLeft = false;
+            widget.isAlignRight = false;
+            widget.isAlignBottom = false;
+            widget.isAlignVerticalCenter = false;
+            const uit = this.topUIRoot.getComponent(UITransform);
+            if (uit) uit.setContentSize(MAX_WIDTH, HEADER_HEIGHT);
         }
 
-        if (currentX + len <= BOARD_WIDTH) {
-            blocks.push({
-                id: generateId(),
-                x: currentX,
-                y: BOARD_HEIGHT - 1,
-                w: len,
-                colorType: len as 1 | 2 | 3 | 4 | 5,
-            });
-            currentFill += len;
-            currentX += len;
+        if (this.bottomUIRoot) {
+            let widget = this.bottomUIRoot.getComponent(Widget);
+            if (!widget) widget = this.bottomUIRoot.addComponent(Widget);
+            widget.enabled = true;
+            widget.isAlignBottom = true;
+            widget.bottom = -OFFSET;
+            widget.isAlignHorizontalCenter = true;
+            widget.horizontalCenter = 0;
+            widget.isAlignLeft = false;
+            widget.isAlignRight = false;
+            widget.isAlignTop = false;
+            widget.isAlignVerticalCenter = false;
+            const uit = this.bottomUIRoot.getComponent(UITransform);
+            if (uit) uit.setContentSize(MAX_WIDTH, PREVIEW_HEIGHT);
+        }
+
+        if (this.gameGridRoot) {
+            let widget = this.gameGridRoot.getComponent(Widget);
+            if (!widget) widget = this.gameGridRoot.addComponent(Widget);
+            widget.enabled = true;
+            widget.isAlignTop = true;
+            widget.top = HEADER_HEIGHT + OFFSET;
+            widget.isAlignBottom = true;
+            widget.bottom = PREVIEW_HEIGHT - OFFSET;
+            widget.isAlignHorizontalCenter = true;
+            widget.horizontalCenter = 0;
+            widget.isAlignLeft = false;
+            widget.isAlignRight = false;
+            widget.isAlignVerticalCenter = false;
+        }
+    }
+
+    private calculateGridSize() {
+        const visibleSize = view.getVisibleSize();
+        const screenHeight = visibleSize.height;
+        const availableHeight = screenHeight - HEADER_HEIGHT - PREVIEW_HEIGHT - 40;
+        // 使用固定的 690x845 尺寸
+        this.gridContainerWidth = 690;
+        this.gridContainerHeight = 845;
+        this.cellWidth = this.gridContainerWidth / GRID_COLS;
+        
+        if (this.gameGridRoot) {
+            const uit = this.gameGridRoot.getComponent(UITransform);
+            if (uit) uit.setContentSize(this.gridContainerWidth, this.gridContainerHeight);
+        }
+        
+        console.log('Grid size:', this.gridContainerWidth, 'x', this.gridContainerHeight, 'cellWidth:', this.cellWidth);
+    }
+
+    private buildUI() {
+        if (this.homePage) this.buildHomePage(this.homePage);
+        if (this.topUIRoot) this.buildTopUI(this.topUIRoot);
+        if (this.gameGridRoot) this.buildGameBoard(this.gameGridRoot);
+        if (this.bottomUIRoot) this.buildBottomUI(this.bottomUIRoot);
+    }
+
+    private buildHomePage(container: Node) {
+        container.removeAllChildren();
+        const visibleSize = view.getVisibleSize();
+        const width = visibleSize.width;
+        const height = visibleSize.height;
+
+        const bg = this.createGraphicsNode('Bg', container, width, height, new Color(74, 108, 247, 255), 0);
+
+        const titleNode = this.createLabel('Block Puzzle', container, 'Title');
+        titleNode.setPosition(0, 100, 0);
+        const titleLabel = titleNode.getComponent(Label);
+        titleLabel.fontSize = 64;
+        titleLabel.color = Color.WHITE;
+        titleLabel.isBold = true;
+
+        const subtitleNode = this.createLabel('Slide blocks to clear', container, 'Subtitle');
+        subtitleNode.setPosition(0, 30, 0);
+        const subtitleLabel = subtitleNode.getComponent(Label);
+        subtitleLabel.fontSize = 24;
+        subtitleLabel.color = new Color(255, 255, 255, 200);
+
+        const btnWidth = 240;
+        const btnHeight = 80;
+        const btnNode = this.createGraphicsNode('StartBtn', container, btnWidth, btnHeight, Color.WHITE, 40);
+        btnNode.setPosition(0, -80, 0);
+
+        const btnText = this.createLabel('Start Game', btnNode, 'BtnText');
+        btnText.setPosition(0, 0, 0);
+        const btnLabel = btnText.getComponent(Label);
+        btnLabel.fontSize = 32;
+        btnLabel.color = PRIMARY_COLOR;
+        btnLabel.isBold = true;
+
+        const continueBtnNode = this.createGraphicsNode('ContinueBtn', container, btnWidth, btnHeight, new Color(255, 255, 255, 0), 40);
+        continueBtnNode.setPosition(0, -180, 0);
+
+        const continueBorder = this.createGraphicsNode('Border', continueBtnNode, btnWidth - 4, btnHeight - 4, new Color(255, 255, 255, 0), 38);
+        const borderGraphics = continueBorder.getComponent(Graphics);
+        borderGraphics.strokeColor = Color.WHITE;
+        borderGraphics.lineWidth = 2;
+        borderGraphics.roundRect(-(btnWidth-4)/2, -(btnHeight-4)/2, btnWidth-4, btnHeight-4, 38);
+        borderGraphics.stroke();
+
+        const continueText = this.createLabel('Continue', continueBtnNode, 'ContinueText');
+        continueText.setPosition(0, 0, 0);
+        const continueLabel = continueText.getComponent(Label);
+        continueLabel.fontSize = 32;
+        continueLabel.color = Color.WHITE;
+        continueLabel.isBold = true;
+    }
+
+    private buildTopUI(container: Node) {
+        container.removeAllChildren();
+        const width = MAX_WIDTH;
+        const height = HEADER_HEIGHT;
+
+        const bg = this.createGraphicsNode('Bg', container, width, height, Color.WHITE, 0);
+
+        const titleLabel = this.createLabel('本局积分', container, 'TitleLabel');
+        titleLabel.setPosition(0, 75, 0);
+        titleLabel.getComponent(Label).fontSize = 16;
+        titleLabel.getComponent(Label).color = TEXT_GRAY_COLOR;
+
+        const scoreLabel = this.createLabel('0', container, 'ScoreValue');
+        scoreLabel.setPosition(0, 45, 0);
+        const label = scoreLabel.getComponent(Label);
+        label.fontSize = 48;
+        label.color = PRIMARY_COLOR;
+        label.isBold = true;
+
+        const progressY = -15;
+        const propLabel = this.createLabel('道具', container, 'PropLabel');
+        propLabel.setPosition(-width/2 + 50, progressY, 0);
+        propLabel.getComponent(Label).fontSize = 16;
+        propLabel.getComponent(Label).color = new Color(51, 51, 51, 255);
+
+        const progressWidth = width * 0.75;
+        const progressHeight = 28;
+        const progressBg = this.createGraphicsNode('ProgressBg', container, progressWidth, progressHeight, new Color(230, 230, 230, 255), 14);
+        progressBg.setPosition(20, progressY, 0);
+
+        const progressFill = this.createGraphicsNode('ProgressFill', progressBg, 0, progressHeight - 4, PRIMARY_COLOR, 12);
+        progressFill.setPosition(-progressWidth/2, 0, 0);
+
+        const progressText = this.createLabel('0/2000', progressBg, 'ProgressText');
+        progressText.setPosition(0, 0, 0);
+        progressText.getComponent(Label).fontSize = 14;
+        progressText.getComponent(Label).color = PRIMARY_COLOR;
+        progressText.getComponent(Label).isBold = true;
+
+        const btnY = -75;
+        const btnWidth = (width - 60) / 2;
+        const btnHeight = 50;
+
+        const freezeBtn = this.createGraphicsNode('FreezeBtn', container, btnWidth, btnHeight, new Color(245, 245, 245, 255), 12);
+        freezeBtn.setPosition(-btnWidth/2 - 10, btnY, 0);
+        
+        const freezeIcon = this.createLabel('❄', freezeBtn, 'FreezeIcon');
+        freezeIcon.setPosition(0, 5, 0);
+        freezeIcon.getComponent(Label).fontSize = 20;
+        freezeIcon.getComponent(Label).color = new Color(100, 100, 100, 255);
+        
+        const freezeText = this.createLabel('冻结3轮', freezeBtn, 'FreezeText');
+        freezeText.setPosition(0, -15, 0);
+        freezeText.getComponent(Label).fontSize = 11;
+        freezeText.getComponent(Label).color = TEXT_GRAY_COLOR;
+
+        const shrinkBtn = this.createGraphicsNode('ShrinkBtn', container, btnWidth, btnHeight, new Color(245, 245, 245, 255), 12);
+        shrinkBtn.setPosition(btnWidth/2 + 10, btnY, 0);
+        
+        const shrinkIcon = this.createLabel('◎', shrinkBtn, 'ShrinkIcon');
+        shrinkIcon.setPosition(0, 5, 0);
+        shrinkIcon.getComponent(Label).fontSize = 20;
+        shrinkIcon.getComponent(Label).color = new Color(100, 100, 100, 255);
+        
+        const shrinkText = this.createLabel('5格缩减至1格', shrinkBtn, 'ShrinkText');
+        shrinkText.setPosition(0, -15, 0);
+        shrinkText.getComponent(Label).fontSize = 11;
+        shrinkText.getComponent(Label).color = TEXT_GRAY_COLOR;
+    }
+
+    private buildGameBoard(container: Node) {
+        container.removeAllChildren();
+        const width = this.gridContainerWidth;
+        const height = this.gridContainerHeight;
+
+        const bg = this.createGraphicsNode('GridBg', container, width, height, GRID_BG_COLOR, 0);
+
+        const gridLines = this.createNode('GridLines', container);
+        const graphics = gridLines.addComponent(Graphics);
+        graphics.strokeColor = Color.WHITE;
+        graphics.lineWidth = 2;
+
+        const cellW = width / GRID_COLS;
+        const cellH = height / GRID_ROWS;
+
+        for (let i = 0; i <= GRID_COLS; i++) {
+            const x = -width / 2 + i * cellW;
+            graphics.moveTo(x, -height / 2);
+            graphics.lineTo(x, height / 2);
+        }
+        for (let i = 0; i <= GRID_ROWS; i++) {
+            const y = -height / 2 + i * cellH;
+            graphics.moveTo(-width / 2, y);
+            graphics.lineTo(width / 2, y);
+        }
+        graphics.stroke();
+
+        const blocksLayer = this.createNode('BlocksLayer', container);
+        const blUIT = blocksLayer.addComponent(UITransform);
+        blUIT.setContentSize(width, height);
+        blUIT.setAnchorPoint(0.5, 0.5);
+        blocksLayer.setPosition(0, 0, 0);
+    }
+
+    private buildBottomUI(container: Node) {
+        container.removeAllChildren();
+        const width = MAX_WIDTH;
+        const height = PREVIEW_HEIGHT;
+
+        const bg = this.createGraphicsNode('Bg', container, width, height, new Color(250, 250, 250, 255), 0);
+
+        const previewLayer = this.createNode('PreviewBlocksLayer', container);
+        const plUIT = previewLayer.addComponent(UITransform);
+        plUIT.setContentSize(this.gridContainerWidth, height);
+        plUIT.setAnchorPoint(0, 0.5);
+        previewLayer.setPosition(-this.gridContainerWidth / 2, 0, 0);
+    }
+
+    private createNode(name: string, parent: Node): Node {
+        const node = new Node(name);
+        node.parent = parent;
+        return node;
+    }
+
+    private createGraphicsNode(name: string, parent: Node, width: number, height: number, color: Color, radius: number): Node {
+        const node = this.createNode(name, parent);
+        const uit = node.addComponent(UITransform);
+        uit.setContentSize(width, height);
+        const graphics = node.addComponent(Graphics);
+        graphics.fillColor = color;
+        if (radius > 0) {
+            graphics.roundRect(-width/2, -height/2, width, height, radius);
         } else {
-            break;
+            graphics.rect(-width/2, -height/2, width, height);
         }
+        graphics.fill();
+        return node;
     }
 
-    return blocks;
-}
-
-// 游戏引擎类
-export class GameEngine {
-    private state: GameStateData;
-    private stateListeners: ((state: GameStateData) => void)[] = [];
-    
-    constructor() {
-        // 从 localStorage 读取存档
-        const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('blockPuzzleState') : null;
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                if (!parsed.gameOver) {
-                    this.state = parsed;
-                    return;
-                }
-            } catch (e) {
-                console.error('Error parsing save', e);
-            }
-        }
-        
-        this.state = {
-            blocks: [],
-            nextRow: [],
-            score: 0,
-            turn: 0,
-            propEnergy: 0,
-            propTarget: INITIAL_PROP_TARGET,
-            freezeTurns: 0,
-            gameOver: false,
-        };
+    private createLabel(text: string, parent: Node, name: string = 'Label'): Node {
+        const node = this.createNode(name, parent);
+        const label = node.addComponent(Label);
+        label.string = text;
+        node.addComponent(UITransform);
+        return node;
     }
-    
-    // 获取状态
-    getState(): GameStateData {
-        return this.state;
-    }
-    
-    // 订阅状态变化
-    subscribe(listener: (state: GameStateData) => void): () => void {
-        this.stateListeners.push(listener);
-        return () => {
-            const index = this.stateListeners.indexOf(listener);
-            if (index > -1) {
-                this.stateListeners.splice(index, 1);
-            }
-        };
-    }
-    
-    // 通知状态变化
-    private notifyState(): void {
-        this.stateListeners.forEach(listener => listener(this.state));
-        this.saveState();
-    }
-    
-    // 更新状态
-    private setState(newState: Partial<GameStateData>): void {
-        this.state = { ...this.state, ...newState };
-        this.notifyState();
-    }
-    
-    // 保存状态
-    saveState(): void {
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('blockPuzzleState', JSON.stringify(this.state));
-        }
-    }
-    
-    // 清除存档
-    clearState(): void {
-        if (typeof localStorage !== 'undefined') {
-            localStorage.removeItem('blockPuzzleState');
-        }
-    }
-    
-    // 初始化游戏
-    // 坐标系定义：y=0 为底部（逻辑 Row 10），y=BOARD_HEIGHT-1 为顶部（逻辑 Row 0）
-    // 新行从顶部推入，重力使方块向 y 减小方向掉落
-    initialize(): void {
-        // 生成初始多行方块，让它们堆叠在底部
-        const initialBlocks: BlockData[] = [];
-        const numInitialRows = 5; // 初始生成5行
-        
-        for (let row = 0; row < numInitialRows; row++) {
-            const rowBlocks = generateRow(row);
-            // 将每一行放在不同的y位置，从底部开始堆叠
-            rowBlocks.forEach(b => {
-                initialBlocks.push({
-                    ...b,
-                    y: row, // 第0行在y=0，第1行在y=1，以此类推
-                    id: generateId() // 重新生成ID避免重复
-                });
-            });
-        }
-        
-        const nextRow = generateRow(numInitialRows);
-        
-        console.log('Initial blocks:', initialBlocks.map(b => `y=${b.y},x=${b.x}`).join(' | '));
-        
-        this.state = {
-            blocks: initialBlocks,
-            nextRow: nextRow,
-            score: 0,
-            turn: 0,
-            propEnergy: 0,
-            propTarget: INITIAL_PROP_TARGET,
-            freezeTurns: 0,
-            gameOver: false,
-        };
-    }
-    
-    // 重启游戏
-    restartGame(): void {
-        this.initialize();
-        this.notifyState(); // 重启时需要通知
-    }
-    
-    // 应用重力
-    // 坐标系：y=0 为底部，y=BOARD_HEIGHT-1 为顶部
-    // 重力使方块向 y 减小方向掉落
-    applyGravity(blocks: BlockData[]): { newBlocks: BlockData[], moved: boolean } {
-        let moved = false;
-        // 按 x 然后 y 排序，确保处理顺序稳定
-        let newBlocks = [...blocks].sort((a, b) => {
-            if (a.x !== b.x) return a.x - b.x;
-            return a.y - b.y;
-        });
 
-        console.log('applyGravity start:', newBlocks.map(b => `y=${b.y},x=${b.x},w=${b.w}`).join(' | '));
-
-        // 迭代直到没有方块移动
-        let changed = true;
-        let iterations = 0;
-        while (changed && iterations < 20) {
-            changed = false;
-            iterations++;
-            for (let i = 0; i < newBlocks.length; i++) {
-                let b = newBlocks[i];
-                if (b.y <= 0) continue; // 已经在底部
-
-                const targetY = b.y - 1;
-                // 检查目标位置是否有其他方块阻挡
-                const overlaps = newBlocks.some(other => 
-                    other.id !== b.id && 
-                    other.y === targetY && 
-                    !(b.x + b.w <= other.x || b.x >= other.x + other.w)
-                );
-
-                if (!overlaps) {
-                    console.log(`Block ${b.id.substring(0,6)} at x=${b.x} falls from y=${b.y} to y=${targetY}`);
-                    newBlocks[i] = { ...b, y: targetY };
-                    moved = true;
-                    changed = true;
-                }
-            }
-        }
-        
-        console.log('applyGravity end after', iterations, 'iterations:', newBlocks.map(b => `y=${b.y},x=${b.x}`).join(' | '));
-        
-        return { newBlocks, moved };
-    }
-    
-    // 检查消除
-    checkClears(blocks: BlockData[]): { y: number, score: number }[] {
-        const rowCounts = new Array(BOARD_HEIGHT).fill(0);
-        const rowBlocks: Record<number, BlockData[]> = {};
-
-        blocks.forEach(b => {
-            rowCounts[b.y] += b.w;
-            if (!rowBlocks[b.y]) rowBlocks[b.y] = [];
-            rowBlocks[b.y].push(b);
-        });
-
-        const clears: { y: number, score: number }[] = [];
-        for (let y = 0; y < BOARD_HEIGHT; y++) {
-            if (rowCounts[y] === BOARD_WIDTH) {
-                // 计算该行分数
-                const score = rowBlocks[y].reduce((sum, block) => 
-                    sum + (BLOCK_SCORES[block.colorType] || 0), 0);
-                clears.push({ y, score });
-            }
-        }
-        return clears;
-    }
-    
-    // 移动方块
-    moveBlock(id: string, newX: number): boolean {
-        if (this.state.gameOver) return false;
-        
-        const block = this.state.blocks.find(b => b.id === id);
-        if (!block || block.x === newX) return false; // 没有移动
-
-        const updatedBlocks = this.state.blocks.map(b => 
-            b.id === id ? { ...b, x: newX } : b
-        );
-        
-        // 更新状态
-        this.setState({ blocks: updatedBlocks });
-        
-        return true;
-    }
-    
-    // 处理物理（掉落和消除）
-    async processPhysics(isTurnAdvance: boolean, onClearingRows?: (rows: { y: number, score: number }[]) => void): Promise<void> {
-        let currentBlocks = [...this.state.blocks];
-        let combo = 1;
-        let totalScoreToAdd = 0;
-
-        // 1. 初始重力掉落
-        let { newBlocks, moved } = this.applyGravity(currentBlocks);
-        if (moved) {
-            currentBlocks = newBlocks;
-            this.setState({ blocks: currentBlocks });
-            await this.sleep(300);
-        }
-
-        // 2. 消除循环
-        while (true) {
-            const clears = this.checkClears(currentBlocks);
-            if (clears.length === 0) break;
-
-            // 通知消除行（用于显示分数）
-            if (onClearingRows) {
-                onClearingRows(clears);
-            }
-
-            await this.sleep(1000); // 等待1秒显示分数
-
-            const clearY = clears.map(c => c.y);
-            let stepScore = 0;
-            clears.forEach(c => { stepScore += c.score; });
-            totalScoreToAdd += stepScore * combo;
-
-            // 移除被消除的方块
-            currentBlocks = currentBlocks.filter(b => clearY.indexOf(b.y) < 0);
-            
-            // 清除消除行通知
-            if (onClearingRows) {
-                onClearingRows([]);
-            }
-            
-            this.setState({ blocks: currentBlocks });
-            
-            // 应用重力
-            const gravResult = this.applyGravity(currentBlocks);
-            currentBlocks = gravResult.newBlocks;
-            this.setState({ blocks: currentBlocks });
-            
-            if (gravResult.moved) {
-                await this.sleep(300);
-            }
-            combo++;
-        }
-
-        // 添加分数
-        if (totalScoreToAdd > 0) {
-            this.setState({
-                score: this.state.score + totalScoreToAdd,
-                propEnergy: this.state.propEnergy + totalScoreToAdd
-            });
-        }
-
-        // 3. 回合推进
-        if (isTurnAdvance) {
-            if (this.state.freezeTurns > 0) {
-                this.setState({ freezeTurns: this.state.freezeTurns - 1 });
-            } else {
-                // 所有方块向顶部移动一行（y 增大方向）
-                let nextBlocks = currentBlocks.map(b => ({ ...b, y: b.y + 1 }));
-                
-                // 游戏结束检查：如果方块到达顶部（y >= BOARD_HEIGHT - 1），游戏结束
-                if (nextBlocks.some(b => b.y >= BOARD_HEIGHT - 1)) {
-                    this.setState({ gameOver: true });
-                    return;
-                }
-
-                // 添加新行（从顶部进入）
-                const newRowBlocks = this.state.nextRow.map(b => ({ ...b, y: BOARD_HEIGHT - 1 }));
-                nextBlocks = [...nextBlocks, ...newRowBlocks];
-                
-                this.setState({
-                    blocks: nextBlocks,
-                    nextRow: generateRow(this.state.turn + 1),
-                    turn: this.state.turn + 1
-                });
-                
-                await this.sleep(300);
-
-                // 推入后再次应用物理
-                let postGrav = this.applyGravity(nextBlocks);
-                nextBlocks = postGrav.newBlocks;
-                this.setState({ blocks: nextBlocks });
-                
-                if (postGrav.moved) await this.sleep(300);
-
-                // 再次检查消除
-                while (true) {
-                    const clears = this.checkClears(nextBlocks);
-                    if (clears.length === 0) break;
-                    
-                    if (onClearingRows) {
-                        onClearingRows(clears);
-                    }
-                    await this.sleep(1000);
-                    
-                    const clearY = clears.map(c => c.y);
-                    let stepScore = 0;
-                    clears.forEach(c => { stepScore += c.score; });
-                    
-                    this.setState({
-                        score: this.state.score + stepScore,
-                        propEnergy: this.state.propEnergy + stepScore
-                    });
-
-                    nextBlocks = nextBlocks.filter(b => clearY.indexOf(b.y) < 0);
-                    if (onClearingRows) {
-                        onClearingRows([]);
-                    }
-                    this.setState({ blocks: nextBlocks });
-                    
-                    postGrav = this.applyGravity(nextBlocks);
-                    nextBlocks = postGrav.newBlocks;
-                    this.setState({ blocks: nextBlocks });
-                    if (postGrav.moved) await this.sleep(300);
-                }
-            }
-        }
-    }
-    
-    // 使用冻结道具
-    applyFreezeProp(): boolean {
-        if (this.state.propEnergy >= this.state.propTarget) {
-            this.setState({
-                freezeTurns: this.state.freezeTurns + 3,
-                propEnergy: this.state.propEnergy - this.state.propTarget,
-                propTarget: this.state.propTarget + 1000
-            });
-            return true;
-        }
-        return false;
-    }
-    
-    // 使用缩减道具
-    applyShrinkProp(blockId: string): boolean {
-        if (this.state.propEnergy >= this.state.propTarget) {
-            const block = this.state.blocks.find(b => b.id === blockId);
-            if (block && block.w === 5) {
-                this.setState({
-                    propEnergy: this.state.propEnergy - this.state.propTarget,
-                    propTarget: this.state.propTarget + 1000,
-                    blocks: this.state.blocks.map(b => 
-                        b.id === blockId ? { ...b, w: 1, colorType: 1 } : b
-                    )
-                });
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    // 辅助函数：睡眠
-    private sleep(ms: number): Promise<void> {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    
-    // 检查是否有存档
-    hasSave(): boolean {
-        return this.state.blocks.length > 0 && !this.state.gameOver;
-    }
-    
-    // 检查道具是否可用
-    canUseProp(): boolean {
-        return this.state.propEnergy >= this.state.propTarget;
-    }
-    
-    // 获取道具进度百分比
-    getPropProgress(): number {
-        return Math.min(100, (this.state.propEnergy / this.state.propTarget) * 100);
-    }
-    
-    // 检查是否危险（方块接近顶部）
-    isDanger(): boolean {
-        return this.state.blocks.some(b => b.y <= 2);
-    }
-}
+    private configureGameManager() {
+        const gameManager = this.node.getComponent('GameManager') as any;
+        if (gameManager) {
+            gameManager.cellWidth = this.cellWidth;
+            gameManager.gap = 0;
+            gameManager.gridContainerWidth = this.gridContainerWidth;
+            gameManager.gridContainerHeight = this.gridContainerHeight;
+            gameManager.topUIRoot = this.topUIRoot;
+            gameManager.gameGridRoot = this.gameGridRoot;
+            gameManager.bottomUIRoot = this.bottomUIRoot;
+            gameManager.gamePage = this.gamePage;
+            gameManager.homePage = this.homePage;
+            // 只有当 blockTemplate 不为 null 时才赋值，避免覆盖编辑器中的绑定
+            if (this.blockTemplate) {
+                gameManager.blockPrefab = this.blockTemplate;
