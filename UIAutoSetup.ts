@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, view, Widget, UITransform, Graphics, Color, Label, instantiate, Button, Sprite, director, Director } from 'cc';
+import { _decorator, Component, Node, Vec3, view, Widget, UITransform, Graphics, Color, Label, instantiate, Button, Sprite, director, Director, Prefab } from 'cc';
 
 const { ccclass, property } = _decorator;
 
@@ -24,8 +24,8 @@ export class UIAutoSetup extends Component {
     bottomUIRoot: Node = null;
     @property({ type: Node })
     homePage: Node = null;
-    @property(Node)
-    blockTemplate: Node | null = null;
+    @property({ type: Prefab })
+    blockTemplate: Prefab | null = null;
 
     private gridContainerWidth = 0;
     private gridContainerHeight = 0;
@@ -60,6 +60,28 @@ export class UIAutoSetup extends Component {
     }
 
     private setupWidgetLayout() {
+        // 设置 gamePage 居中（确保在屏幕中心）
+        if (this.gamePage) {
+            const uit = this.gamePage.getComponent(UITransform);
+            if (!uit) {
+                this.gamePage.addComponent(UITransform);
+            }
+            // 先设置 UITransform 大小为屏幕大小
+            const screenSize = view.getVisibleSize();
+            const gamePageUIT = this.gamePage.getComponent(UITransform);
+            if (gamePageUIT) {
+                gamePageUIT.setContentSize(screenSize.width, screenSize.height);
+            }
+            
+            let widget = this.gamePage.getComponent(Widget);
+            if (!widget) widget = this.gamePage.addComponent(Widget);
+            widget.enabled = true;
+            widget.isAlignVerticalCenter = true;
+            widget.verticalCenter = 0;
+            widget.isAlignHorizontalCenter = true;
+            widget.horizontalCenter = 0;
+        }
+        
         if (this.topUIRoot) {
             let widget = this.topUIRoot.getComponent(Widget);
             if (!widget) widget = this.topUIRoot.addComponent(Widget);
@@ -93,18 +115,25 @@ export class UIAutoSetup extends Component {
         }
 
         if (this.gameGridRoot) {
+            // 先设置 UITransform 的 contentSize
+            const uit = this.gameGridRoot.getComponent(UITransform);
+            if (uit) {
+                uit.setContentSize(this.gridContainerWidth, this.gridContainerHeight);
+            }
+            
             let widget = this.gameGridRoot.getComponent(Widget);
             if (!widget) widget = this.gameGridRoot.addComponent(Widget);
             widget.enabled = true;
-            widget.isAlignTop = true;
-            widget.top = HEADER_HEIGHT + OFFSET;
-            widget.isAlignBottom = true;
-            widget.bottom = PREVIEW_HEIGHT - OFFSET;
+            // 使用垂直居中对齐，让 Grid 在 Header 和 Preview 之间居中
+            widget.isAlignTop = false;
+            widget.isAlignBottom = false;
+            widget.isAlignVerticalCenter = true;
+            // 偏移量：Header(180) - Preview(30) = 150，向下偏移 75
+            widget.verticalCenter = -(HEADER_HEIGHT - PREVIEW_HEIGHT) / 2;
             widget.isAlignHorizontalCenter = true;
             widget.horizontalCenter = 0;
             widget.isAlignLeft = false;
             widget.isAlignRight = false;
-            widget.isAlignVerticalCenter = false;
         }
     }
 
@@ -112,10 +141,11 @@ export class UIAutoSetup extends Component {
         const visibleSize = view.getVisibleSize();
         const screenHeight = visibleSize.height;
         const availableHeight = screenHeight - HEADER_HEIGHT - PREVIEW_HEIGHT - 40;
-        // 使用固定的 690x845 尺寸
-        this.gridContainerWidth = 690;
-        this.gridContainerHeight = 845;
+        // 使用 640 宽度匹配编辑器中的 Widget 设置
+        this.gridContainerWidth = 640;
         this.cellWidth = this.gridContainerWidth / GRID_COLS;
+        // 高度 = 70.9 * 11 = 780
+        this.gridContainerHeight = 70.9 * GRID_ROWS;
         
         if (this.gameGridRoot) {
             const uit = this.gameGridRoot.getComponent(UITransform);
@@ -315,33 +345,3 @@ export class UIAutoSetup extends Component {
         graphics.fillColor = color;
         if (radius > 0) {
             graphics.roundRect(-width/2, -height/2, width, height, radius);
-        } else {
-            graphics.rect(-width/2, -height/2, width, height);
-        }
-        graphics.fill();
-        return node;
-    }
-
-    private createLabel(text: string, parent: Node, name: string = 'Label'): Node {
-        const node = this.createNode(name, parent);
-        const label = node.addComponent(Label);
-        label.string = text;
-        node.addComponent(UITransform);
-        return node;
-    }
-
-    private configureGameManager() {
-        const gameManager = this.node.getComponent('GameManager') as any;
-        if (gameManager) {
-            gameManager.cellWidth = this.cellWidth;
-            gameManager.gap = 0;
-            gameManager.gridContainerWidth = this.gridContainerWidth;
-            gameManager.gridContainerHeight = this.gridContainerHeight;
-            gameManager.topUIRoot = this.topUIRoot;
-            gameManager.gameGridRoot = this.gameGridRoot;
-            gameManager.bottomUIRoot = this.bottomUIRoot;
-            gameManager.gamePage = this.gamePage;
-            gameManager.homePage = this.homePage;
-            // 只有当 blockTemplate 不为 null 时才赋值，避免覆盖编辑器中的绑定
-            if (this.blockTemplate) {
-                gameManager.blockPrefab = this.blockTemplate;
