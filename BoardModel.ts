@@ -1,1045 +1,613 @@
-import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite, SpriteFrame, Color, Label, tween, UIOpacity, EventTouch, Vec2, ProgressBar, Graphics } from 'cc';
-import { BoardModel, BlockData, BlockWidth } from './BoardModel';
+import { sys } from 'cc';
 
-const { ccclass, property } = _decorator;
+export enum BlockWidth {
+    ONE = 1,
+    TWO = 2,
+    THREE = 3,
+    FOUR = 4,
+    FIVE = 5
+}
 
-const BLOCK_SKINS: Record<BlockWidth, string> = {
-    [BlockWidth.ONE]: 'block_1x1_hamster',
-    [BlockWidth.TWO]: 'block_2x1_cat',
-    [BlockWidth.THREE]: 'block_3x1_dog',
-    [BlockWidth.FOUR]: 'block_4x1_fox',
-    [BlockWidth.FIVE]: 'block_5x1_crocodile'
-};
+export interface BlockData {
+    id: number;
+    width: BlockWidth;
+    row: number;
+    col: number;
+    score: number;
+}
 
-const GRID_CENTER_X = 360;
-const GRID_CENTER_Y = 480;
-const GRID_WIDTH = 670;
-const GRID_HEIGHT = 817;
-const GRID_COLS = 9;
-const GRID_ROWS = 11;
-const CELL_WIDTH = GRID_WIDTH / GRID_COLS;
-const CELL_HEIGHT = GRID_HEIGHT / GRID_ROWS;
-const PREVIEW_WIDTH = 657;
-const PREVIEW_HEIGHT = 40;
-const BLOCK_GAP = 0;
-const ANIMATION_DURATION = 0.3;
-const SCORE_DISPLAY_DURATION = 1.0;
+export interface GameState {
+    blocks: BlockData[];
+    score: number;
+    turns: number;
+    freezeTurns: number;
+    energyProgress: number;
+    nextEnergyTarget: number;
+    nextRow: (BlockWidth | null)[];
+}
 
-@ccclass('GameManager')
-export class GameManager extends Component {
-    @property(Node)
-    private homePage: Node | null = null;
-
-    @property(Node)
-    private gamePage: Node | null = null;
-
-    @property(Node)
-    private homeBg: Node | null = null;
-
-    @property(Node)
-    private gridBg: Node | null = null;
-
-    @property(Node)
-    private blocksLayer: Node | null = null;
-
-    @property(Node)
-    private topUIBar: Node | null = null;
-
-    @property(Node)
-    private progressBar: Node | null = null;
-
-    @property(Node)
-    private energyBar: Node | null = null;
-
-    @property(Node)
-    private previewBlocksLayer: Node | null = null;
-
-    @property(Prefab)
-    private blockPrefab: Prefab | null = null;
-
-    @property(SpriteFrame)
-    private hamsterSprite: SpriteFrame | null = null;
-
-    @property(SpriteFrame)
-    private catSprite: SpriteFrame | null = null;
-
-    @property(SpriteFrame)
-    private dogSprite: SpriteFrame | null = null;
-
-    @property(SpriteFrame)
-    private foxSprite: SpriteFrame | null = null;
-
-    @property(SpriteFrame)
-    private crocodileSprite: SpriteFrame | null = null;
-
-    @property(Node)
-    private startButton: Node | null = null;
-
-    @property(Node)
-    private continueButton: Node | null = null;
-
-    @property(Node)
-    private freezeButton: Node | null = null;
-
-    @property(Node)
-    private shrinkButton: Node | null = null;
-
-    @property(Label)
-    private scoreLabel: Label | null = null;
-
-    @property(Label)
-    private turnsLabel: Label | null = null;
-
-    @property(ProgressBar)
-    private energyProgressBar: ProgressBar | null = null;
-
-    private boardModel: BoardModel;
-    private blockNodes: Map<number, Node>;
-    private ghostBlock: Node | null = null;
-    private guideBoxes: Node[] = [];
-    private selectedBlockId: number | null = null;
-    private selectedBlockStartCol: number = 0;
-    private isDragging: boolean = false;
-    private dragStartPos: Vec2 = new Vec2();
-    private currentDragCol: number = 0;
-    private spriteFrames: Map<string, SpriteFrame> = new Map();
-    private isProcessing: boolean = false;
-    private shrinkModeActive: boolean = false;
-
+export class BoardModel {
+    public static readonly GRID_COLS = 9;
+    public static readonly GRID_ROWS = 11;
+    public static readonly INITIAL_ROWS = 5;
+    
+    private static readonly SCORE_MAP: Record<BlockWidth, number> = {
+        [BlockWidth.ONE]: 10,
+        [BlockWidth.TWO]: 30,
+        [BlockWidth.THREE]: 60,
+        [BlockWidth.FOUR]: 100,
+        [BlockWidth.FIVE]: 150
+    };
+    
+    private static readonly INITIAL_ENERGY_TARGET = 2000;
+    private static readonly ENERGY_INCREMENT = 1000;
+    
+    private grid: (number | null)[][];
+    private blocks: Map<number, BlockData>;
+    private nextBlockId: number = 1;
+    private score: number = 0;
+    private turns: number = 0;
+    private freezeTurns: number = 0;
+    private energyProgress: number = 0;
+    private nextEnergyTarget: number = BoardModel.INITIAL_ENERGY_TARGET;
+    private nextRow: (BlockWidth | null)[] = [];
+    
     constructor() {
-        super();
-        this.boardModel = new BoardModel();
-        this.blockNodes = new Map();
+        this.grid = this.createEmptyGrid();
+        this.blocks = new Map();
     }
-
-    protected onLoad(): void {
-        this.initSpriteFrames();
-        this.setupGridBg();
-        this.setupTopUI();
-        this.setupEventListeners();
-        this.showHomePage();
-    }
-
-    private setupTopUI(): void {
-        console.log('=== Setting up Top UI ===');
-        console.log('TopUIBar:', this.topUIBar ? 'Found' : 'NULL');
-        console.log('ScoreLabel:', this.scoreLabel ? 'Found' : 'NULL');
-        console.log('TurnsLabel:', this.turnsLabel ? 'Found' : 'NULL');
-        console.log('ProgressBar:', this.progressBar ? 'Found' : 'NULL');
-        console.log('EnergyBar:', this.energyBar ? 'Found' : 'NULL');
-        console.log('FreezeButton:', this.freezeButton ? 'Found' : 'NULL');
-        console.log('ShrinkButton:', this.shrinkButton ? 'Found' : 'NULL');
-        
-        if (this.topUIBar) {
-            this.topUIBar.active = true;
-            console.log('TopUIBar activated, position:', this.topUIBar.position);
-        }
-        
-        if (this.scoreLabel) {
-            this.scoreLabel.node.active = true;
-            console.log('ScoreLabel activated');
-        }
-        
-        if (this.turnsLabel) {
-            this.turnsLabel.node.active = true;
-            console.log('TurnsLabel activated');
-        }
-        
-        if (this.progressBar) {
-            this.progressBar.active = true;
-            console.log('ProgressBar activated');
-        }
-        
-        if (this.energyBar) {
-            this.energyBar.active = true;
-            console.log('EnergyBar activated');
-        }
-        
-        if (this.freezeButton) {
-            this.freezeButton.active = true;
-            const sprite = this.freezeButton.getComponent(Sprite);
-            if (sprite) {
-                sprite.color = new Color(150, 150, 150, 255);
+    
+    private createEmptyGrid(): (number | null)[][] {
+        const grid: (number | null)[][] = [];
+        for (let row = 0; row < BoardModel.GRID_ROWS; row++) {
+            grid[row] = [];
+            for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+                grid[row][col] = null;
             }
-            console.log('FreezeButton activated');
+        }
+        return grid;
+    }
+    
+    public initializeNewGame(): void {
+        this.grid = this.createEmptyGrid();
+        this.blocks.clear();
+        this.nextBlockId = 1;
+        this.score = 0;
+        this.turns = 0;
+        this.freezeTurns = 0;
+        this.energyProgress = 0;
+        this.nextEnergyTarget = BoardModel.INITIAL_ENERGY_TARGET;
+        
+        for (let row = 0; row < BoardModel.INITIAL_ROWS; row++) {
+            this.generateRowBlocks(row);
         }
         
-        if (this.shrinkButton) {
-            this.shrinkButton.active = true;
-            const sprite = this.shrinkButton.getComponent(Sprite);
-            if (sprite) {
-                sprite.color = new Color(150, 150, 150, 255);
-            }
-            console.log('ShrinkButton activated');
-        }
+        this.generateNextRow();
     }
-
-    private setupGridBg(): void {
-        if (this.blocksLayer) {
-            const uit = this.blocksLayer.getComponent(UITransform);
-            if (uit) {
-                uit.setAnchorPoint(0.5, 0.5);
-                uit.setContentSize(GRID_WIDTH, GRID_HEIGHT);
-            }
-            this.blocksLayer.setPosition(new Vec3(GRID_CENTER_X, GRID_CENTER_Y, 0));
+    
+    public loadGame(): boolean {
+        const savedData = sys.localStorage.getItem('slide_puzzle_save');
+        if (!savedData) {
+            return false;
+        }
+        
+        try {
+            const state: GameState = JSON.parse(savedData);
+            this.grid = this.createEmptyGrid();
+            this.blocks.clear();
+            this.nextBlockId = 1;
             
-            console.log('=== BlocksLayer Setup ===');
-            console.log('Position:', this.blocksLayer.position);
-            console.log('Size:', uit?.contentSize);
-        }
-        
-        if (this.previewBlocksLayer) {
-            let uit = this.previewBlocksLayer.getComponent(UITransform);
-            if (!uit) {
-                uit = this.previewBlocksLayer.addComponent(UITransform);
-            }
-            uit.setAnchorPoint(0.5, 0.5);
-            uit.setContentSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+            state.blocks.forEach(block => {
+                this.blocks.set(block.id, { ...block });
+                for (let i = 0; i < block.width; i++) {
+                    if (block.col + i < BoardModel.GRID_COLS) {
+                        this.grid[block.row][block.col + i] = block.id;
+                    }
+                }
+                if (block.id >= this.nextBlockId) {
+                    this.nextBlockId = block.id + 1;
+                }
+            });
             
-            this.previewBlocksLayer.setPosition(new Vec3(0, 0, 0));
+            this.score = state.score;
+            this.turns = state.turns;
+            this.freezeTurns = state.freezeTurns;
+            this.energyProgress = state.energyProgress;
+            this.nextEnergyTarget = state.nextEnergyTarget;
+            this.nextRow = state.nextRow;
             
-            const bgSprite = this.previewBlocksLayer.getComponent(Sprite);
-            if (bgSprite) {
-                this.previewBlocksLayer.removeComponent(Sprite);
-            }
+            return true;
+        } catch (e) {
+            console.error('Failed to load game:', e);
+            return false;
+        }
+    }
+    
+    public saveGame(): void {
+        const state: GameState = {
+            blocks: Array.from(this.blocks.values()),
+            score: this.score,
+            turns: this.turns,
+            freezeTurns: this.freezeTurns,
+            energyProgress: this.energyProgress,
+            nextEnergyTarget: this.nextEnergyTarget,
+            nextRow: this.nextRow
+        };
+        sys.localStorage.setItem('slide_puzzle_save', JSON.stringify(state));
+    }
+    
+    public clearSave(): void {
+        sys.localStorage.removeItem('slide_puzzle_save');
+    }
+    
+    public hasSaveData(): boolean {
+        return sys.localStorage.getItem('slide_puzzle_save') !== null;
+    }
+    
+    private generateRowBlocks(row: number): void {
+        let col = 0;
+        
+        while (col < BoardModel.GRID_COLS) {
+            const remainingCols = BoardModel.GRID_COLS - col;
+            if (remainingCols <= 0) break;
             
-            let graphics = this.previewBlocksLayer.getComponent(Graphics);
-            if (graphics) {
-                this.previewBlocksLayer.removeComponent(Graphics);
-            }
-            graphics = this.previewBlocksLayer.addComponent(Graphics);
-            graphics.fillColor = new Color(100, 100, 100, 255);
-            graphics.rect(-PREVIEW_WIDTH / 2, -PREVIEW_HEIGHT / 2, PREVIEW_WIDTH, PREVIEW_HEIGHT);
-            graphics.fill();
-            
-            this.previewBlocksLayer.active = true;
-            
-            console.log('=== PreviewBlocksLayer Setup ===');
-            console.log('Position:', this.previewBlocksLayer.position);
-            console.log('Size:', uit.contentSize);
-            console.log('Active:', this.previewBlocksLayer.active);
-            console.log('Parent:', this.previewBlocksLayer.parent?.name);
-        }
-    }
-
-    private initSpriteFrames(): void {
-        if (this.hamsterSprite) {
-            this.spriteFrames.set('block_1x1_hamster', this.hamsterSprite);
-        }
-        if (this.catSprite) {
-            this.spriteFrames.set('block_2x1_cat', this.catSprite);
-        }
-        if (this.dogSprite) {
-            this.spriteFrames.set('block_3x1_dog', this.dogSprite);
-        }
-        if (this.foxSprite) {
-            this.spriteFrames.set('block_4x1_fox', this.foxSprite);
-        }
-        if (this.crocodileSprite) {
-            this.spriteFrames.set('block_5x1_crocodile', this.crocodileSprite);
-        }
-        
-        console.log(`Sprite frames loaded: ${this.spriteFrames.size}`);
-    }
-
-    private setupEventListeners(): void {
-        if (this.startButton) {
-            this.startButton.on(Node.EventType.TOUCH_END, this.onStartNewGame, this);
-        }
-
-        if (this.continueButton) {
-            this.continueButton.on(Node.EventType.TOUCH_END, this.onContinueGame, this);
-        }
-
-        if (this.freezeButton) {
-            this.freezeButton.on(Node.EventType.TOUCH_END, this.onFreezeButtonClick, this);
-        }
-
-        if (this.shrinkButton) {
-            this.shrinkButton.on(Node.EventType.TOUCH_END, this.onShrinkButtonClick, this);
-        }
-
-        if (this.blocksLayer) {
-            this.blocksLayer.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
-            this.blocksLayer.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-            this.blocksLayer.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
-            this.blocksLayer.on(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
-        }
-    }
-
-    private showHomePage(): void {
-        if (this.homePage) {
-            this.homePage.active = true;
-        }
-        if (this.gamePage) {
-            this.gamePage.active = false;
-        }
-
-        if (this.continueButton) {
-            this.continueButton.active = this.boardModel.hasSaveData();
-        }
-    }
-
-    private showGamePage(): void {
-        if (this.homePage) {
-            this.homePage.active = false;
-        }
-        if (this.gamePage) {
-            this.gamePage.active = true;
-        }
-        
-        if (this.topUIBar) {
-            this.topUIBar.active = true;
-        }
-        
-        if (this.scoreLabel) {
-            this.scoreLabel.node.active = true;
-        }
-        
-        if (this.turnsLabel) {
-            this.turnsLabel.node.active = true;
-        }
-        
-        if (this.progressBar) {
-            this.progressBar.active = true;
-        }
-        
-        if (this.energyBar) {
-            this.energyBar.active = true;
-        }
-        
-        if (this.freezeButton) {
-            this.freezeButton.active = true;
-        }
-        
-        if (this.shrinkButton) {
-            this.shrinkButton.active = true;
-        }
-    }
-
-    private onStartNewGame(): void {
-        this.boardModel.clearSave();
-        this.boardModel.initializeNewGame();
-        this.showGamePage();
-        this.scheduleOnce(() => {
-            this.renderBoard();
-            this.renderPreviewRow();
-            this.updateUI();
-        }, 0.1);
-    }
-
-    private onContinueGame(): void {
-        if (this.boardModel.loadGame()) {
-            this.showGamePage();
-            this.scheduleOnce(() => {
-                this.renderBoard();
-                this.renderPreviewRow();
-                this.updateUI();
-            }, 0.1);
-        } else {
-            this.onStartNewGame();
-        }
-    }
-
-    private renderBoard(): void {
-        this.clearAllBlocks();
-        
-        const blocks = this.boardModel.getAllBlocks();
-        blocks.forEach(block => {
-            this.createBlockNode(block);
-        });
-    }
-
-    private clearAllBlocks(): void {
-        this.blockNodes.forEach(node => {
-            node.destroy();
-        });
-        this.blockNodes.clear();
-    }
-
-    private createBlockNode(block: BlockData): Node {
-        if (!this.blockPrefab) {
-            console.error('Block prefab is not set');
-            const fallbackNode = new Node('FallbackBlock');
-            return fallbackNode;
-        }
-        const blockNode = instantiate(this.blockPrefab);
-
-        const blockWidth = block.width * CELL_WIDTH;
-        const blockHeight = CELL_HEIGHT;
-        const uit = blockNode.getComponent(UITransform);
-        if (uit) {
-            uit.setContentSize(blockWidth, blockHeight);
-        }
-
-        const skinName = BLOCK_SKINS[block.width];
-        const spriteFrame = this.spriteFrames.get(skinName);
-        const sprite = blockNode.getComponent(Sprite);
-        if (sprite) {
-            if (spriteFrame) {
-                sprite.spriteFrame = spriteFrame;
-                sprite.color = Color.WHITE;
+            let width: BlockWidth;
+            if (remainingCols >= 5) {
+                width = this.generateRandomBlockWidth();
+            } else if (remainingCols >= 4) {
+                width = Math.random() < 0.5 ? BlockWidth.ONE : 
+                        Math.random() < 0.5 ? BlockWidth.TWO :
+                        Math.random() < 0.5 ? BlockWidth.THREE : BlockWidth.FOUR;
+            } else if (remainingCols >= 3) {
+                width = Math.random() < 0.4 ? BlockWidth.ONE : 
+                        Math.random() < 0.5 ? BlockWidth.TWO : BlockWidth.THREE;
+            } else if (remainingCols >= 2) {
+                width = Math.random() < 0.5 ? BlockWidth.ONE : BlockWidth.TWO;
             } else {
-                sprite.color = new Color(200, 200, 200, 255);
+                width = BlockWidth.ONE;
             }
-        }
-
-        const pos = this.gridToWorldPosition(block.row, block.col, block.width);
-        blockNode.setPosition(pos);
-        
-        console.log(`=== Created Block ${block.id} ===`);
-        console.log(`Grid: row ${block.row}, col ${block.col}, width ${block.width}`);
-        console.log(`World position:`, pos);
-        console.log(`Local position:`, blockNode.position);
-
-        if (this.blocksLayer) {
-            this.blocksLayer.addChild(blockNode);
-        }
-
-        blockNode.name = `Block_${block.id}`;
-        this.blockNodes.set(block.id, blockNode);
-
-        return blockNode;
-    }
-
-    private updateBlockSprites(): void {
-        for (const [blockId, blockNode] of this.blockNodes) {
-            const block = this.boardModel.getAllBlocks().find(b => b.id === blockId);
-            if (!block) continue;
-
-            const skinName = BLOCK_SKINS[block.width];
-            const spriteFrame = this.spriteFrames.get(skinName);
-            const sprite = blockNode.getComponent(Sprite);
-
-            if (sprite && spriteFrame) {
-                sprite.spriteFrame = spriteFrame;
-                sprite.color = Color.WHITE;
-            }
-        }
-    }
-
-    private gridToWorldPosition(row: number, col: number, width: BlockWidth): Vec3 {
-        const blockWidth = width * CELL_WIDTH;
-        
-        // 修改：row 0 在底部（y 值最小）， row 10 在顶部（y 值最大）
-        // row 0: y = -GRID_HEIGHT / 2 + CELL_HEIGHT / 2 (底部)
-        // row 10: y = GRID_HEIGHT / 2 - CELL_HEIGHT / 2 (顶部)
-        const x = -GRID_WIDTH / 2 + col * CELL_WIDTH + blockWidth / 2;
-        const y = -GRID_HEIGHT / 2 + row * CELL_HEIGHT + CELL_HEIGHT / 2;
-        
-        return new Vec3(x, y, 0);
-    }
-
-    private worldToGridPosition(worldPos: Vec3): { row: number; col: number } {
-        let localPos = worldPos;
-        
-        if (this.blocksLayer) {
-            const worldPosVec3 = new Vec3(worldPos.x, worldPos.y, 0);
-            localPos = new Vec3();
-            this.blocksLayer.inverseTransformPoint(localPos, worldPosVec3);
-        }
-        
-        const col = Math.floor((localPos.x + GRID_WIDTH / 2) / CELL_WIDTH);
-        const row = Math.floor((localPos.y + GRID_HEIGHT / 2) / CELL_HEIGHT);
-        
-        console.log('worldToGridPosition:', { worldPos, localPos, row, col });
-        
-        return { row, col };
-    }
-
-    private onTouchStart(event: EventTouch): void {
-        if (this.isProcessing) return;
-
-        // 使用 getLocation 获取屏幕坐标
-        const location = event.getLocation();
-        const screenPos = new Vec3(location.x, location.y, 0);
-
-        if (this.shrinkModeActive) {
-            this.handleShrinkMode(screenPos);
-            return;
-        }
-
-        console.log('=== Touch Start ===');
-        console.log('Screen Position:', location);
-        console.log('Block nodes count:', this.blockNodes.size);
-
-        for (const [blockId, blockNode] of this.blockNodes) {
-            const uit = blockNode.getComponent(UITransform);
-            if (!uit) continue;
-
-            const boundingBox = uit.getBoundingBoxToWorld();
             
-            if (boundingBox.contains(new Vec2(screenPos.x, screenPos.y))) {
-                console.log(`Block ${blockId} touched!`);
-                this.selectedBlockId = blockId;
+            // 确保不会超出边界
+            if (col + width > BoardModel.GRID_COLS) {
+                width = BlockWidth.ONE;
+                if (col + width > BoardModel.GRID_COLS) {
+                    break;
+                }
+            }
+            
+            const block = this.createBlock(width, row, col);
+            this.placeBlock(block);
+            col += width;
+        }
+    }
+    
+    private generateRandomBlockWidth(): BlockWidth {
+        const rand = Math.random();
+        
+        if (this.turns < 20) {
+            if (rand < 0.5) return BlockWidth.ONE;
+            if (rand < 0.8) return BlockWidth.TWO;
+            return BlockWidth.THREE;
+        } else if (this.turns < 40) {
+            if (rand < 0.35) return BlockWidth.ONE;
+            if (rand < 0.6) return BlockWidth.TWO;
+            if (rand < 0.8) return BlockWidth.THREE;
+            if (rand < 0.95) return BlockWidth.FOUR;
+            return BlockWidth.FIVE;
+        } else {
+            if (rand < 0.2) return BlockWidth.ONE;
+            if (rand < 0.4) return BlockWidth.TWO;
+            if (rand < 0.6) return BlockWidth.THREE;
+            if (rand < 0.85) return BlockWidth.FOUR;
+            return BlockWidth.FIVE;
+        }
+    }
+    
+    private createBlock(width: BlockWidth, row: number, col: number): BlockData {
+        return {
+            id: this.nextBlockId++,
+            width,
+            row,
+            col,
+            score: BoardModel.SCORE_MAP[width]
+        };
+    }
+    
+    private placeBlock(block: BlockData): void {
+        // 检查目标位置是否已有滑块
+        for (let i = 0; i < block.width; i++) {
+            if (block.col + i < BoardModel.GRID_COLS) {
+                if (this.grid[block.row][block.col + i] !== null) {
+                    console.error(`PlaceBlock error: position (${block.row}, ${block.col + i}) already occupied by block ${this.grid[block.row][block.col + i]}`);
+                    return;
+                }
+            }
+        }
+        
+        this.blocks.set(block.id, block);
+        for (let i = 0; i < block.width; i++) {
+            if (block.col + i < BoardModel.GRID_COLS) {
+                this.grid[block.row][block.col + i] = block.id;
+            }
+        }
+    }
+    
+    private removeBlock(blockId: number): void {
+        const block = this.blocks.get(blockId);
+        if (!block) return;
+        
+        for (let i = 0; i < block.width; i++) {
+            if (block.col + i < BoardModel.GRID_COLS) {
+                this.grid[block.row][block.col + i] = null;
+            }
+        }
+        this.blocks.delete(blockId);
+    }
+    
+    public canMoveBlock(blockId: number, newCol: number): boolean {
+        const block = this.blocks.get(blockId);
+        if (!block) return false;
+        
+        if (newCol < 0 || newCol + block.width > BoardModel.GRID_COLS) {
+            return false;
+        }
+        
+        for (let i = 0; i < block.width; i++) {
+            const checkCol = newCol + i;
+            const gridValue = this.grid[block.row][checkCol];
+            if (gridValue !== null && gridValue !== block.id) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public moveBlock(blockId: number, newCol: number): boolean {
+        if (!this.canMoveBlock(blockId, newCol)) {
+            return false;
+        }
+        
+        const block = this.blocks.get(blockId);
+        if (!block) return false;
+        
+        for (let i = 0; i < block.width; i++) {
+            if (block.col + i < BoardModel.GRID_COLS) {
+                this.grid[block.row][block.col + i] = null;
+            }
+        }
+        
+        block.col = newCol;
+        
+        for (let i = 0; i < block.width; i++) {
+            if (block.col + i < BoardModel.GRID_COLS) {
+                this.grid[block.row][block.col + i] = block.id;
+            }
+        }
+        
+        return true;
+    }
+    
+    public applyGravity(): { blockId: number; oldRow: number; newRow: number }[] {
+        console.log('=== Applying Gravity (v2.0 - row 0 is bottom) ===');
+        
+        const movedBlocks: { blockId: number; oldRow: number; newRow: number }[] = [];
+        let hasChanges = true;
+        
+        console.log('Grid before gravity:');
+        console.log(this.getGridDebug());
+        
+        while (hasChanges) {
+            hasChanges = false;
+            
+            const blocksArray = Array.from(this.blocks.values());
+            // 从顶部开始处理（row 值大的先处理），这样顶部的滑块先掉落
+            blocksArray.sort((a, b) => b.row - a.row);
+            
+            for (const block of blocksArray) {
+                const oldRow = block.row;
+                const newRow = this.findLowestPosition(block);
                 
-                let blockData: BlockData | null = null;
-                for (const b of this.boardModel.getAllBlocks()) {
-                    if (b.id === blockId) {
-                        blockData = b;
-                        break;
-                    }
+                console.log(`Block ${block.id} at row ${oldRow}, width ${block.width}, lowest position: ${newRow}`);
+                
+                if (newRow !== oldRow) {
+                    this.removeBlock(block.id);
+                    block.row = newRow;
+                    this.placeBlock(block);
+                    movedBlocks.push({ blockId: block.id, oldRow, newRow });
+                    hasChanges = true;
+                    console.log(`Block ${block.id} moved from row ${oldRow} to row ${newRow}`);
+                }
+            }
+        }
+        
+        console.log('Grid after gravity:');
+        console.log(this.getGridDebug());
+        
+        return movedBlocks;
+    }
+    
+    private findLowestPosition(block: BlockData): number {
+        let targetRow = block.row;
+        
+        console.log(`  findLowestPosition: block ${block.id}, current row ${block.row}, width ${block.width}`);
+        
+        // 向下查找（row 值减小，因为 row 0 是底部）
+        for (let row = block.row - 1; row >= 0; row--) {
+            let canPlace = true;
+            
+            console.log(`    Checking row ${row}:`);
+            
+            for (let i = 0; i < block.width; i++) {
+                const checkCol = block.col + i;
+                if (checkCol >= BoardModel.GRID_COLS) {
+                    canPlace = false;
+                    console.log(`      col ${checkCol} out of bounds`);
+                    break;
                 }
                 
-                if (!blockData) return;
-                
-                this.selectedBlockStartCol = blockData.col;
-
-                this.isDragging = true;
-                this.dragStartPos.set(location.x, location.y);
-                
-                this.currentDragCol = blockData.col;
-                
-                this.createGhostBlock(blockId);
-                this.createGuideBoxes(blockId);
-                
-                event.propagationStopped = true;
-                return;
+                const gridValue = this.grid[row][checkCol];
+                console.log(`      col ${checkCol}: gridValue=${gridValue}, blockId=${block.id}`);
+                if (gridValue !== null && gridValue !== block.id) {
+                    canPlace = false;
+                    console.log(`      blocked by block ${gridValue}`);
+                    break;
+                }
             }
-        }
-        
-        console.log('No block touched');
-    }
-
-    private onTouchMove(event: EventTouch): void {
-        if (!this.isDragging || this.selectedBlockId === null || this.isProcessing) return;
-
-        const location = event.getLocation();
-        const screenPos = new Vec3(location.x, location.y, 0);
-        const gridPos = this.worldToGridPosition(screenPos);
-
-        const blockNode = this.blockNodes.get(this.selectedBlockId);
-        if (!blockNode) return;
-
-        let blockData: BlockData | null = null;
-        for (const b of this.boardModel.getAllBlocks()) {
-            if (b.id === this.selectedBlockId) {
-                blockData = b;
-                break;
-            }
-        }
-        if (!blockData) return;
-
-        let newCol = gridPos.col - Math.floor(blockData.width / 2);
-        newCol = Math.max(0, Math.min(newCol, BoardModel.GRID_COLS - blockData.width));
-
-        console.log('=== Touch Move ===');
-        console.log('Grid position:', gridPos);
-        console.log('New column:', newCol);
-        console.log('Current column:', this.currentDragCol);
-        console.log('Can move:', this.boardModel.canMoveBlock(this.selectedBlockId, newCol));
-
-        if (newCol !== this.currentDragCol) {
-            if (this.boardModel.canMoveBlock(this.selectedBlockId, newCol)) {
-                this.currentDragCol = newCol;
-                
-                const pos = this.gridToWorldPosition(blockData.row, newCol, blockData.width);
-                blockNode.setPosition(pos);
-                
-                this.updateGuideBoxes(newCol);
-            }
-        }
-    }
-
-    private onTouchEnd(event: EventTouch): void {
-        if (!this.isDragging || this.selectedBlockId === null || this.isProcessing) {
-            this.cleanupDragState();
-            return;
-        }
-
-        let currentBlock: BlockData | null = null;
-        for (const b of this.boardModel.getAllBlocks()) {
-            if (b.id === this.selectedBlockId) {
-                currentBlock = b;
-                break;
-            }
-        }
-
-        if (currentBlock && this.currentDragCol !== this.selectedBlockStartCol) {
-            this.isProcessing = true;
             
-            if (this.boardModel.moveBlock(this.selectedBlockId, this.currentDragCol)) {
-                this.processAfterMove();
+            if (canPlace) {
+                targetRow = row;
+                console.log(`    Can place at row ${row}, targetRow updated to ${targetRow}`);
             } else {
-                this.isProcessing = false;
-                this.cleanupDragState();
+                console.log(`    Cannot place at row ${row}, stopping`);
+                break;
             }
-        } else {
-            this.cleanupDragState();
         }
+        
+        console.log(`  Final targetRow: ${targetRow}`);
+        return targetRow;
     }
-
-    private async processAfterMove(): Promise<void> {
-        this.cleanupDragState();
-
-        await this.applyGravityWithAnimation();
-
-        const completeRows = this.boardModel.checkCompleteRows();
-        if (completeRows.length > 0) {
-            await this.removeCompleteRowsWithAnimation(completeRows);
-            await this.applyGravityWithAnimation();
-        }
-
-        if (!this.boardModel.isFrozen()) {
-            const pushSuccess = this.boardModel.pushNewRow();
-            if (!pushSuccess || this.boardModel.isGameOver()) {
-                this.handleGameOver();
-                return;
-            }
-        } else {
-            this.boardModel.decrementFreeze();
-        }
-
-        this.renderPreviewRow();
-        this.updateUI();
-        this.boardModel.saveGame();
-
-        this.isProcessing = false;
-    }
-
-    private async applyGravityWithAnimation(): Promise<void> {
-        return new Promise<void>((resolve) => {
-            const movedBlocks = this.boardModel.applyGravity();
+    
+    public checkCompleteRows(): number[] {
+        const completeRows: number[] = [];
+        
+        for (let row = 0; row < BoardModel.GRID_ROWS; row++) {
+            let isComplete = true;
             
-            if (movedBlocks.length === 0) {
-                resolve();
-                return;
+            for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+                if (this.grid[row][col] === null) {
+                    isComplete = false;
+                    break;
+                }
             }
-
-            let completed = 0;
-            movedBlocks.forEach(move => {
-                const blockNode = this.blockNodes.get(move.blockId);
-                const block = this.boardModel.getBlockById(move.blockId);
-                
-                if (blockNode && block) {
-                    const targetPos = this.gridToWorldPosition(move.newRow, block.col, block.width);
-                    tween(blockNode)
-                        .to(ANIMATION_DURATION, { position: targetPos })
-                        .call(() => {
-                            completed++;
-                            if (completed >= movedBlocks.length) {
-                                resolve();
-                            }
-                        })
-                        .start();
-                } else {
-                    completed++;
-                    if (completed >= movedBlocks.length) {
-                        resolve();
+            
+            if (isComplete) {
+                completeRows.push(row);
+            }
+        }
+        
+        return completeRows;
+    }
+    
+    public removeCompleteRows(completeRows: number[]): BlockData[] {
+        const removedBlocks: BlockData[] = [];
+        const blocksToRemove: Set<number> = new Set();
+        
+        for (const row of completeRows) {
+            for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+                const blockId = this.grid[row][col];
+                if (blockId !== null && !blocksToRemove.has(blockId)) {
+                    blocksToRemove.add(blockId);
+                    const block = this.blocks.get(blockId);
+                    if (block) {
+                        removedBlocks.push({ ...block });
                     }
                 }
-            });
+            }
+        }
+        
+        blocksToRemove.forEach(blockId => {
+            this.removeBlock(blockId);
         });
+        
+        return removedBlocks;
     }
-
-    private async removeCompleteRowsWithAnimation(completeRows: number[]): Promise<void> {
-        return new Promise<void>((resolve) => {
-            const removedBlocks = this.boardModel.removeCompleteRows(completeRows);
+    
+    public addScore(blockScore: number): void {
+        this.score += blockScore;
+        this.energyProgress += blockScore;
+    }
+    
+    public checkEnergyActivation(): number {
+        let activations = 0;
+        while (this.energyProgress >= this.nextEnergyTarget) {
+            this.energyProgress -= this.nextEnergyTarget;
+            this.nextEnergyTarget += BoardModel.ENERGY_INCREMENT;
+            activations++;
+        }
+        return activations;
+    }
+    
+    public getEnergyProgress(): { current: number; target: number; percentage: number } {
+        return {
+            current: this.energyProgress,
+            target: this.nextEnergyTarget,
+            percentage: Math.min(100, (this.energyProgress / this.nextEnergyTarget) * 100)
+        };
+    }
+    
+    public activateFreeze(): void {
+        this.freezeTurns = 3;
+    }
+    
+    public isFrozen(): boolean {
+        return this.freezeTurns > 0;
+    }
+    
+    public decrementFreeze(): void {
+        if (this.freezeTurns > 0) {
+            this.freezeTurns--;
+        }
+    }
+    
+    public shrinkBlock(blockId: number): boolean {
+        const block = this.blocks.get(blockId);
+        if (!block || block.width !== BlockWidth.FIVE) {
+            return false;
+        }
+        
+        this.removeBlock(block.id);
+        block.width = BlockWidth.ONE;
+        block.score = BoardModel.SCORE_MAP[BlockWidth.ONE];
+        this.placeBlock(block);
+        
+        return true;
+    }
+    
+    public generateNextRow(): (BlockWidth | null)[] {
+        this.nextRow = [];
+        let col = 0;
+        
+        while (col < BoardModel.GRID_COLS) {
+            const remainingCols = BoardModel.GRID_COLS - col;
+            if (remainingCols <= 0) break;
             
-            if (removedBlocks.length === 0) {
-                resolve();
-                return;
+            let width: BlockWidth;
+            if (remainingCols >= 5) {
+                width = this.generateRandomBlockWidth();
+            } else if (remainingCols >= 4) {
+                width = Math.random() < 0.5 ? BlockWidth.ONE : 
+                        Math.random() < 0.5 ? BlockWidth.TWO :
+                        Math.random() < 0.5 ? BlockWidth.THREE : BlockWidth.FOUR;
+            } else if (remainingCols >= 3) {
+                width = Math.random() < 0.4 ? BlockWidth.ONE : 
+                        Math.random() < 0.5 ? BlockWidth.TWO : BlockWidth.THREE;
+            } else if (remainingCols >= 2) {
+                width = Math.random() < 0.5 ? BlockWidth.ONE : BlockWidth.TWO;
+            } else {
+                width = BlockWidth.ONE;
             }
-
-            let totalScore = 0;
-            removedBlocks.forEach(block => {
-                totalScore += block.score;
-                this.showScorePopup(block);
-            });
-
-            this.boardModel.addScore(totalScore);
-
-            const activations = this.boardModel.checkEnergyActivation();
-            if (activations > 0) {
-                this.showEnergyActivationEffect();
-            }
-
-            let completed = 0;
-            removedBlocks.forEach(block => {
-                const blockNode = this.blockNodes.get(block.id);
-                if (blockNode) {
-                    tween(blockNode)
-                        .to(ANIMATION_DURATION, { scale: new Vec3(0, 0, 0) })
-                        .call(() => {
-                            blockNode.destroy();
-                            this.blockNodes.delete(block.id);
-                            completed++;
-                            if (completed >= removedBlocks.length) {
-                                resolve();
-                            }
-                        })
-                        .start();
-                } else {
-                    completed++;
-                    if (completed >= removedBlocks.length) {
-                        resolve();
-                    }
+            
+            // 确保不会超出边界
+            if (col + width > BoardModel.GRID_COLS) {
+                width = BlockWidth.ONE;
+                if (col + width > BoardModel.GRID_COLS) {
+                    break;
                 }
-            });
-        });
-    }
-
-    private showScorePopup(block: BlockData): void {
-        const blockNode = this.blockNodes.get(block.id);
-        if (!blockNode || !this.blocksLayer) return;
-
-        const scoreNode = new Node('ScorePopup');
-        const label = scoreNode.addComponent(Label);
-        label.string = `+${block.score}`;
-        label.fontSize = 24;
-        label.color = new Color(255, 215, 0);
-
-        scoreNode.setPosition(blockNode.position);
-        this.blocksLayer.addChild(scoreNode);
-
-        tween(scoreNode)
-            .by(SCORE_DISPLAY_DURATION, { position: new Vec3(0, 50, 0) })
-            .call(() => {
-                scoreNode.destroy();
-            })
-            .start();
-
-        const opacity = scoreNode.addComponent(UIOpacity);
-        tween(opacity)
-            .to(SCORE_DISPLAY_DURATION * 0.5, { opacity: 255 })
-            .to(SCORE_DISPLAY_DURATION * 0.5, { opacity: 0 })
-            .start();
-    }
-
-    private showEnergyActivationEffect(): void {
-        if (this.freezeButton) {
-            tween(this.freezeButton)
-                .to(0.2, { scale: new Vec3(1.2, 1.2, 1) })
-                .to(0.2, { scale: new Vec3(1, 1, 1) })
-                .start();
+            }
+            
+            this.nextRow.push(width);
+            col += width;
         }
-
-        if (this.shrinkButton) {
-            tween(this.shrinkButton)
-                .to(0.2, { scale: new Vec3(1.2, 1.2, 1) })
-                .to(0.2, { scale: new Vec3(1, 1, 1) })
-                .start();
-        }
+        
+        return this.nextRow;
     }
-
-    private createGhostBlock(blockId: number): void {
-        this.removeGhostBlock();
-
-        let blockData: BlockData | null = null;
-        for (const b of this.boardModel.getAllBlocks()) {
-            if (b.id === blockId) {
-                blockData = b;
-                break;
+    
+    public pushNewRow(): boolean {
+        for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+            if (this.grid[BoardModel.GRID_ROWS - 1][col] !== null) {
+                return false;
             }
         }
-        if (!blockData || !this.blocksLayer) return;
-
-        this.ghostBlock = new Node('GhostBlock');
-        const uit = this.ghostBlock.addComponent(UITransform);
-        const ghostWidth = blockData.width * CELL_WIDTH;
-        const ghostHeight = CELL_HEIGHT;
-        uit.setContentSize(ghostWidth, ghostHeight);
-
-        const sprite = this.ghostBlock.addComponent(Sprite);
-        sprite.color = new Color(255, 255, 255, 100);
-
-        const pos = this.gridToWorldPosition(blockData.row, blockData.col, blockData.width);
-        this.ghostBlock.setPosition(pos);
-        this.blocksLayer.addChild(this.ghostBlock);
-    }
-
-    private removeGhostBlock(): void {
-        if (this.ghostBlock) {
-            this.ghostBlock.destroy();
-            this.ghostBlock = null;
-        }
-    }
-
-    private createGuideBoxes(blockId: number): void {
-        this.removeGuideBoxes();
-
-        let blockData: BlockData | null = null;
-        for (const b of this.boardModel.getAllBlocks()) {
-            if (b.id === blockId) {
-                blockData = b;
-                break;
-            }
-        }
-        if (!blockData || !this.blocksLayer) return;
-
-        const leftCol = blockData.col - blockData.width;
-        if (leftCol >= 0) {
-            const leftBox = this.createGuideBox(blockData.row, leftCol, blockData.width);
-            this.guideBoxes.push(leftBox);
-        }
-
-        const rightCol = blockData.col + blockData.width;
-        if (rightCol + blockData.width <= BoardModel.GRID_COLS) {
-            const rightBox = this.createGuideBox(blockData.row, rightCol, blockData.width);
-            this.guideBoxes.push(rightBox);
-        }
-    }
-
-    private createGuideBox(row: number, col: number, width: BlockWidth): Node {
-        const guideBox = new Node('GuideBox');
-        const uit = guideBox.addComponent(UITransform);
-        const boxWidth = width * CELL_WIDTH;
-        const boxHeight = GRID_HEIGHT;
-        uit.setContentSize(boxWidth, boxHeight);
-
-        const sprite = guideBox.addComponent(Sprite);
-        sprite.color = new Color(100, 200, 255, 80);
-
-        // 对齐框从画板底部到顶部，y坐标为0（相对于blocksLayer中心）
-        const x = -GRID_WIDTH / 2 + col * CELL_WIDTH + boxWidth / 2;
-        guideBox.setPosition(new Vec3(x, 0, 0));
-
-        if (this.blocksLayer) {
-            this.blocksLayer.addChild(guideBox);
-        }
-
-        return guideBox;
-    }
-
-    private updateGuideBoxes(newCol: number): void {
-        this.removeGuideBoxes();
-
-        if (this.selectedBlockId === null) return;
-
-        let blockData: BlockData | null = null;
-        for (const b of this.boardModel.getAllBlocks()) {
-            if (b.id === this.selectedBlockId) {
-                blockData = b;
-                break;
-            }
-        }
-        if (!blockData || !this.blocksLayer) return;
-
-        const leftCol = newCol - blockData.width;
-        if (leftCol >= 0 && this.boardModel.canMoveBlock(this.selectedBlockId, leftCol)) {
-            const leftBox = this.createGuideBox(blockData.row, leftCol, blockData.width);
-            this.guideBoxes.push(leftBox);
-        }
-
-        const rightCol = newCol + blockData.width;
-        if (rightCol + blockData.width <= BoardModel.GRID_COLS && this.boardModel.canMoveBlock(this.selectedBlockId, rightCol)) {
-            const rightBox = this.createGuideBox(blockData.row, rightCol, blockData.width);
-            this.guideBoxes.push(rightBox);
-        }
-    }
-
-    private removeGuideBoxes(): void {
-        this.guideBoxes.forEach(box => box.destroy());
-        this.guideBoxes = [];
-    }
-
-    private cleanupDragState(): void {
-        this.isDragging = false;
-        this.selectedBlockId = null;
-        this.removeGhostBlock();
-        this.removeGuideBoxes();
-    }
-
-    private renderPreviewRow(): void {
-        console.log('=== renderPreviewRow called ===');
-        console.log('previewBlocksLayer:', this.previewBlocksLayer ? 'exists' : 'NULL');
         
-        if (!this.previewBlocksLayer) return;
-        
-        console.log('PreviewBlocksLayer position:', this.previewBlocksLayer.position);
-        console.log('PreviewBlocksLayer active:', this.previewBlocksLayer.active);
-        
-        const uit = this.previewBlocksLayer.getComponent(UITransform);
-        console.log('PreviewBlocksLayer size:', uit?.contentSize);
-        
-        this.previewBlocksLayer.removeAllChildren();
-        
-        const nextRow = this.boardModel.getNextRow();
-        console.log('Next row blocks:', nextRow);
-        
-        if (nextRow.length === 0) {
-            console.log('WARNING: nextRow is empty!');
-            return;
+        const blocksToMove: BlockData[] = [];
+        for (const block of this.blocks.values()) {
+            blocksToMove.push(block);
         }
         
-        // 使用预览区域的实际宽度计算单元格宽度
-        const previewCellWidth = PREVIEW_WIDTH / GRID_COLS;
-        const previewBlockHeight = 37;
+        blocksToMove.sort((a, b) => b.row - a.row);
+        
+        for (const block of blocksToMove) {
+            this.removeBlock(block.id);
+            block.row++;
+            this.placeBlock(block);
+        }
         
         let col = 0;
         
-        nextRow.forEach((item, index) => {
+        for (const item of this.nextRow) {
             if (item === null) {
                 col++;
-                return;
+                continue;
             }
             
             const width = item;
-            console.log(`Creating preview block ${index}: width=${width}, col=${col}`);
+            if (col + width > BoardModel.GRID_COLS) {
+                break;
+            }
             
-            const previewNode = new Node('PreviewBlock');
-            const previewUit = previewNode.addComponent(UITransform);
-            const previewBlockWidth = width * previewCellWidth;
-            previewUit.setContentSize(previewBlockWidth, previewBlockHeight);
-            
-            const graphics = previewNode.addComponent(Graphics);
-            graphics.fillColor = new Color(180, 180, 180, 255);
-            graphics.rect(-previewBlockWidth / 2, -previewBlockHeight / 2, previewBlockWidth, previewBlockHeight);
-            graphics.fill();
-            
-            // 计算相对于 previewBlocksLayer 的本地坐标
-            const leftEdge = -PREVIEW_WIDTH / 2;
-            const x = leftEdge + col * previewCellWidth + previewBlockWidth / 2;
-            previewNode.setPosition(new Vec3(x, 0, 0));
-            
-            console.log(`Preview block ${index}: position=(${x}, 0), size=(${previewBlockWidth}, ${previewBlockHeight})`);
-            
-            this.previewBlocksLayer.addChild(previewNode);
+            const block = this.createBlock(width, 0, col);
+            this.placeBlock(block);
             col += width;
-        });
+        }
         
-        console.log(`Total preview blocks created: ${nextRow.length}`);
+        this.generateNextRow();
+        this.turns++;
+        
+        return true;
     }
-
-    private updateUI(): void {
-        if (this.scoreLabel) {
-            this.scoreLabel.string = `Score: ${this.boardModel.getScore()}`;
+    
+    public getBlockAt(row: number, col: number): BlockData | null {
+        if (row < 0 || row >= BoardModel.GRID_ROWS || col < 0 || col >= BoardModel.GRID_COLS) {
+            return null;
         }
-
-        if (this.turnsLabel) {
-            this.turnsLabel.string = `Turns: ${this.boardModel.getTurns()}`;
-        }
-
-        const energy = this.boardModel.getEnergyProgress();
         
-        if (this.energyBar && this.progressBar) {
-            const progressUit = this.progressBar.getComponent(UITransform);
-            const energyUit = this.energyBar.getComponent(UITransform);
-            
-            if (progressUit && energyUit) {
-                const maxWidth = progressUit.width;
-                const currentWidth = maxWidth * (energy.percentage / 100);
-                energyUit.setContentSize(currentWidth, energyUit.height);
-            }
+        const blockId = this.grid[row][col];
+        if (blockId === null) {
+            return null;
         }
-
-        const energyReady = energy.percentage >= 100;
         
-        if (this.freezeButton) {
-            this.freezeButton.active = true;
-            const sprite = this.freezeButton.getComponent(Sprite);
-            if (sprite) {
-                sprite.color = energyReady ? Color.WHITE : new Color(150, 150, 150, 255);
-            }
-        }
-
-        if (this.shrinkButton) {
-            this.shrinkButton.active = true;
-            const sprite = this.shrinkButton.getComponent(Sprite);
-            if (sprite) {
-                sprite.color = energyReady ? Color.WHITE : new Color(150, 150, 150, 255);
-            }
-        }
+        return this.blocks.get(blockId) || null;
     }
-
-    private onFreezeButtonClick(): void {
-        if (this.boardModel.isFrozen()) return;
-        
-        const energy = this.boardModel.getEnergyProgress();
-        if (energy.percentage < 100) return;
-
-        this.boardModel.activateFreeze();
-        this.updateUI();
-        
-        if (this.freezeButton) {
-            const label = this.freezeButton.getComponentInChildren(Label);
-            if (label) {
-                label.string = `Freeze: ${this.boardModel.isFrozen() ? 3 : 0}`;
+    
+    public getAllBlocks(): BlockData[] {
+        return Array.from(this.blocks.values());
+    }
+    
+    public getBlockById(blockId: number): BlockData | null {
+        return this.blocks.get(blockId) || null;
+    }
+    
+    public getScore(): number {
+        return this.score;
+    }
+    
+    public getTurns(): number {
+        return this.turns;
+    }
+    
+    public getNextRow(): (BlockWidth | null)[] {
+        return this.nextRow;
+    }
+    
+    public isGameOver(): boolean {
+        // 检查顶部是否有滑块（row 10 是顶部）
+        for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+            if (this.grid[BoardModel.GRID_ROWS - 1][col] !== null) {
+                return true;
             }
         }
+        return false;
     }
-
-    private onShrinkButtonClick(): void {
-        const energy = this.boardModel.getEnergyProgress();
-        if (energy.percentage < 100) return;
-
-        this.shrinkModeActive = true;
-        
-        if (this.shrinkButton) {
-            const label = this.shrinkButton.getComponentInChildren(Label);
-            if (label) {
-                label.string = 'Select 5-width block';
-            }
-        }
-    }
-
-    private handleShrinkMode(worldPos: Vec3): void {
-        for (const [blockId, blockNode] of this.blockNodes) {
-            const uit = blockNode.getComponent(UITransform);
-            if (!uit) continue;
-
-            const boundingBox = uit.getBoundingBoxToWorld();
-            if (boundingBox.contains(new Vec2(worldPos.x, worldPos.y))) {
-                let blockData: BlockData | null = null;
-                for (const b of this.boardModel.getAllBlocks()) {
-                    if (b.id === blockId) {
-                        blockData = b;
-                        break;
+    
+    public getGridDebug(): string {
+        let result = '';
+        for (let row = 0; row < BoardModel.GRID_ROWS; row++) {
+            for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+                const blockId = this.grid[row][col];
+                if (blockId === null) {
+                    result += '. ';
+                } else {
+                    const block = this.blocks.get(blockId);
+                    if (block) {
+                        result += block.width + ' ';
+                    } else {
+                        result += '? ';
                     }
                 }
-
-                if (blockData && blockData.width === BlockWidth.FIVE) {
-                    this.boardModel.shrinkBlock(blockId);
-                    this.renderBoard();
-                    this.updateUI();
-                    
-                    this.shrinkModeActive = false;
-                    if (this.shrinkButton) {
-                        const label = this.shrinkButton.getComponentInChildren(Label);
-                        if (label) {
-                            label.string = 'Shrink';
-                        }
-                    }
-                }
-                return;
             }
+            result += '\n';
         }
-    }
-
-    private handleGameOver(): void {
-        this.boardModel.clearSave();
-        
-        if (this.scoreLabel) {
-            this.scoreLabel.string = `Game Over! Final Score: ${this.boardModel.getScore()}`;
-        }
-
-        setTimeout(() => {
-            this.showHomePage();
-        }, 2000);
-    }
-
-    protected onDestroy(): void {
-        if (this.startButton) {
-            this.startButton.off(Node.EventType.TOUCH_END, this.onStartNewGame, this);
-        }
-
-        if (this.continueButton) {
-            this.continueButton.off(Node.EventType.TOUCH_END, this.onContinueGame, this);
-        }
-
-        if (this.freezeButton) {
-            this.freezeButton.off(Node.EventType.TOUCH_END, this.onFreezeButtonClick, this);
-        }
-
-        if (this.shrinkButton) {
-            this.shrinkButton.off(Node.EventType.TOUCH_END, this.onShrinkButtonClick, this);
-        }
-
-        if (this.blocksLayer) {
-            this.blocksLayer.off(Node.EventType.TOUCH_START, this.onTouchStart, this);
-            this.blocksLayer.off(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-            this.blocksLayer.off(Node.EventType.TOUCH_END, this.onTouchEnd, this);
-            this.blocksLayer.off(Node.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
-        }
+        return result;
     }
 }
