@@ -1,653 +1,44 @@
-Init Base: 0.630126953125 ms
-game.ts:812 Init Infrastructure: 31.23291015625 ms
-debug.ts:66 meshopt wasm decoder initialized
-debug.ts:66 [PHYSICS2D]: register box2d.
-game.ts:861 Init SubSystem: 270.049072265625 ms
-debug.ts:66 Cocos Creator v3.8.8
-debug.ts:66 Using custom pipeline: Builtin
-game.ts:905 Init Project: 152.465087890625 ms
-GameManager.ts:242 Sprite frames loaded: 5
-GameManager.ts:186 === BlocksLayer Setup ===
-GameManager.ts:187 Position: Vec3
-GameManager.ts:188 Size: Size
-debug.ts:79 Can't add renderable component to this node because it already have one.
-warn @ debug.ts:79
-GameManager.ts:217 === PreviewBlocksLayer Setup ===
-GameManager.ts:218 Position: Vec3
-GameManager.ts:219 Size: Size
-GameManager.ts:220 Active: true
-GameManager.ts:221 Parent: BottomUI_Root
-GameManager.ts:124 === Setting up Top UI ===
-GameManager.ts:125 TopUIBar: Found
-GameManager.ts:126 ScoreLabel: Found
-GameManager.ts:127 TurnsLabel: Found
-GameManager.ts:128 ProgressBar: Found
-GameManager.ts:129 EnergyBar: Found
-GameManager.ts:130 FreezeButton: Found
-GameManager.ts:131 ShrinkButton: Found
-GameManager.ts:135 TopUIBar activated, position: Vec3
-GameManager.ts:140 ScoreLabel activated
-GameManager.ts:145 TurnsLabel activated
-GameManager.ts:150 ProgressBar activated
-GameManager.ts:155 EnergyBar activated
-GameManager.ts:164 FreezeButton activated
-GameManager.ts:173 ShrinkButton activated
-GameManager.ts:390 === Created Block 1 ===
-GameManager.ts:391 Grid: row 0, col 0, width 1
-GameManager.ts:392 World position: Vec3x: -297.77777777777777y: -371.3636363636364z: 0exactEquals: (...)mag: (...)magSqr: (...)scale: (...)[[Prototype]]: ValueTypeadd: ƒ add(other)add3f: ƒ add3f(x, y, z)clampf: ƒ clampf(minInclusive, maxInclusive)clone: ƒ clone()constructor: ƒ Vec3(x, y, z)cross: ƒ cross(other)divide: ƒ divide(other)divide3f: ƒ divide3f(x, y, z)dot: ƒ dot(other)equals: ƒ equals(other, epsilon)equals3f: ƒ equals3f(x, y, z, epsilon)length: ƒ length()lengthSqr: ƒ lengthSqr()lerp: ƒ lerp(to, ratio)multiply: ƒ multiply(other)multiply3f: ƒ multiply3f(x, y, z)multiplyScalar: ƒ multiplyScalar(scalar)negative: ƒ negative()normalize: ƒ normalize()set: ƒ (x, y, z)strictEquals: ƒ strictEquals(other)strictEquals3f: ƒ strictEquals3f(x, y, z)subtract: ƒ subtract(other)subtract3f: ƒ subtract3f(x, y, z)toString: ƒ toString()toVec2: ƒ toVec2()transformMat4: ƒ transformMat4(matrix)exactEquals: (...)mag: (...)magSqr: (...)scale: (...)__cid__: "cc.Vec3"__classname__: "cc.Vec3"get exactEquals: ƒ ()set exactEquals: ƒ (v)get mag: ƒ ()set mag: ƒ (v)get magSqr: ƒ ()set magSqr: ƒ (v)get scale: ƒ ()set scale: ƒ (v)[[Prototype]]: Object
-GameManager.ts:393 Local position: Vec3x: -297.77777777777777y: -371.3636363636364z: 0exactEquals: (...)mag: (...)magSqr: (...)scale: (...)[[Prototype]]: ValueTypeadd: ƒ add(other)add3f: ƒ add3f(x, y, z)clampf: ƒ clampf(minInclusive, maxInclusive)clone: ƒ clone()constructor: ƒ Vec3(x, y, z)cross: ƒ cross(other)divide: ƒ divide(other)divide3f: ƒ divide3f(x, y, z)dot: ƒ dot(other)equals: ƒ equals(other, epsilon)equals3f: ƒ equals3f(x, y, z, epsilon)length: ƒ length()lengthSqr: ƒ lengthSqr()lerp: ƒ lerp(to, ratio)multiply: ƒ multiply(other)multiply3f: ƒ multiply3f(x, y, z)multiplyScalar: ƒ multiplyScalar(scalar)negative: ƒ negative()normalize: ƒ normalize()set: ƒ (x, y, z)strictEquals: ƒ strictEquals(other)strictEquals3f: ƒ strictEquals3f(x, y, z)subtract: ƒ subtract(other)subtract3f: ƒ subtract3f(x, y, z)toString: ƒ toString()toVec2: ƒ toVec2()transformMat4: ƒ transformMat4(matrix)exactEquals: (...)mag: (...)magSqr: (...)scale: (...)__cid__: "cc.Vec3"__classname__: "cc.Vec3"get exactEquals: ƒ ()set exactEquals: ƒ (v)get mag: ƒ ()set mag: ƒ (v)get magSqr: ƒ ()set magSqr: ƒ (v)get scale: ƒ ()set scale: ƒ (v)[[Prototype]]: Object
-GameManager.ts:390 === Created Block 2 ===
-GameManager.ts:391 Grid: row 0, col 1, width 2
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 3 ===
-GameManager.ts:391 Grid: row 0, col 3, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 4 ===
-GameManager.ts:391 Grid: row 0, col 4, width 2
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 7 ===
-GameManager.ts:391 Grid: row 1, col 2, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 8 ===
-GameManager.ts:391 Grid: row 1, col 3, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 9 ===
-GameManager.ts:391 Grid: row 1, col 4, width 3
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 10 ===
-GameManager.ts:391 Grid: row 1, col 7, width 2
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 11 ===
-GameManager.ts:391 Grid: row 2, col 0, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 12 ===
-GameManager.ts:391 Grid: row 2, col 1, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 13 ===
-GameManager.ts:391 Grid: row 2, col 2, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 14 ===
-GameManager.ts:391 Grid: row 2, col 3, width 3
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 15 ===
-GameManager.ts:391 Grid: row 2, col 6, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 16 ===
-GameManager.ts:391 Grid: row 2, col 8, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 17 ===
-GameManager.ts:391 Grid: row 3, col 0, width 2
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 18 ===
-GameManager.ts:391 Grid: row 3, col 2, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 19 ===
-GameManager.ts:391 Grid: row 3, col 3, width 2
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 21 ===
-GameManager.ts:391 Grid: row 3, col 8, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 22 ===
-GameManager.ts:391 Grid: row 4, col 0, width 3
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 23 ===
-GameManager.ts:391 Grid: row 4, col 3, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 24 ===
-GameManager.ts:391 Grid: row 4, col 4, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 25 ===
-GameManager.ts:391 Grid: row 4, col 5, width 2
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:390 === Created Block 26 ===
-GameManager.ts:391 Grid: row 4, col 7, width 1
-GameManager.ts:392 World position: Vec3
-GameManager.ts:393 Local position: Vec3
-GameManager.ts:844 === renderPreviewRow called ===
-GameManager.ts:845 previewBlocksLayer: exists
-GameManager.ts:849 PreviewBlocksLayer position: Vec3
-GameManager.ts:850 PreviewBlocksLayer active: true
-GameManager.ts:853 PreviewBlocksLayer size: Size
-GameManager.ts:858 Next row blocks: Array(7)
-GameManager.ts:878 Creating preview block 0: width=3, col=0
-GameManager.ts:895 Preview block 0: position=(-219, 0), size=(219, 37)
-GameManager.ts:878 Creating preview block 1: width=2, col=3
-GameManager.ts:895 Preview block 1: position=(-36.5, 0), size=(146, 37)
-GameManager.ts:878 Creating preview block 2: width=1, col=5
-GameManager.ts:895 Preview block 2: position=(73, 0), size=(73, 37)
-GameManager.ts:878 Creating preview block 3: width=1, col=6
-GameManager.ts:895 Preview block 3: position=(146, 0), size=(73, 37)
-GameManager.ts:878 Creating preview block 5: width=1, col=8
-GameManager.ts:895 Preview block 5: position=(292, 0), size=(73, 37)
-GameManager.ts:878 Creating preview block 6: width=1, col=9
-GameManager.ts:895 Preview block 6: position=(365, 0), size=(73, 37)
-GameManager.ts:901 Total preview blocks created: 7
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 696, y: 264}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 724, y: 414}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 704, y: 502}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 618, y: 590}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 564, y: 356}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 570, y: 322}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 548, y: 338}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 590, y: 258}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 536, y: 508}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 562, y: 666}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 460, y: 704}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 420, y: 464}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 424, y: 316}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 602, y: 356}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 530, y: 450}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 450, y: 396}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:473 Block 25 touched!
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: false
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 450, y: 286}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:473 Block 14 touched!
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 2, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 2, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 314, y: 306}
-GameManager.ts:464 Block nodes count: 23
-GameManager.ts:473 Block 19 touched!
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 3}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 3}
-GameManager.ts:528 New column: 2
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 3}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 3}
-GameManager.ts:528 New column: 2
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: false
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 4}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 4}
-GameManager.ts:528 New column: 3
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 4}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 4}
-GameManager.ts:528 New column: 3
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 4}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 4}
-GameManager.ts:528 New column: 3
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 4}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 4}
-GameManager.ts:528 New column: 3
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 3
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-BoardModel.ts:308 === Applying Gravity (v2.0 - row 0 is bottom) ===
-BoardModel.ts:313 Grid before gravity:
-BoardModel.ts:314 1 2 2 1 2 2 . . . 
-. . 1 1 3 3 3 2 2 
-1 1 1 3 3 3 1 . 1 
-2 2 1 . . 2 2 . 1 
-3 3 3 1 1 2 2 1 . 
+Grid position: Object
+GameManager.ts:526 New column: 5
+GameManager.ts:527 Current column: 5
+GameManager.ts:528 Can move: true
+GameManager.ts:443 worldToGridPosition: Object
+GameManager.ts:524 === Touch Move ===
+GameManager.ts:525 Grid position: Object
+GameManager.ts:526 New column: 6
+GameManager.ts:527 Current column: 5
+GameManager.ts:528 Can move: false
+GameManager.ts:443 worldToGridPosition: Object
+GameManager.ts:524 === Touch Move ===
+GameManager.ts:525 Grid position: Object
+GameManager.ts:526 New column: 6
+GameManager.ts:527 Current column: 5
+GameManager.ts:528 Can move: false
+GameManager.ts:443 worldToGridPosition: Object
+GameManager.ts:524 === Touch Move ===
+GameManager.ts:525 Grid position: Object
+GameManager.ts:526 New column: 6
+GameManager.ts:527 Current column: 5
+GameManager.ts:528 Can move: false
+GameManager.ts:443 worldToGridPosition: Object
+GameManager.ts:524 === Touch Move ===
+GameManager.ts:525 Grid position: Object
+GameManager.ts:526 New column: 6
+GameManager.ts:527 Current column: 5
+GameManager.ts:528 Can move: false
+GameManager.ts:443 worldToGridPosition: Object
+GameManager.ts:524 === Touch Move ===
+GameManager.ts:525 Grid position: Object
+GameManager.ts:526 New column: 6
+GameManager.ts:527 Current column: 5
+GameManager.ts:528 Can move: false
+BoardModel.ts:334 === Applying Gravity (v2.0 - row 0 is bottom) ===
+BoardModel.ts:339 Grid before gravity:
+BoardModel.ts:340 1 3 3 3 3 3 3 1 . 
+3 3 3 . 1 . . 1 1 
+2 2 . . . 3 3 3 1 
+1 1 . 1 . 2 2 . 1 
+1 . 2 2 1 . 1 1 . 
 . . . . . . . . . 
 . . . . . . . . . 
 . . . . . . . . . 
@@ -655,342 +46,568 @@ BoardModel.ts:314 1 2 2 1 2 2 . . .
 . . . . . . . . . 
 . . . . . . . . . 
 
-BoardModel.ts:349   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 2, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 2 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 3, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 3 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 4, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 4 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 7, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 2: gridValue=2, blockId=7
-BoardModel.ts:369       blocked by block 2
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 7 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 8, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 3: gridValue=3, blockId=8
-BoardModel.ts:369       blocked by block 3
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 8 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 9, current row 1, width 3
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 4: gridValue=4, blockId=9
-BoardModel.ts:369       blocked by block 4
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 9 at row 1, width 3, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 10, current row 1, width 2
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 7: gridValue=null, blockId=10
-BoardModel.ts:366       col 8: gridValue=null, blockId=10
-BoardModel.ts:376     Can place at row 0, targetRow updated to 0
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 10 at row 1, width 2, lowest position: 0
-BoardModel.ts:335 Block 10 moved from row 1 to row 0
-BoardModel.ts:349   findLowestPosition: block 11, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 0: gridValue=null, blockId=11
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 0: gridValue=1, blockId=11
-BoardModel.ts:369       blocked by block 1
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 11 at row 2, width 1, lowest position: 1
-BoardModel.ts:335 Block 11 moved from row 2 to row 1
-BoardModel.ts:349   findLowestPosition: block 12, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 1: gridValue=null, blockId=12
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 1: gridValue=2, blockId=12
-BoardModel.ts:369       blocked by block 2
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 12 at row 2, width 1, lowest position: 1
-BoardModel.ts:335 Block 12 moved from row 2 to row 1
-BoardModel.ts:349   findLowestPosition: block 13, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 2: gridValue=7, blockId=13
-BoardModel.ts:369       blocked by block 7
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 13 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 14, current row 2, width 3
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 3: gridValue=8, blockId=14
-BoardModel.ts:369       blocked by block 8
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 14 at row 2, width 3, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 15, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 6: gridValue=9, blockId=15
-BoardModel.ts:369       blocked by block 9
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 15 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 16, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 8: gridValue=null, blockId=16
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 8: gridValue=10, blockId=16
-BoardModel.ts:369       blocked by block 10
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 16 at row 2, width 1, lowest position: 1
-BoardModel.ts:335 Block 16 moved from row 2 to row 1
-BoardModel.ts:349   findLowestPosition: block 17, current row 3, width 2
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 0: gridValue=null, blockId=17
-BoardModel.ts:366       col 1: gridValue=null, blockId=17
-BoardModel.ts:376     Can place at row 2, targetRow updated to 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 0: gridValue=11, blockId=17
-BoardModel.ts:369       blocked by block 11
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 17 at row 3, width 2, lowest position: 2
-BoardModel.ts:335 Block 17 moved from row 3 to row 2
-BoardModel.ts:349   findLowestPosition: block 18, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 2: gridValue=13, blockId=18
-BoardModel.ts:369       blocked by block 13
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 18 at row 3, width 1, lowest position: 3
-BoardModel.ts:349   findLowestPosition: block 19, current row 3, width 2
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 5: gridValue=14, blockId=19
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 19 at row 3, width 2, lowest position: 3
-BoardModel.ts:349   findLowestPosition: block 21, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 8: gridValue=null, blockId=21
-BoardModel.ts:376     Can place at row 2, targetRow updated to 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 8: gridValue=16, blockId=21
-BoardModel.ts:369       blocked by block 16
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 21 at row 3, width 1, lowest position: 2
-BoardModel.ts:335 Block 21 moved from row 3 to row 2
-BoardModel.ts:349   findLowestPosition: block 22, current row 4, width 3
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 0: gridValue=null, blockId=22
-BoardModel.ts:366       col 1: gridValue=null, blockId=22
-BoardModel.ts:366       col 2: gridValue=18, blockId=22
-BoardModel.ts:369       blocked by block 18
-BoardModel.ts:378     Cannot place at row 3, stopping
-BoardModel.ts:383   Final targetRow: 4
-BoardModel.ts:327 Block 22 at row 4, width 3, lowest position: 4
-BoardModel.ts:349   findLowestPosition: block 23, current row 4, width 1
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 3: gridValue=null, blockId=23
-BoardModel.ts:376     Can place at row 3, targetRow updated to 3
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 3: gridValue=14, blockId=23
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 23 at row 4, width 1, lowest position: 3
-BoardModel.ts:335 Block 23 moved from row 4 to row 3
-BoardModel.ts:349   findLowestPosition: block 24, current row 4, width 1
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 4: gridValue=null, blockId=24
-BoardModel.ts:376     Can place at row 3, targetRow updated to 3
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 4: gridValue=14, blockId=24
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 24 at row 4, width 1, lowest position: 3
-BoardModel.ts:335 Block 24 moved from row 4 to row 3
-BoardModel.ts:349   findLowestPosition: block 25, current row 4, width 2
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 5: gridValue=19, blockId=25
-BoardModel.ts:369       blocked by block 19
-BoardModel.ts:378     Cannot place at row 3, stopping
-BoardModel.ts:383   Final targetRow: 4
-BoardModel.ts:327 Block 25 at row 4, width 2, lowest position: 4
-BoardModel.ts:349   findLowestPosition: block 26, current row 4, width 1
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 7: gridValue=null, blockId=26
-BoardModel.ts:376     Can place at row 3, targetRow updated to 3
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 7: gridValue=null, blockId=26
-BoardModel.ts:376     Can place at row 2, targetRow updated to 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 7: gridValue=null, blockId=26
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 7: gridValue=10, blockId=26
-BoardModel.ts:369       blocked by block 10
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 26 at row 4, width 1, lowest position: 1
-BoardModel.ts:335 Block 26 moved from row 4 to row 1
-BoardModel.ts:349   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 2, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 2 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 3, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 3 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 4, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 4 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 10, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 10 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 7, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 2: gridValue=2, blockId=7
-BoardModel.ts:369       blocked by block 2
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 7 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 8, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 3: gridValue=3, blockId=8
-BoardModel.ts:369       blocked by block 3
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 8 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 9, current row 1, width 3
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 4: gridValue=4, blockId=9
-BoardModel.ts:369       blocked by block 4
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 9 at row 1, width 3, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 11, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 0: gridValue=1, blockId=11
-BoardModel.ts:369       blocked by block 1
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 11 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 12, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 1: gridValue=2, blockId=12
-BoardModel.ts:369       blocked by block 2
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 12 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 16, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 8: gridValue=10, blockId=16
-BoardModel.ts:369       blocked by block 10
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 16 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 26, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 7: gridValue=10, blockId=26
-BoardModel.ts:369       blocked by block 10
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 26 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 13, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 2: gridValue=7, blockId=13
-BoardModel.ts:369       blocked by block 7
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 13 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 14, current row 2, width 3
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 3: gridValue=8, blockId=14
-BoardModel.ts:369       blocked by block 8
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 14 at row 2, width 3, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 15, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 6: gridValue=9, blockId=15
-BoardModel.ts:369       blocked by block 9
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 15 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 17, current row 2, width 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 0: gridValue=11, blockId=17
-BoardModel.ts:369       blocked by block 11
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 17 at row 2, width 2, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 21, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 8: gridValue=16, blockId=21
-BoardModel.ts:369       blocked by block 16
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 21 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 18, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 2: gridValue=13, blockId=18
-BoardModel.ts:369       blocked by block 13
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 18 at row 3, width 1, lowest position: 3
-BoardModel.ts:349   findLowestPosition: block 19, current row 3, width 2
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 5: gridValue=14, blockId=19
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 19 at row 3, width 2, lowest position: 3
-BoardModel.ts:349   findLowestPosition: block 23, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 3: gridValue=14, blockId=23
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 23 at row 3, width 1, lowest position: 3
-BoardModel.ts:349   findLowestPosition: block 24, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 4: gridValue=14, blockId=24
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 24 at row 3, width 1, lowest position: 3
-BoardModel.ts:349   findLowestPosition: block 22, current row 4, width 3
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 0: gridValue=null, blockId=22
-BoardModel.ts:366       col 1: gridValue=null, blockId=22
-BoardModel.ts:366       col 2: gridValue=18, blockId=22
-BoardModel.ts:369       blocked by block 18
-BoardModel.ts:378     Cannot place at row 3, stopping
-BoardModel.ts:383   Final targetRow: 4
-BoardModel.ts:327 Block 22 at row 4, width 3, lowest position: 4
-BoardModel.ts:349   findLowestPosition: block 25, current row 4, width 2
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 5: gridValue=19, blockId=25
-BoardModel.ts:369       blocked by block 19
-BoardModel.ts:378     Cannot place at row 3, stopping
-BoardModel.ts:383   Final targetRow: 4
-BoardModel.ts:327 Block 25 at row 4, width 2, lowest position: 4
-BoardModel.ts:340 Grid after gravity:
-BoardModel.ts:341 1 2 2 1 2 2 . 2 2 
-1 1 1 1 3 3 3 1 1 
-2 2 1 3 3 3 1 . 1 
-. . 1 1 1 2 2 . . 
-3 3 3 . . 2 2 . . 
+BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 18, current row 4, width 2
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 2: gridValue=null, blockId=18
+BoardModel.ts:392       col 3: gridValue=14, blockId=18
+BoardModel.ts:395       blocked by block 14
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 18 at row 4, width 2, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 19, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 4: gridValue=null, blockId=19
+BoardModel.ts:402     Can place at row 3, targetRow updated to 3
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 4: gridValue=null, blockId=19
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 4: gridValue=6, blockId=19
+BoardModel.ts:395       blocked by block 6
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 19 at row 4, width 1, lowest position: 2
+BoardModel.ts:361 Block 19 moved from row 4 to row 2
+BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 21, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 7: gridValue=null, blockId=21
+BoardModel.ts:402     Can place at row 3, targetRow updated to 3
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 7: gridValue=10, blockId=21
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 21 at row 4, width 1, lowest position: 3
+BoardModel.ts:361 Block 21 moved from row 4 to row 3
+BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 0: gridValue=9, blockId=12
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 1: gridValue=9, blockId=13
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 14, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 3: gridValue=null, blockId=14
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 3: gridValue=null, blockId=14
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 3: gridValue=2, blockId=14
+BoardModel.ts:395       blocked by block 2
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 14 at row 3, width 1, lowest position: 1
+BoardModel.ts:361 Block 14 moved from row 3 to row 1
+BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 5: gridValue=10, blockId=15
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 16, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 8: gridValue=11, blockId=16
+BoardModel.ts:395       blocked by block 11
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 16 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=5, blockId=9
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 5: gridValue=null, blockId=10
+BoardModel.ts:392       col 6: gridValue=null, blockId=10
+BoardModel.ts:392       col 7: gridValue=7, blockId=10
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 11, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 8: gridValue=8, blockId=11
+BoardModel.ts:395       blocked by block 8
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 11 at row 2, width 1, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=1, blockId=5
+BoardModel.ts:395       blocked by block 1
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 4: gridValue=3, blockId=6
+BoardModel.ts:395       blocked by block 3
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=4, blockId=7
+BoardModel.ts:395       blocked by block 4
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 8, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 8: gridValue=null, blockId=8
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 8 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 8 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 18, current row 4, width 2
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 2: gridValue=null, blockId=18
+BoardModel.ts:392       col 3: gridValue=null, blockId=18
+BoardModel.ts:402     Can place at row 3, targetRow updated to 3
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 2: gridValue=null, blockId=18
+BoardModel.ts:392       col 3: gridValue=null, blockId=18
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 2: gridValue=5, blockId=18
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 18 at row 4, width 2, lowest position: 2
+BoardModel.ts:361 Block 18 moved from row 4 to row 2
+BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 0: gridValue=9, blockId=12
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 1: gridValue=9, blockId=13
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 5: gridValue=10, blockId=15
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 16, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 8: gridValue=11, blockId=16
+BoardModel.ts:395       blocked by block 11
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 16 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 7: gridValue=10, blockId=21
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=5, blockId=9
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 5: gridValue=null, blockId=10
+BoardModel.ts:392       col 6: gridValue=null, blockId=10
+BoardModel.ts:392       col 7: gridValue=7, blockId=10
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 11, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 8: gridValue=null, blockId=11
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 8: gridValue=8, blockId=11
+BoardModel.ts:395       blocked by block 8
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 11 at row 2, width 1, lowest position: 1
+BoardModel.ts:361 Block 11 moved from row 2 to row 1
+BoardModel.ts:375   findLowestPosition: block 19, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 4: gridValue=6, blockId=19
+BoardModel.ts:395       blocked by block 6
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 19 at row 2, width 1, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=1, blockId=5
+BoardModel.ts:395       blocked by block 1
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 4: gridValue=3, blockId=6
+BoardModel.ts:395       blocked by block 3
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=4, blockId=7
+BoardModel.ts:395       blocked by block 4
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 3: gridValue=2, blockId=14
+BoardModel.ts:395       blocked by block 2
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 8, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 8 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 0: gridValue=9, blockId=12
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 1: gridValue=9, blockId=13
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 5: gridValue=10, blockId=15
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 16, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 8: gridValue=null, blockId=16
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 8: gridValue=11, blockId=16
+BoardModel.ts:395       blocked by block 11
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 16 at row 3, width 1, lowest position: 2
+BoardModel.ts:361 Block 16 moved from row 3 to row 2
+BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 7: gridValue=10, blockId=21
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=5, blockId=9
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 5: gridValue=null, blockId=10
+BoardModel.ts:392       col 6: gridValue=null, blockId=10
+BoardModel.ts:392       col 7: gridValue=7, blockId=10
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 19, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 4: gridValue=6, blockId=19
+BoardModel.ts:395       blocked by block 6
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 19 at row 2, width 1, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 18, current row 2, width 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 2: gridValue=5, blockId=18
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 18 at row 2, width 2, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=1, blockId=5
+BoardModel.ts:395       blocked by block 1
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 4: gridValue=3, blockId=6
+BoardModel.ts:395       blocked by block 3
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=4, blockId=7
+BoardModel.ts:395       blocked by block 4
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 3: gridValue=2, blockId=14
+BoardModel.ts:395       blocked by block 2
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 11, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 8: gridValue=8, blockId=11
+BoardModel.ts:395       blocked by block 8
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 11 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 8, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 8 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 0: gridValue=9, blockId=12
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 1: gridValue=9, blockId=13
+BoardModel.ts:395       blocked by block 9
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 5: gridValue=10, blockId=15
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 7: gridValue=10, blockId=21
+BoardModel.ts:395       blocked by block 10
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 3
+BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=5, blockId=9
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 5: gridValue=null, blockId=10
+BoardModel.ts:392       col 6: gridValue=null, blockId=10
+BoardModel.ts:392       col 7: gridValue=7, blockId=10
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 19, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 4: gridValue=6, blockId=19
+BoardModel.ts:395       blocked by block 6
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 19 at row 2, width 1, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 18, current row 2, width 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 2: gridValue=5, blockId=18
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 18 at row 2, width 2, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 16, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 8: gridValue=11, blockId=16
+BoardModel.ts:395       blocked by block 11
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 16 at row 2, width 1, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=1, blockId=5
+BoardModel.ts:395       blocked by block 1
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 4: gridValue=3, blockId=6
+BoardModel.ts:395       blocked by block 3
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=4, blockId=7
+BoardModel.ts:395       blocked by block 4
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 3: gridValue=2, blockId=14
+BoardModel.ts:395       blocked by block 2
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 11, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 8: gridValue=8, blockId=11
+BoardModel.ts:395       blocked by block 8
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 11 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 8, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 8 at row 0, width 1, lowest position: 0
+BoardModel.ts:366 Grid after gravity:
+BoardModel.ts:367 1 3 3 3 3 3 3 1 1 
+3 3 3 1 1 . . 1 1 
+2 2 2 2 1 3 3 3 1 
+1 1 . . . 2 2 1 . 
+1 . . . . . 1 . . 
 . . . . . . . . . 
 . . . . . . . . . 
 . . . . . . . . . 
@@ -998,13 +615,15 @@ BoardModel.ts:341 1 2 2 1 2 2 . 2 2
 . . . . . . . . . 
 . . . . . . . . . 
 
-BoardModel.ts:308 === Applying Gravity (v2.0 - row 0 is bottom) ===
-BoardModel.ts:313 Grid before gravity:
-BoardModel.ts:314 1 2 2 1 2 2 . 2 2 
+BoardModel.ts:82 === rebuildGrid called ===
+BoardModel.ts:83 Total blocks: 21
+BoardModel.ts:334 === Applying Gravity (v2.0 - row 0 is bottom) ===
+BoardModel.ts:339 Grid before gravity:
+BoardModel.ts:340 . . . . . . . . . 
+3 3 3 1 1 . . 1 1 
 . . . . . . . . . 
-2 2 1 3 3 3 1 . 1 
-. . 1 1 1 2 2 . . 
-3 3 3 . . 2 2 . . 
+1 1 . . . 2 2 1 . 
+1 . . . . . 1 . . 
 . . . . . . . . . 
 . . . . . . . . . 
 . . . . . . . . . 
@@ -1012,245 +631,300 @@ BoardModel.ts:314 1 2 2 1 2 2 . 2 2
 . . . . . . . . . 
 . . . . . . . . . 
 
-BoardModel.ts:349   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 2, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 2 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 3, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 3 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 4, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 4 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 10, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 10 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 13, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 2: gridValue=null, blockId=13
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 2: gridValue=2, blockId=13
-BoardModel.ts:369       blocked by block 2
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 13 at row 2, width 1, lowest position: 1
-BoardModel.ts:335 Block 13 moved from row 2 to row 1
-BoardModel.ts:349   findLowestPosition: block 14, current row 2, width 3
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 3: gridValue=null, blockId=14
-BoardModel.ts:366       col 4: gridValue=null, blockId=14
-BoardModel.ts:366       col 5: gridValue=null, blockId=14
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 3: gridValue=3, blockId=14
-BoardModel.ts:369       blocked by block 3
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 14 at row 2, width 3, lowest position: 1
-BoardModel.ts:335 Block 14 moved from row 2 to row 1
-BoardModel.ts:349   findLowestPosition: block 15, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 6: gridValue=null, blockId=15
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 6: gridValue=null, blockId=15
-BoardModel.ts:376     Can place at row 0, targetRow updated to 0
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 15 at row 2, width 1, lowest position: 0
-BoardModel.ts:335 Block 15 moved from row 2 to row 0
-BoardModel.ts:349   findLowestPosition: block 17, current row 2, width 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 0: gridValue=null, blockId=17
-BoardModel.ts:366       col 1: gridValue=null, blockId=17
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 0: gridValue=1, blockId=17
-BoardModel.ts:369       blocked by block 1
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 17 at row 2, width 2, lowest position: 1
-BoardModel.ts:335 Block 17 moved from row 2 to row 1
-BoardModel.ts:349   findLowestPosition: block 21, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 8: gridValue=null, blockId=21
-BoardModel.ts:376     Can place at row 1, targetRow updated to 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 8: gridValue=10, blockId=21
-BoardModel.ts:369       blocked by block 10
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 21 at row 2, width 1, lowest position: 1
-BoardModel.ts:335 Block 21 moved from row 2 to row 1
-BoardModel.ts:349   findLowestPosition: block 18, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 2: gridValue=null, blockId=18
-BoardModel.ts:376     Can place at row 2, targetRow updated to 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 2: gridValue=13, blockId=18
-BoardModel.ts:369       blocked by block 13
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 18 at row 3, width 1, lowest position: 2
-BoardModel.ts:335 Block 18 moved from row 3 to row 2
-BoardModel.ts:349   findLowestPosition: block 19, current row 3, width 2
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 5: gridValue=null, blockId=19
-BoardModel.ts:366       col 6: gridValue=null, blockId=19
-BoardModel.ts:376     Can place at row 2, targetRow updated to 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 5: gridValue=14, blockId=19
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 19 at row 3, width 2, lowest position: 2
-BoardModel.ts:335 Block 19 moved from row 3 to row 2
-BoardModel.ts:349   findLowestPosition: block 23, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 3: gridValue=null, blockId=23
-BoardModel.ts:376     Can place at row 2, targetRow updated to 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 3: gridValue=14, blockId=23
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 23 at row 3, width 1, lowest position: 2
-BoardModel.ts:335 Block 23 moved from row 3 to row 2
-BoardModel.ts:349   findLowestPosition: block 24, current row 3, width 1
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 4: gridValue=null, blockId=24
-BoardModel.ts:376     Can place at row 2, targetRow updated to 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 4: gridValue=14, blockId=24
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 24 at row 3, width 1, lowest position: 2
-BoardModel.ts:335 Block 24 moved from row 3 to row 2
-BoardModel.ts:349   findLowestPosition: block 22, current row 4, width 3
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 0: gridValue=null, blockId=22
-BoardModel.ts:366       col 1: gridValue=null, blockId=22
-BoardModel.ts:366       col 2: gridValue=null, blockId=22
-BoardModel.ts:376     Can place at row 3, targetRow updated to 3
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 0: gridValue=null, blockId=22
-BoardModel.ts:366       col 1: gridValue=null, blockId=22
-BoardModel.ts:366       col 2: gridValue=18, blockId=22
-BoardModel.ts:369       blocked by block 18
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 22 at row 4, width 3, lowest position: 3
-BoardModel.ts:335 Block 22 moved from row 4 to row 3
-BoardModel.ts:349   findLowestPosition: block 25, current row 4, width 2
-BoardModel.ts:355     Checking row 3:
-BoardModel.ts:366       col 5: gridValue=null, blockId=25
-BoardModel.ts:366       col 6: gridValue=null, blockId=25
-BoardModel.ts:376     Can place at row 3, targetRow updated to 3
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 5: gridValue=19, blockId=25
-BoardModel.ts:369       blocked by block 19
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 25 at row 4, width 2, lowest position: 3
-BoardModel.ts:335 Block 25 moved from row 4 to row 3
-BoardModel.ts:349   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 2, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 2 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 3, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 3 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 4, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 4 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 10, current row 0, width 2
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 10 at row 0, width 2, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 15, current row 0, width 1
-BoardModel.ts:383   Final targetRow: 0
-BoardModel.ts:327 Block 15 at row 0, width 1, lowest position: 0
-BoardModel.ts:349   findLowestPosition: block 13, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 2: gridValue=2, blockId=13
-BoardModel.ts:369       blocked by block 2
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 13 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 14, current row 1, width 3
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 3: gridValue=3, blockId=14
-BoardModel.ts:369       blocked by block 3
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 14 at row 1, width 3, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 17, current row 1, width 2
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 0: gridValue=1, blockId=17
-BoardModel.ts:369       blocked by block 1
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 17 at row 1, width 2, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 21, current row 1, width 1
-BoardModel.ts:355     Checking row 0:
-BoardModel.ts:366       col 8: gridValue=10, blockId=21
-BoardModel.ts:369       blocked by block 10
-BoardModel.ts:378     Cannot place at row 0, stopping
-BoardModel.ts:383   Final targetRow: 1
-BoardModel.ts:327 Block 21 at row 1, width 1, lowest position: 1
-BoardModel.ts:349   findLowestPosition: block 18, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 2: gridValue=13, blockId=18
-BoardModel.ts:369       blocked by block 13
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 18 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 19, current row 2, width 2
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 5: gridValue=14, blockId=19
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 19 at row 2, width 2, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 23, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 3: gridValue=14, blockId=23
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 23 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 24, current row 2, width 1
-BoardModel.ts:355     Checking row 1:
-BoardModel.ts:366       col 4: gridValue=14, blockId=24
-BoardModel.ts:369       blocked by block 14
-BoardModel.ts:378     Cannot place at row 1, stopping
-BoardModel.ts:383   Final targetRow: 2
-BoardModel.ts:327 Block 24 at row 2, width 1, lowest position: 2
-BoardModel.ts:349   findLowestPosition: block 22, current row 3, width 3
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 0: gridValue=null, blockId=22
-BoardModel.ts:366       col 1: gridValue=null, blockId=22
-BoardModel.ts:366       col 2: gridValue=18, blockId=22
-BoardModel.ts:369       blocked by block 18
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 22 at row 3, width 3, lowest position: 3
-BoardModel.ts:349   findLowestPosition: block 25, current row 3, width 2
-BoardModel.ts:355     Checking row 2:
-BoardModel.ts:366       col 5: gridValue=19, blockId=25
-BoardModel.ts:369       blocked by block 19
-BoardModel.ts:378     Cannot place at row 2, stopping
-BoardModel.ts:383   Final targetRow: 3
-BoardModel.ts:327 Block 25 at row 3, width 2, lowest position: 3
-BoardModel.ts:340 Grid after gravity:
-BoardModel.ts:341 1 2 2 1 2 2 1 2 2 
-2 2 1 3 3 3 . . 1 
-. . 1 1 1 2 2 . . 
-3 3 3 . . 2 2 . . 
+BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 3, stopping
+BoardModel.ts:409   Final targetRow: 4
+BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
+BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 0: gridValue=null, blockId=12
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=5, blockId=12
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 2
+BoardModel.ts:361 Block 12 moved from row 3 to row 2
+BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 1: gridValue=null, blockId=13
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 1: gridValue=5, blockId=13
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 2
+BoardModel.ts:361 Block 13 moved from row 3 to row 2
+BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 5: gridValue=null, blockId=15
+BoardModel.ts:392       col 6: gridValue=null, blockId=15
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 5: gridValue=null, blockId=15
+BoardModel.ts:392       col 6: gridValue=null, blockId=15
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 5: gridValue=null, blockId=15
+BoardModel.ts:392       col 6: gridValue=null, blockId=15
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 0
+BoardModel.ts:361 Block 15 moved from row 3 to row 0
+BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 7: gridValue=null, blockId=21
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 7: gridValue=7, blockId=21
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 2
+BoardModel.ts:361 Block 21 moved from row 3 to row 2
+BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=null, blockId=5
+BoardModel.ts:392       col 1: gridValue=null, blockId=5
+BoardModel.ts:392       col 2: gridValue=null, blockId=5
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 0
+BoardModel.ts:361 Block 5 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 4: gridValue=null, blockId=6
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 6 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=null, blockId=7
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 7 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 3: gridValue=null, blockId=14
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 14 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 11, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 8: gridValue=null, blockId=11
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 11 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 11 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 0: gridValue=null, blockId=17
+BoardModel.ts:402     Can place at row 3, targetRow updated to 3
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 2, stopping
+BoardModel.ts:409   Final targetRow: 3
+BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 3
+BoardModel.ts:361 Block 17 moved from row 4 to row 3
+BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
+BoardModel.ts:381     Checking row 3:
+BoardModel.ts:392       col 6: gridValue=null, blockId=20
+BoardModel.ts:402     Can place at row 3, targetRow updated to 3
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 6: gridValue=null, blockId=20
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 6: gridValue=null, blockId=20
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 1
+BoardModel.ts:361 Block 20 moved from row 4 to row 1
+BoardModel.ts:375   findLowestPosition: block 12, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=null, blockId=12
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=5, blockId=12
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 12 at row 2, width 1, lowest position: 1
+BoardModel.ts:361 Block 12 moved from row 2 to row 1
+BoardModel.ts:375   findLowestPosition: block 13, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 1: gridValue=null, blockId=13
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 1: gridValue=5, blockId=13
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 13 at row 2, width 1, lowest position: 1
+BoardModel.ts:361 Block 13 moved from row 2 to row 1
+BoardModel.ts:375   findLowestPosition: block 21, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 7: gridValue=null, blockId=21
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=7, blockId=21
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 21 at row 2, width 1, lowest position: 1
+BoardModel.ts:361 Block 21 moved from row 2 to row 1
+BoardModel.ts:375   findLowestPosition: block 15, current row 0, width 2
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 15 at row 0, width 2, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 5, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 5 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 6, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 6 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 7, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 7 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 14, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 14 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 11, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 11 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 3, width 1
+BoardModel.ts:381     Checking row 2:
+BoardModel.ts:392       col 0: gridValue=null, blockId=17
+BoardModel.ts:402     Can place at row 2, targetRow updated to 2
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 17 at row 3, width 1, lowest position: 2
+BoardModel.ts:361 Block 17 moved from row 3 to row 2
+BoardModel.ts:375   findLowestPosition: block 20, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 20 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 12, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=5, blockId=12
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 12 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 13, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 1: gridValue=5, blockId=13
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 13 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 21, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=7, blockId=21
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 21 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 15, current row 0, width 2
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 15 at row 0, width 2, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 5, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 5 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 6, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 6 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 7, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 7 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 14, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 14 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 11, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 11 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 17 at row 2, width 1, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 20, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 6: gridValue=15, blockId=20
+BoardModel.ts:395       blocked by block 15
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 20 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 12, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=5, blockId=12
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 12 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 13, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 1: gridValue=5, blockId=13
+BoardModel.ts:395       blocked by block 5
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 13 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 21, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=7, blockId=21
+BoardModel.ts:395       blocked by block 7
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 21 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 15, current row 0, width 2
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 15 at row 0, width 2, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 5, current row 0, width 3
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 5 at row 0, width 3, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 6, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 6 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 7, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 7 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 14, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 14 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 11, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 11 at row 0, width 1, lowest position: 0
+BoardModel.ts:366 Grid after gravity:
+BoardModel.ts:367 3 3 3 1 1 2 2 1 1 
+1 1 . . . . 1 1 . 
+1 . . . . . . . . 
+. . . . . . . . . 
 . . . . . . . . . 
 . . . . . . . . . 
 . . . . . . . . . 
@@ -1259,1084 +933,134 @@ BoardModel.ts:341 1 2 2 1 2 2 1 2 2
 . . . . . . . . . 
 . . . . . . . . . 
 
-BoardModel.ts:237 PlaceBlock error: position (1, 0) already occupied by block 17
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (1, 1) already occupied by block 17
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (1, 3) already occupied by block 14
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (1, 4) already occupied by block 14
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (1, 8) already occupied by block 21
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (2, 2) already occupied by block 18
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (2, 3) already occupied by block 23
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (3, 2) already occupied by block 22
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-BoardModel.ts:237 PlaceBlock error: position (3, 5) already occupied by block 25
-placeBlock @ BoardModel.ts:237
-pushNewRow @ BoardModel.ts:552
-(anonymous) @ GameManager.ts:584
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-Promise.then
-asyncGeneratorStep @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:6
-_next @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-(anonymous) @ 6edb8eec1729b53e1e90c52a0f33179ca8be6433.js:8
-processAfterMove @ GameManager.ts:572
-onTouchEnd @ GameManager.ts:562
-emit @ callbacks-invoker.ts:350
-dispatchEvent @ node-event-processor.ts:291
-dispatchEvent @ node.ts:1334
-_handleTouchEnd @ node-event-processor.ts:686
-_handleEventTouch @ node-event-processor.ts:626
-dispatchEventTouch @ pointer-event-dispatcher.ts:157
-dispatchEvent @ pointer-event-dispatcher.ts:72
-_emitEvent @ input.ts:350
-_dispatchEventTouch @ input.ts:499
-_simulateEventTouch @ input.ts:334
-(anonymous) @ input.ts:396
-emit @ callbacks-invoker.ts:352
-(anonymous) @ mouse-input.ts:175
-GameManager.ts:844 === renderPreviewRow called ===
-GameManager.ts:845 previewBlocksLayer: exists
-GameManager.ts:849 PreviewBlocksLayer position: Vec3 {x: 0, y: 0, z: 0}
-GameManager.ts:850 PreviewBlocksLayer active: true
-GameManager.ts:853 PreviewBlocksLayer size: Size {width: 657, height: 40}
-GameManager.ts:858 Next row blocks: (6) [1, 2, 1, null, 1, 4]
-GameManager.ts:878 Creating preview block 0: width=1, col=0
-GameManager.ts:895 Preview block 0: position=(-292, 0), size=(73, 37)
-GameManager.ts:878 Creating preview block 1: width=2, col=1
-GameManager.ts:895 Preview block 1: position=(-182.5, 0), size=(146, 37)
-GameManager.ts:878 Creating preview block 2: width=1, col=3
-GameManager.ts:895 Preview block 2: position=(-73, 0), size=(73, 37)
-GameManager.ts:878 Creating preview block 4: width=1, col=5
-GameManager.ts:895 Preview block 4: position=(73, 0), size=(73, 37)
-GameManager.ts:878 Creating preview block 5: width=4, col=6
-GameManager.ts:895 Preview block 5: position=(255.5, 0), size=(292, 37)
-GameManager.ts:901 Total preview blocks created: 6
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 526, y: 248}
-GameManager.ts:464 Block nodes count: 16
-GameManager.ts:473 Block 19 touched!
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 438, y: 256}
-GameManager.ts:464 Block nodes count: 16
-GameManager.ts:473 Block 19 touched!
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 470, y: 368}
-GameManager.ts:464 Block nodes count: 16
-GameManager.ts:473 Block 25 touched!
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 5}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 5}
-GameManager.ts:528 New column: 4
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 4
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 8}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 8}
-GameManager.ts:528 New column: 7
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 7
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 7}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 7}
-GameManager.ts:528 New column: 6
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 6
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 5, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 5, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 4, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 4, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:445 worldToGridPosition: {worldPos: Vec3, localPos: Vec3, row: 3, col: 6}
-GameManager.ts:526 === Touch Move ===
-GameManager.ts:527 Grid position: {row: 3, col: 6}
-GameManager.ts:528 New column: 5
-GameManager.ts:529 Current column: 5
-GameManager.ts:530 Can move: true
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 494, y: 312}
-GameManager.ts:464 Block nodes count: 16
-GameManager.ts:501 No block touched
-GameManager.ts:462 === Touch Start ===
-GameManager.ts:463 Screen Position: Vec2 {x: 486, y: 250}
-GameManager.ts:464 Block nodes count: 16
-GameManager.ts:473 Block 19 touched!
+BoardModel.ts:82 === rebuildGrid called ===
+BoardModel.ts:83 Total blocks: 11
+BoardModel.ts:334 === Applying Gravity (v2.0 - row 0 is bottom) ===
+BoardModel.ts:339 Grid before gravity:
+BoardModel.ts:340 . . . . . . . . . 
+1 1 . . . . 1 1 . 
+1 . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+
+BoardModel.ts:375   findLowestPosition: block 17, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 1, stopping
+BoardModel.ts:409   Final targetRow: 2
+BoardModel.ts:353 Block 17 at row 2, width 1, lowest position: 2
+BoardModel.ts:375   findLowestPosition: block 20, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 6: gridValue=null, blockId=20
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 20 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 20 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 12, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=null, blockId=12
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 12 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 12 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 13, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 1: gridValue=null, blockId=13
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 13 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 13 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 21, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 7: gridValue=null, blockId=21
+BoardModel.ts:402     Can place at row 0, targetRow updated to 0
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 21 at row 1, width 1, lowest position: 0
+BoardModel.ts:361 Block 21 moved from row 1 to row 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 2, width 1
+BoardModel.ts:381     Checking row 1:
+BoardModel.ts:392       col 0: gridValue=null, blockId=17
+BoardModel.ts:402     Can place at row 1, targetRow updated to 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 17 at row 2, width 1, lowest position: 1
+BoardModel.ts:361 Block 17 moved from row 2 to row 1
+BoardModel.ts:375   findLowestPosition: block 20, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 20 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 12, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 12 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 13, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 13 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 21, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 21 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 17, current row 1, width 1
+BoardModel.ts:381     Checking row 0:
+BoardModel.ts:392       col 0: gridValue=12, blockId=17
+BoardModel.ts:395       blocked by block 12
+BoardModel.ts:404     Cannot place at row 0, stopping
+BoardModel.ts:409   Final targetRow: 1
+BoardModel.ts:353 Block 17 at row 1, width 1, lowest position: 1
+BoardModel.ts:375   findLowestPosition: block 20, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 20 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 12, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 12 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 13, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 13 at row 0, width 1, lowest position: 0
+BoardModel.ts:375   findLowestPosition: block 21, current row 0, width 1
+BoardModel.ts:409   Final targetRow: 0
+BoardModel.ts:353 Block 21 at row 0, width 1, lowest position: 0
+BoardModel.ts:366 Grid after gravity:
+BoardModel.ts:367 1 1 . . . . 1 1 . 
+1 . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+. . . . . . . . . 
+
+BoardModel.ts:82 === rebuildGrid called ===
+BoardModel.ts:83 Total blocks: 5
+BoardModel.ts:82 === rebuildGrid called ===
+BoardModel.ts:83 Total blocks: 9
+GameManager.ts:850 === renderPreviewRow called ===
+GameManager.ts:851 previewBlocksLayer: exists
+GameManager.ts:855 PreviewBlocksLayer position: Vec3
+GameManager.ts:856 PreviewBlocksLayer active: true
+GameManager.ts:859 PreviewBlocksLayer size: Size
+GameManager.ts:864 Next row blocks: Array(7)
+GameManager.ts:884 Creating preview block 0: width=2, col=0
+GameManager.ts:901 Preview block 0: position=(-255.5, 0), size=(146, 37)
+GameManager.ts:884 Creating preview block 1: width=1, col=2
+GameManager.ts:901 Preview block 1: position=(-146, 0), size=(73, 37)
+GameManager.ts:884 Creating preview block 3: width=2, col=4
+GameManager.ts:901 Preview block 3: position=(36.5, 0), size=(146, 37)
+GameManager.ts:884 Creating preview block 5: width=1, col=7
+GameManager.ts:901 Preview block 5: position=(219, 0), size=(73, 37)
+GameManager.ts:884 Creating preview block 6: width=1, col=8
+GameManager.ts:901 Preview block 6: position=(292, 0), size=(73, 37)
+GameManager.ts:907 Total preview blocks created: 7
+GameManager.ts:460 === Touch Start ===
+GameManager.ts:461 Screen Position: Vec2
+GameManager.ts:462 Block nodes count: 5
+GameManager.ts:499 No block touched
