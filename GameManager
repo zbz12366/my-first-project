@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite, SpriteFrame, Color, Label, tween, UIOpacity, EventTouch, Vec2, ProgressBar, Graphics } from 'cc';
+import { _decorator, Component, Node, Prefab, instantiate, UITransform, Vec3, Sprite, SpriteFrame, Color, Label, tween, UIOpacity, EventTouch, Vec2, ProgressBar, Graphics, Rect, Canvas } from 'cc';
 import { BoardModel, BlockData, BlockWidth } from './BoardModel';
 
 const { ccclass, property } = _decorator;
@@ -11,22 +11,16 @@ const BLOCK_SKINS: Record<BlockWidth, string> = {
     [BlockWidth.FIVE]: 'block_5x1_crocodile'
 };
 
-const GRID_CENTER_X = 360;
-const GRID_CENTER_Y = 480;
-const GRID_WIDTH = 670;
-const GRID_HEIGHT = 817;
 const GRID_COLS = 9;
 const GRID_ROWS = 11;
-const CELL_WIDTH = GRID_WIDTH / GRID_COLS;
-const CELL_HEIGHT = GRID_HEIGHT / GRID_ROWS;
-const PREVIEW_WIDTH = 657;
-const PREVIEW_HEIGHT = 40;
-const BLOCK_GAP = 0;
 const ANIMATION_DURATION = 0.3;
 const SCORE_DISPLAY_DURATION = 1.0;
 
 @ccclass('GameManager')
 export class GameManager extends Component {
+    @property(Canvas)
+    private canvas: Canvas | null = null;
+
     @property(Node)
     private homePage: Node | null = null;
 
@@ -38,6 +32,9 @@ export class GameManager extends Component {
 
     @property(Node)
     private gridBg: Node | null = null;
+
+    @property(Node)
+    private gameGridRoot: Node | null = null;
 
     @property(Node)
     private blocksLayer: Node | null = null;
@@ -106,6 +103,11 @@ export class GameManager extends Component {
     private isProcessing: boolean = false;
     private shrinkModeActive: boolean = false;
 
+    private gridWidth: number = 0;
+    private gridHeight: number = 0;
+    private cellWidth: number = 0;
+    private cellHeight: number = 0;
+
     constructor() {
         super();
         this.boardModel = new BoardModel();
@@ -114,10 +116,32 @@ export class GameManager extends Component {
 
     protected onLoad(): void {
         this.initSpriteFrames();
-        this.setupGridBg();
+        this.initGridDimensions();
         this.setupTopUI();
         this.setupEventListeners();
         this.showHomePage();
+    }
+
+    private initGridDimensions(): void {
+        // 使用 blocksLayer 作为网格容器获取尺寸（因为滑块添加到这里）
+        const targetNode = this.blocksLayer;
+        if (targetNode) {
+            const uit = targetNode.getComponent(UITransform);
+            if (uit) {
+                // 动态获取容器尺寸，如果为0则使用默认值
+                this.gridWidth = uit.contentSize.width || 657;
+                this.gridHeight = uit.contentSize.height || 803;
+                this.cellWidth = this.gridWidth / GRID_COLS;
+                this.cellHeight = this.gridHeight / GRID_ROWS;
+                
+                console.log('=== Grid Dimensions ===');
+                console.log('Source: blocksLayer');
+                console.log('Grid Width:', this.gridWidth);
+                console.log('Grid Height:', this.gridHeight);
+                console.log('Cell Width:', this.cellWidth);
+                console.log('Cell Height:', this.cellHeight);
+            }
+        }
     }
 
     private setupTopUI(): void {
@@ -174,27 +198,14 @@ export class GameManager extends Component {
         }
     }
 
-    private setupGridBg(): void {
-        if (this.blocksLayer) {
-            const uit = this.blocksLayer.getComponent(UITransform);
-            if (uit) {
-                uit.setAnchorPoint(0.5, 0.5);
-                uit.setContentSize(GRID_WIDTH, GRID_HEIGHT);
-            }
-            this.blocksLayer.setPosition(new Vec3(GRID_CENTER_X, GRID_CENTER_Y, 0));
-            
-            console.log('=== BlocksLayer Setup ===');
-            console.log('Position:', this.blocksLayer.position);
-            console.log('Size:', uit?.contentSize);
-        }
-        
+    private setupPreviewLayer(): void {
         if (this.previewBlocksLayer) {
             let uit = this.previewBlocksLayer.getComponent(UITransform);
             if (!uit) {
                 uit = this.previewBlocksLayer.addComponent(UITransform);
             }
             uit.setAnchorPoint(0.5, 0.5);
-            uit.setContentSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+            uit.setContentSize(this.gridWidth, 40);
             
             this.previewBlocksLayer.setPosition(new Vec3(0, 0, 0));
             
@@ -209,7 +220,7 @@ export class GameManager extends Component {
             }
             graphics = this.previewBlocksLayer.addComponent(Graphics);
             graphics.fillColor = new Color(100, 100, 100, 255);
-            graphics.rect(-PREVIEW_WIDTH / 2, -PREVIEW_HEIGHT / 2, PREVIEW_WIDTH, PREVIEW_HEIGHT);
+            graphics.rect(-this.gridWidth / 2, -20, this.gridWidth, 40);
             graphics.fill();
             
             this.previewBlocksLayer.active = true;
@@ -365,11 +376,13 @@ export class GameManager extends Component {
         }
         const blockNode = instantiate(this.blockPrefab);
 
-        const blockWidth = block.width * CELL_WIDTH;
-        const blockHeight = CELL_HEIGHT;
+        const blockWidth = block.width * this.cellWidth;
+        const blockHeight = this.cellHeight;
         const uit = blockNode.getComponent(UITransform);
         if (uit) {
             uit.setContentSize(blockWidth, blockHeight);
+            // 强制设置锚点为 (0.5, 0.5)
+            uit.setAnchorPoint(0.5, 0.5);
         }
 
         const skinName = BLOCK_SKINS[block.width];
@@ -384,13 +397,15 @@ export class GameManager extends Component {
             }
         }
 
-        const pos = this.gridToWorldPosition(block.row, block.col, block.width);
-        blockNode.setPosition(pos);
-        
+        // 计算目标位置（相对于父节点的本地坐标）
+        const x = -this.gridWidth / 2 + block.col * this.cellWidth + blockWidth / 2;
+        const y = -this.gridHeight / 2 + block.row * this.cellHeight + this.cellHeight / 2;
+        blockNode.setPosition(new Vec3(x, y, 0));
+
         console.log(`=== Created Block ${block.id} ===`);
         console.log(`Grid: row ${block.row}, col ${block.col}, width ${block.width}`);
-        console.log(`World position:`, pos);
-        console.log(`Local position:`, blockNode.position);
+        console.log(`Position: x=${x}, y=${y}`);
+        console.log(`Size: ${blockWidth}x${blockHeight}`);
 
         if (this.blocksLayer) {
             this.blocksLayer.addChild(blockNode);
@@ -419,30 +434,19 @@ export class GameManager extends Component {
     }
 
     private gridToWorldPosition(row: number, col: number, width: BlockWidth): Vec3 {
-        const blockWidth = width * CELL_WIDTH;
+        const blockWidth = width * this.cellWidth;
         
-        // 修改：row 0 在底部（y 值最小）， row 10 在顶部（y 值最大）
-        // row 0: y = -GRID_HEIGHT / 2 + CELL_HEIGHT / 2 (底部)
-        // row 10: y = GRID_HEIGHT / 2 - CELL_HEIGHT / 2 (顶部)
-        const x = -GRID_WIDTH / 2 + col * CELL_WIDTH + blockWidth / 2;
-        const y = -GRID_HEIGHT / 2 + row * CELL_HEIGHT + CELL_HEIGHT / 2;
+        const x = -this.gridWidth / 2 + col * this.cellWidth + blockWidth / 2;
+        const y = -this.gridHeight / 2 + row * this.cellHeight + this.cellHeight / 2;
         
         return new Vec3(x, y, 0);
     }
 
-    private worldToGridPosition(worldPos: Vec3): { row: number; col: number } {
-        let localPos = worldPos;
+    private localToGridPosition(localPos: Vec3): { row: number; col: number } {
+        const col = Math.floor((localPos.x + this.gridWidth / 2) / this.cellWidth);
+        const row = Math.floor((localPos.y + this.gridHeight / 2) / this.cellHeight);
         
-        if (this.blocksLayer) {
-            const worldPosVec3 = new Vec3(worldPos.x, worldPos.y, 0);
-            localPos = new Vec3();
-            this.blocksLayer.inverseTransformPoint(localPos, worldPosVec3);
-        }
-        
-        const col = Math.floor((localPos.x + GRID_WIDTH / 2) / CELL_WIDTH);
-        const row = Math.floor((localPos.y + GRID_HEIGHT / 2) / CELL_HEIGHT);
-        
-        console.log('worldToGridPosition:', { worldPos, localPos, row, col });
+        console.log('localToGridPosition:', { localPos, row, col });
         
         return { row, col };
     }
@@ -450,44 +454,71 @@ export class GameManager extends Component {
     private onTouchStart(event: EventTouch): void {
         if (this.isProcessing) return;
 
-        // 使用 getLocation 获取屏幕坐标
+        const targetNode = this.blocksLayer;
+        if (!targetNode) return;
+
+        // 获取屏幕坐标
         const location = event.getLocation();
-        const screenPos = new Vec3(location.x, location.y, 0);
 
         if (this.shrinkModeActive) {
-            this.handleShrinkMode(screenPos);
+            this.handleShrinkMode(new Vec3(location.x, location.y, 0));
             return;
         }
 
+        // 通过 Canvas 相机将屏幕坐标转换为世界坐标
+        const canvas = this.canvas;
+        if (!canvas) {
+            console.error('Canvas not found');
+            return;
+        }
+        
+        const camera = canvas.cameraComponent;
+        if (!camera) {
+            console.error('Camera not found');
+            return;
+        }
+        
+        // 将屏幕坐标转换为世界坐标
+        const worldPos = new Vec3();
+        camera.screenToWorld(new Vec3(location.x, location.y, 0), worldPos);
+
+        // 获取 blocksLayer 的 UITransform
+        const targetUIT = targetNode.getComponent(UITransform);
+        if (!targetUIT) return;
+        
+        // 将世界坐标转换为 blocksLayer 的本地坐标
+        const localPos = new Vec3();
+        targetUIT.convertToNodeSpaceAR(worldPos, localPos);
+
         console.log('=== Touch Start ===');
-        console.log('Screen Position:', location);
-        console.log('Block nodes count:', this.blockNodes.size);
+        console.log('Screen Location:', location);
+        console.log('World Position:', worldPos);
+        console.log('Local Position:', localPos);
 
-        for (const [blockId, blockNode] of this.blockNodes) {
-            const uit = blockNode.getComponent(UITransform);
-            if (!uit) continue;
+        // 使用 localPos 进行命中测试
+        const sortedBlocks = Array.from(this.blockNodes.entries()).sort((a, b) => {
+            const blockA = this.boardModel.getAllBlocks().find(blk => blk.id === a[0]);
+            const blockB = this.boardModel.getAllBlocks().find(blk => blk.id === b[0]);
+            return (blockB?.row || 0) - (blockA?.row || 0);
+        });
 
-            const boundingBox = uit.getBoundingBoxToWorld();
+        for (const [blockId, blockNode] of sortedBlocks) {
+            const blockUIT = blockNode.getComponent(UITransform);
+            if (!blockUIT) continue;
+
+            const boundingBox = blockUIT.getBoundingBox();
             
-            if (boundingBox.contains(new Vec2(screenPos.x, screenPos.y))) {
-                console.log(`Block ${blockId} touched!`);
-                this.selectedBlockId = blockId;
+            if (boundingBox.contains(new Vec2(localPos.x, localPos.y))) {
+                const blockData = this.boardModel.getAllBlocks().find(b => b.id === blockId);
+                console.log(`Block ${blockId} touched! row=${blockData?.row}, col=${blockData?.col}`);
                 
-                let blockData: BlockData | null = null;
-                for (const b of this.boardModel.getAllBlocks()) {
-                    if (b.id === blockId) {
-                        blockData = b;
-                        break;
-                    }
-                }
+                this.selectedBlockId = blockId;
                 
                 if (!blockData) return;
                 
                 this.selectedBlockStartCol = blockData.col;
-
                 this.isDragging = true;
                 this.dragStartPos.set(location.x, location.y);
-                
                 this.currentDragCol = blockData.col;
                 
                 this.createGhostBlock(blockId);
@@ -502,39 +533,62 @@ export class GameManager extends Component {
     }
 
     private onTouchMove(event: EventTouch): void {
-        if (!this.isDragging || this.selectedBlockId === null || this.isProcessing) return;
+        if (!this.isDragging || this.selectedBlockId === null) return;
 
+        const targetNode = this.blocksLayer;
+        if (!targetNode) return;
+
+        // 获取屏幕坐标
         const location = event.getLocation();
-        const screenPos = new Vec3(location.x, location.y, 0);
-        const gridPos = this.worldToGridPosition(screenPos);
+        
+        // 通过 Canvas 相机将屏幕坐标转换为世界坐标
+        const canvas = this.canvas;
+        if (!canvas) return;
+        
+        const camera = canvas.cameraComponent;
+        if (!camera) return;
+        
+        const worldPos = new Vec3();
+        camera.screenToWorld(new Vec3(location.x, location.y, 0), worldPos);
+        
+        // 将世界坐标转换为 blocksLayer 的本地坐标
+        const targetUIT = targetNode.getComponent(UITransform);
+        if (!targetUIT) return;
+        
+        const localPos = new Vec3();
+        targetUIT.convertToNodeSpaceAR(worldPos, localPos);
+        
+        // 计算对应的列
+        const col = Math.floor((localPos.x + this.gridWidth / 2) / this.cellWidth);
 
         const blockNode = this.blockNodes.get(this.selectedBlockId);
         if (!blockNode) return;
 
-        let blockData: BlockData | null = null;
-        for (const b of this.boardModel.getAllBlocks()) {
-            if (b.id === this.selectedBlockId) {
-                blockData = b;
-                break;
-            }
-        }
+        const blockData = this.boardModel.getAllBlocks().find(b => b.id === this.selectedBlockId);
         if (!blockData) return;
 
-        let newCol = gridPos.col - Math.floor(blockData.width / 2);
+        let newCol = col;
         newCol = Math.max(0, Math.min(newCol, BoardModel.GRID_COLS - blockData.width));
 
         console.log('=== Touch Move ===');
-        console.log('Grid position:', gridPos);
-        console.log('New column:', newCol);
+        console.log('Screen Location:', location);
+        console.log('World Position:', worldPos);
+        console.log('Local Position:', localPos);
+        console.log('Calculated col:', col, 'New column:', newCol);
         console.log('Current column:', this.currentDragCol);
-        console.log('Can move:', this.boardModel.canMoveBlock(this.selectedBlockId, newCol));
 
         if (newCol !== this.currentDragCol) {
-            if (this.boardModel.canMoveBlock(this.selectedBlockId, newCol)) {
+            const canMove = this.boardModel.canMoveBlock(this.selectedBlockId, newCol);
+            console.log('canMoveBlock result:', canMove);
+            
+            if (canMove) {
                 this.currentDragCol = newCol;
                 
-                const pos = this.gridToWorldPosition(blockData.row, newCol, blockData.width);
-                blockNode.setPosition(pos);
+                const blockWidth = blockData.width * this.cellWidth;
+                const x = -this.gridWidth / 2 + newCol * this.cellWidth + blockWidth / 2;
+                const y = -this.gridHeight / 2 + blockData.row * this.cellHeight + this.cellHeight / 2;
+                
+                blockNode.setPosition(new Vec3(x, y, 0));
                 
                 this.updateGuideBoxes(newCol);
             }
@@ -572,29 +626,55 @@ export class GameManager extends Component {
     private async processAfterMove(): Promise<void> {
         this.cleanupDragState();
 
-        await this.applyGravityWithAnimation();
-
-        const completeRows = this.boardModel.checkCompleteRows();
-        if (completeRows.length > 0) {
-            await this.removeCompleteRowsWithAnimation(completeRows);
-            await this.applyGravityWithAnimation();
-        }
-
+        // 第一阶段：新行推入（先推入预览滑块）
         if (!this.boardModel.isFrozen()) {
             const pushSuccess = this.boardModel.pushNewRow();
+            this.boardModel.rebuildGrid();
+            
             if (!pushSuccess || this.boardModel.isGameOver()) {
                 this.handleGameOver();
                 return;
             }
+            
+            // 重新渲染棋盘（显示新推入的行）
+            this.renderBoard();
         } else {
             this.boardModel.decrementFreeze();
         }
+
+        // 第二阶段：重力下落（滑块落到空位）
+        await this.applyGravityWithAnimation();
+        this.boardModel.rebuildGrid();
+
+        // 第三阶段：结算循环（消除检查 -> 消除 -> 重力下落 -> 循环）
+        await this.settlementLoop();
 
         this.renderPreviewRow();
         this.updateUI();
         this.boardModel.saveGame();
 
         this.isProcessing = false;
+    }
+
+    private async settlementLoop(): Promise<void> {
+        let hasCompleteRows = true;
+        
+        while (hasCompleteRows) {
+            const completeRows = this.boardModel.checkCompleteRows();
+            
+            if (completeRows.length > 0) {
+                // 消除满行
+                await this.removeCompleteRowsWithAnimation(completeRows);
+                
+                // 重力下落
+                await this.applyGravityWithAnimation();
+                this.boardModel.rebuildGrid();
+                
+                // 继续循环检查是否有新的满行（Combo）
+            } else {
+                hasCompleteRows = false;
+            }
+        }
     }
 
     private async applyGravityWithAnimation(): Promise<void> {
@@ -736,8 +816,8 @@ export class GameManager extends Component {
 
         this.ghostBlock = new Node('GhostBlock');
         const uit = this.ghostBlock.addComponent(UITransform);
-        const ghostWidth = blockData.width * CELL_WIDTH;
-        const ghostHeight = CELL_HEIGHT;
+        const ghostWidth = blockData.width * this.cellWidth;
+        const ghostHeight = this.cellHeight;
         uit.setContentSize(ghostWidth, ghostHeight);
 
         const sprite = this.ghostBlock.addComponent(Sprite);
@@ -783,15 +863,14 @@ export class GameManager extends Component {
     private createGuideBox(row: number, col: number, width: BlockWidth): Node {
         const guideBox = new Node('GuideBox');
         const uit = guideBox.addComponent(UITransform);
-        const boxWidth = width * CELL_WIDTH;
-        const boxHeight = GRID_HEIGHT;
+        const boxWidth = width * this.cellWidth;
+        const boxHeight = this.gridHeight;
         uit.setContentSize(boxWidth, boxHeight);
 
         const sprite = guideBox.addComponent(Sprite);
         sprite.color = new Color(100, 200, 255, 80);
 
-        // 对齐框从画板底部到顶部，y坐标为0（相对于blocksLayer中心）
-        const x = -GRID_WIDTH / 2 + col * CELL_WIDTH + boxWidth / 2;
+        const x = -this.gridWidth / 2 + col * this.cellWidth + boxWidth / 2;
         guideBox.setPosition(new Vec3(x, 0, 0));
 
         if (this.blocksLayer) {
@@ -863,7 +942,7 @@ export class GameManager extends Component {
         }
         
         // 使用预览区域的实际宽度计算单元格宽度
-        const previewCellWidth = PREVIEW_WIDTH / GRID_COLS;
+        const previewCellWidth = this.gridWidth / GRID_COLS;
         const previewBlockHeight = 37;
         
         let col = 0;
@@ -888,7 +967,7 @@ export class GameManager extends Component {
             graphics.fill();
             
             // 计算相对于 previewBlocksLayer 的本地坐标
-            const leftEdge = -PREVIEW_WIDTH / 2;
+            const leftEdge = -this.gridWidth / 2;
             const x = leftEdge + col * previewCellWidth + previewBlockWidth / 2;
             previewNode.setPosition(new Vec3(x, 0, 0));
             
@@ -973,13 +1052,13 @@ export class GameManager extends Component {
         }
     }
 
-    private handleShrinkMode(worldPos: Vec3): void {
+    private handleShrinkMode(uiPos: Vec3): void {
         for (const [blockId, blockNode] of this.blockNodes) {
             const uit = blockNode.getComponent(UITransform);
             if (!uit) continue;
 
             const boundingBox = uit.getBoundingBoxToWorld();
-            if (boundingBox.contains(new Vec2(worldPos.x, worldPos.y))) {
+            if (boundingBox.contains(new Vec2(uiPos.x, uiPos.y))) {
                 let blockData: BlockData | null = null;
                 for (const b of this.boardModel.getAllBlocks()) {
                     if (b.id === blockId) {
