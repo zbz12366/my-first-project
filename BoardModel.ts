@@ -68,6 +68,21 @@ export class BoardModel {
         return grid;
     }
     
+    public rebuildGrid(): void {
+        this.grid = this.createEmptyGrid();
+        
+        for (const block of this.blocks.values()) {
+            for (let i = 0; i < block.width; i++) {
+                if (block.col + i < BoardModel.GRID_COLS) {
+                    this.grid[block.row][block.col + i] = block.id;
+                }
+            }
+        }
+        
+        console.log('=== rebuildGrid called ===');
+        console.log('Total blocks:', this.blocks.size);
+    }
+    
     public initializeNewGame(): void {
         this.grid = this.createEmptyGrid();
         this.blocks.clear();
@@ -78,9 +93,14 @@ export class BoardModel {
         this.energyProgress = 0;
         this.nextEnergyTarget = BoardModel.INITIAL_ENERGY_TARGET;
         
+        // 先生成所有初始滑块（放在较高的位置）
         for (let row = 0; row < BoardModel.INITIAL_ROWS; row++) {
             this.generateRowBlocks(row);
         }
+        
+        // 应用重力，让滑块自然下落堆叠
+        this.applyGravity();
+        this.rebuildGrid();
         
         this.generateNextRow();
     }
@@ -145,34 +165,61 @@ export class BoardModel {
     }
     
     private generateRowBlocks(row: number): void {
+        // 首先随机选择1-3个空隙位置
+        const gapCount = Math.floor(Math.random() * 3) + 1; // 1-3个空隙
+        const gapPositions: Set<number> = new Set();
+        
+        while (gapPositions.size < gapCount) {
+            const pos = Math.floor(Math.random() * BoardModel.GRID_COLS);
+            gapPositions.add(pos);
+        }
+        
         let col = 0;
         
         while (col < BoardModel.GRID_COLS) {
+            // 如果当前位置是空隙，跳过
+            if (gapPositions.has(col)) {
+                col++;
+                continue;
+            }
+            
             const remainingCols = BoardModel.GRID_COLS - col;
-            if (remainingCols <= 0) break;
+            
+            // 计算到下一个空隙的距离
+            let nextGap = BoardModel.GRID_COLS;
+            for (const gap of gapPositions) {
+                if (gap > col && gap < nextGap) {
+                    nextGap = gap;
+                }
+            }
+            const maxAllowedWidth = nextGap - col;
+            
+            if (remainingCols <= 0 || maxAllowedWidth <= 0) {
+                col++;
+                continue;
+            }
             
             let width: BlockWidth;
-            if (remainingCols >= 5) {
+            const effectiveMax = Math.min(remainingCols, maxAllowedWidth);
+            
+            if (effectiveMax >= 5) {
                 width = this.generateRandomBlockWidth();
-            } else if (remainingCols >= 4) {
-                width = Math.random() < 0.5 ? BlockWidth.ONE : 
-                        Math.random() < 0.5 ? BlockWidth.TWO :
-                        Math.random() < 0.5 ? BlockWidth.THREE : BlockWidth.FOUR;
-            } else if (remainingCols >= 3) {
-                width = Math.random() < 0.4 ? BlockWidth.ONE : 
-                        Math.random() < 0.5 ? BlockWidth.TWO : BlockWidth.THREE;
-            } else if (remainingCols >= 2) {
+                if (width > effectiveMax) {
+                    width = effectiveMax as BlockWidth;
+                }
+            } else if (effectiveMax >= 4) {
+                width = (Math.floor(Math.random() * 4) + 1) as BlockWidth;
+            } else if (effectiveMax >= 3) {
+                width = (Math.floor(Math.random() * 3) + 1) as BlockWidth;
+            } else if (effectiveMax >= 2) {
                 width = Math.random() < 0.5 ? BlockWidth.ONE : BlockWidth.TWO;
             } else {
                 width = BlockWidth.ONE;
             }
             
-            // 确保不会超出边界
             if (col + width > BoardModel.GRID_COLS) {
-                width = BlockWidth.ONE;
-                if (col + width > BoardModel.GRID_COLS) {
-                    break;
-                }
+                col++;
+                continue;
             }
             
             const block = this.createBlock(width, row, col);
@@ -466,23 +513,56 @@ export class BoardModel {
     
     public generateNextRow(): (BlockWidth | null)[] {
         this.nextRow = [];
+        
+        // 首先随机选择1-3个空隙位置
+        const gapCount = Math.floor(Math.random() * 3) + 1; // 1-3个空隙
+        const gapPositions: Set<number> = new Set();
+        
+        while (gapPositions.size < gapCount) {
+            const pos = Math.floor(Math.random() * BoardModel.GRID_COLS);
+            gapPositions.add(pos);
+        }
+        
         let col = 0;
         
         while (col < BoardModel.GRID_COLS) {
+            // 如果当前位置是空隙，添加null并跳过
+            if (gapPositions.has(col)) {
+                this.nextRow.push(null);
+                col++;
+                continue;
+            }
+            
             const remainingCols = BoardModel.GRID_COLS - col;
-            if (remainingCols <= 0) break;
+            
+            // 计算到下一个空隙的距离
+            let nextGap = BoardModel.GRID_COLS;
+            for (const gap of gapPositions) {
+                if (gap > col && gap < nextGap) {
+                    nextGap = gap;
+                }
+            }
+            const maxAllowedWidth = nextGap - col;
+            
+            if (remainingCols <= 0 || maxAllowedWidth <= 0) {
+                this.nextRow.push(null);
+                col++;
+                continue;
+            }
             
             let width: BlockWidth;
-            if (remainingCols >= 5) {
+            const effectiveMax = Math.min(remainingCols, maxAllowedWidth);
+            
+            if (effectiveMax >= 5) {
                 width = this.generateRandomBlockWidth();
-            } else if (remainingCols >= 4) {
-                width = Math.random() < 0.5 ? BlockWidth.ONE : 
-                        Math.random() < 0.5 ? BlockWidth.TWO :
-                        Math.random() < 0.5 ? BlockWidth.THREE : BlockWidth.FOUR;
-            } else if (remainingCols >= 3) {
-                width = Math.random() < 0.4 ? BlockWidth.ONE : 
-                        Math.random() < 0.5 ? BlockWidth.TWO : BlockWidth.THREE;
-            } else if (remainingCols >= 2) {
+                if (width > effectiveMax) {
+                    width = effectiveMax as BlockWidth;
+                }
+            } else if (effectiveMax >= 4) {
+                width = (Math.floor(Math.random() * 4) + 1) as BlockWidth;
+            } else if (effectiveMax >= 3) {
+                width = (Math.floor(Math.random() * 3) + 1) as BlockWidth;
+            } else if (effectiveMax >= 2) {
                 width = Math.random() < 0.5 ? BlockWidth.ONE : BlockWidth.TWO;
             } else {
                 width = BlockWidth.ONE;
@@ -490,10 +570,9 @@ export class BoardModel {
             
             // 确保不会超出边界
             if (col + width > BoardModel.GRID_COLS) {
-                width = BlockWidth.ONE;
-                if (col + width > BoardModel.GRID_COLS) {
-                    break;
-                }
+                this.nextRow.push(null);
+                col++;
+                continue;
             }
             
             this.nextRow.push(width);
