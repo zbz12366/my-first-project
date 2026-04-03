@@ -1,1066 +1,223 @@
-Grid position: Object
-GameManager.ts:526 New column: 5
-GameManager.ts:527 Current column: 5
-GameManager.ts:528 Can move: true
-GameManager.ts:443 worldToGridPosition: Object
-GameManager.ts:524 === Touch Move ===
-GameManager.ts:525 Grid position: Object
-GameManager.ts:526 New column: 6
-GameManager.ts:527 Current column: 5
-GameManager.ts:528 Can move: false
-GameManager.ts:443 worldToGridPosition: Object
-GameManager.ts:524 === Touch Move ===
-GameManager.ts:525 Grid position: Object
-GameManager.ts:526 New column: 6
-GameManager.ts:527 Current column: 5
-GameManager.ts:528 Can move: false
-GameManager.ts:443 worldToGridPosition: Object
-GameManager.ts:524 === Touch Move ===
-GameManager.ts:525 Grid position: Object
-GameManager.ts:526 New column: 6
-GameManager.ts:527 Current column: 5
-GameManager.ts:528 Can move: false
-GameManager.ts:443 worldToGridPosition: Object
-GameManager.ts:524 === Touch Move ===
-GameManager.ts:525 Grid position: Object
-GameManager.ts:526 New column: 6
-GameManager.ts:527 Current column: 5
-GameManager.ts:528 Can move: false
-GameManager.ts:443 worldToGridPosition: Object
-GameManager.ts:524 === Touch Move ===
-GameManager.ts:525 Grid position: Object
-GameManager.ts:526 New column: 6
-GameManager.ts:527 Current column: 5
-GameManager.ts:528 Can move: false
-BoardModel.ts:334 === Applying Gravity (v2.0 - row 0 is bottom) ===
-BoardModel.ts:339 Grid before gravity:
-BoardModel.ts:340 1 3 3 3 3 3 3 1 . 
-3 3 3 . 1 . . 1 1 
-2 2 . . . 3 3 3 1 
-1 1 . 1 . 2 2 . 1 
-1 . 2 2 1 . 1 1 . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-
-BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 18, current row 4, width 2
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 2: gridValue=null, blockId=18
-BoardModel.ts:392       col 3: gridValue=14, blockId=18
-BoardModel.ts:395       blocked by block 14
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 18 at row 4, width 2, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 19, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 4: gridValue=null, blockId=19
-BoardModel.ts:402     Can place at row 3, targetRow updated to 3
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 4: gridValue=null, blockId=19
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 4: gridValue=6, blockId=19
-BoardModel.ts:395       blocked by block 6
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 19 at row 4, width 1, lowest position: 2
-BoardModel.ts:361 Block 19 moved from row 4 to row 2
-BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 21, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 7: gridValue=null, blockId=21
-BoardModel.ts:402     Can place at row 3, targetRow updated to 3
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 7: gridValue=10, blockId=21
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 21 at row 4, width 1, lowest position: 3
-BoardModel.ts:361 Block 21 moved from row 4 to row 3
-BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 0: gridValue=9, blockId=12
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 1: gridValue=9, blockId=13
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 14, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 3: gridValue=null, blockId=14
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 3: gridValue=null, blockId=14
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 3: gridValue=2, blockId=14
-BoardModel.ts:395       blocked by block 2
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 14 at row 3, width 1, lowest position: 1
-BoardModel.ts:361 Block 14 moved from row 3 to row 1
-BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 5: gridValue=10, blockId=15
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 16, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 8: gridValue=11, blockId=16
-BoardModel.ts:395       blocked by block 11
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 16 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=5, blockId=9
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 5: gridValue=null, blockId=10
-BoardModel.ts:392       col 6: gridValue=null, blockId=10
-BoardModel.ts:392       col 7: gridValue=7, blockId=10
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 11, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 8: gridValue=8, blockId=11
-BoardModel.ts:395       blocked by block 8
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 11 at row 2, width 1, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=1, blockId=5
-BoardModel.ts:395       blocked by block 1
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 4: gridValue=3, blockId=6
-BoardModel.ts:395       blocked by block 3
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=4, blockId=7
-BoardModel.ts:395       blocked by block 4
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 8, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 8: gridValue=null, blockId=8
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 8 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 8 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 18, current row 4, width 2
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 2: gridValue=null, blockId=18
-BoardModel.ts:392       col 3: gridValue=null, blockId=18
-BoardModel.ts:402     Can place at row 3, targetRow updated to 3
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 2: gridValue=null, blockId=18
-BoardModel.ts:392       col 3: gridValue=null, blockId=18
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 2: gridValue=5, blockId=18
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 18 at row 4, width 2, lowest position: 2
-BoardModel.ts:361 Block 18 moved from row 4 to row 2
-BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 0: gridValue=9, blockId=12
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 1: gridValue=9, blockId=13
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 5: gridValue=10, blockId=15
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 16, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 8: gridValue=11, blockId=16
-BoardModel.ts:395       blocked by block 11
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 16 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 7: gridValue=10, blockId=21
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=5, blockId=9
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 5: gridValue=null, blockId=10
-BoardModel.ts:392       col 6: gridValue=null, blockId=10
-BoardModel.ts:392       col 7: gridValue=7, blockId=10
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 11, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 8: gridValue=null, blockId=11
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 8: gridValue=8, blockId=11
-BoardModel.ts:395       blocked by block 8
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 11 at row 2, width 1, lowest position: 1
-BoardModel.ts:361 Block 11 moved from row 2 to row 1
-BoardModel.ts:375   findLowestPosition: block 19, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 4: gridValue=6, blockId=19
-BoardModel.ts:395       blocked by block 6
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 19 at row 2, width 1, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=1, blockId=5
-BoardModel.ts:395       blocked by block 1
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 4: gridValue=3, blockId=6
-BoardModel.ts:395       blocked by block 3
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=4, blockId=7
-BoardModel.ts:395       blocked by block 4
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 3: gridValue=2, blockId=14
-BoardModel.ts:395       blocked by block 2
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 8, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 8 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 0: gridValue=9, blockId=12
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 1: gridValue=9, blockId=13
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 5: gridValue=10, blockId=15
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 16, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 8: gridValue=null, blockId=16
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 8: gridValue=11, blockId=16
-BoardModel.ts:395       blocked by block 11
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 16 at row 3, width 1, lowest position: 2
-BoardModel.ts:361 Block 16 moved from row 3 to row 2
-BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 7: gridValue=10, blockId=21
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=5, blockId=9
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 5: gridValue=null, blockId=10
-BoardModel.ts:392       col 6: gridValue=null, blockId=10
-BoardModel.ts:392       col 7: gridValue=7, blockId=10
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 19, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 4: gridValue=6, blockId=19
-BoardModel.ts:395       blocked by block 6
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 19 at row 2, width 1, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 18, current row 2, width 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 2: gridValue=5, blockId=18
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 18 at row 2, width 2, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=1, blockId=5
-BoardModel.ts:395       blocked by block 1
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 4: gridValue=3, blockId=6
-BoardModel.ts:395       blocked by block 3
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=4, blockId=7
-BoardModel.ts:395       blocked by block 4
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 3: gridValue=2, blockId=14
-BoardModel.ts:395       blocked by block 2
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 11, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 8: gridValue=8, blockId=11
-BoardModel.ts:395       blocked by block 8
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 11 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 8, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 8 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 0: gridValue=9, blockId=12
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 1: gridValue=9, blockId=13
-BoardModel.ts:395       blocked by block 9
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 5: gridValue=10, blockId=15
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 7: gridValue=10, blockId=21
-BoardModel.ts:395       blocked by block 10
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 3
-BoardModel.ts:375   findLowestPosition: block 9, current row 2, width 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=5, blockId=9
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 9 at row 2, width 2, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 10, current row 2, width 3
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 5: gridValue=null, blockId=10
-BoardModel.ts:392       col 6: gridValue=null, blockId=10
-BoardModel.ts:392       col 7: gridValue=7, blockId=10
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 10 at row 2, width 3, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 19, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 4: gridValue=6, blockId=19
-BoardModel.ts:395       blocked by block 6
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 19 at row 2, width 1, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 18, current row 2, width 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 2: gridValue=5, blockId=18
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 18 at row 2, width 2, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 16, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 8: gridValue=11, blockId=16
-BoardModel.ts:395       blocked by block 11
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 16 at row 2, width 1, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=1, blockId=5
-BoardModel.ts:395       blocked by block 1
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 4: gridValue=3, blockId=6
-BoardModel.ts:395       blocked by block 3
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=4, blockId=7
-BoardModel.ts:395       blocked by block 4
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 3: gridValue=2, blockId=14
-BoardModel.ts:395       blocked by block 2
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 11, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 8: gridValue=8, blockId=11
-BoardModel.ts:395       blocked by block 8
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 11 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 1, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 1 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 2, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 2 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 3, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 3 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 4, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 4 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 8, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 8 at row 0, width 1, lowest position: 0
-BoardModel.ts:366 Grid after gravity:
-BoardModel.ts:367 1 3 3 3 3 3 3 1 1 
-3 3 3 1 1 . . 1 1 
-2 2 2 2 1 3 3 3 1 
-1 1 . . . 2 2 1 . 
-1 . . . . . 1 . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-
-BoardModel.ts:82 === rebuildGrid called ===
-BoardModel.ts:83 Total blocks: 21
-BoardModel.ts:334 === Applying Gravity (v2.0 - row 0 is bottom) ===
-BoardModel.ts:339 Grid before gravity:
-BoardModel.ts:340 . . . . . . . . . 
-3 3 3 1 1 . . 1 1 
-. . . . . . . . . 
-1 1 . . . 2 2 1 . 
-1 . . . . . 1 . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-
-BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 3, stopping
-BoardModel.ts:409   Final targetRow: 4
-BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 4
-BoardModel.ts:375   findLowestPosition: block 12, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 0: gridValue=null, blockId=12
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=5, blockId=12
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 12 at row 3, width 1, lowest position: 2
-BoardModel.ts:361 Block 12 moved from row 3 to row 2
-BoardModel.ts:375   findLowestPosition: block 13, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 1: gridValue=null, blockId=13
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 1: gridValue=5, blockId=13
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 13 at row 3, width 1, lowest position: 2
-BoardModel.ts:361 Block 13 moved from row 3 to row 2
-BoardModel.ts:375   findLowestPosition: block 15, current row 3, width 2
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 5: gridValue=null, blockId=15
-BoardModel.ts:392       col 6: gridValue=null, blockId=15
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 5: gridValue=null, blockId=15
-BoardModel.ts:392       col 6: gridValue=null, blockId=15
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 5: gridValue=null, blockId=15
-BoardModel.ts:392       col 6: gridValue=null, blockId=15
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 15 at row 3, width 2, lowest position: 0
-BoardModel.ts:361 Block 15 moved from row 3 to row 0
-BoardModel.ts:375   findLowestPosition: block 21, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 7: gridValue=null, blockId=21
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 7: gridValue=7, blockId=21
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 21 at row 3, width 1, lowest position: 2
-BoardModel.ts:361 Block 21 moved from row 3 to row 2
-BoardModel.ts:375   findLowestPosition: block 5, current row 1, width 3
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=null, blockId=5
-BoardModel.ts:392       col 1: gridValue=null, blockId=5
-BoardModel.ts:392       col 2: gridValue=null, blockId=5
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 5 at row 1, width 3, lowest position: 0
-BoardModel.ts:361 Block 5 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 6, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 4: gridValue=null, blockId=6
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 6 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 6 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 7, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=null, blockId=7
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 7 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 7 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 14, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 3: gridValue=null, blockId=14
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 14 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 14 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 11, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 8: gridValue=null, blockId=11
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 11 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 11 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 0: gridValue=null, blockId=17
-BoardModel.ts:402     Can place at row 3, targetRow updated to 3
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 2, stopping
-BoardModel.ts:409   Final targetRow: 3
-BoardModel.ts:353 Block 17 at row 4, width 1, lowest position: 3
-BoardModel.ts:361 Block 17 moved from row 4 to row 3
-BoardModel.ts:375   findLowestPosition: block 20, current row 4, width 1
-BoardModel.ts:381     Checking row 3:
-BoardModel.ts:392       col 6: gridValue=null, blockId=20
-BoardModel.ts:402     Can place at row 3, targetRow updated to 3
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 6: gridValue=null, blockId=20
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 6: gridValue=null, blockId=20
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 20 at row 4, width 1, lowest position: 1
-BoardModel.ts:361 Block 20 moved from row 4 to row 1
-BoardModel.ts:375   findLowestPosition: block 12, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=null, blockId=12
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=5, blockId=12
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 12 at row 2, width 1, lowest position: 1
-BoardModel.ts:361 Block 12 moved from row 2 to row 1
-BoardModel.ts:375   findLowestPosition: block 13, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 1: gridValue=null, blockId=13
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 1: gridValue=5, blockId=13
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 13 at row 2, width 1, lowest position: 1
-BoardModel.ts:361 Block 13 moved from row 2 to row 1
-BoardModel.ts:375   findLowestPosition: block 21, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 7: gridValue=null, blockId=21
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=7, blockId=21
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 21 at row 2, width 1, lowest position: 1
-BoardModel.ts:361 Block 21 moved from row 2 to row 1
-BoardModel.ts:375   findLowestPosition: block 15, current row 0, width 2
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 15 at row 0, width 2, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 5, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 5 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 6, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 6 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 7, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 7 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 14, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 14 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 11, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 11 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 3, width 1
-BoardModel.ts:381     Checking row 2:
-BoardModel.ts:392       col 0: gridValue=null, blockId=17
-BoardModel.ts:402     Can place at row 2, targetRow updated to 2
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 17 at row 3, width 1, lowest position: 2
-BoardModel.ts:361 Block 17 moved from row 3 to row 2
-BoardModel.ts:375   findLowestPosition: block 20, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 20 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 12, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=5, blockId=12
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 12 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 13, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 1: gridValue=5, blockId=13
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 13 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 21, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=7, blockId=21
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 21 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 15, current row 0, width 2
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 15 at row 0, width 2, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 5, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 5 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 6, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 6 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 7, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 7 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 14, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 14 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 11, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 11 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 17 at row 2, width 1, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 20, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 6: gridValue=15, blockId=20
-BoardModel.ts:395       blocked by block 15
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 20 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 12, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=5, blockId=12
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 12 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 13, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 1: gridValue=5, blockId=13
-BoardModel.ts:395       blocked by block 5
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 13 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 21, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=7, blockId=21
-BoardModel.ts:395       blocked by block 7
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 21 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 15, current row 0, width 2
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 15 at row 0, width 2, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 5, current row 0, width 3
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 5 at row 0, width 3, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 6, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 6 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 7, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 7 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 14, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 14 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 11, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 11 at row 0, width 1, lowest position: 0
-BoardModel.ts:366 Grid after gravity:
-BoardModel.ts:367 3 3 3 1 1 2 2 1 1 
-1 1 . . . . 1 1 . 
-1 . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-
-BoardModel.ts:82 === rebuildGrid called ===
-BoardModel.ts:83 Total blocks: 11
-BoardModel.ts:334 === Applying Gravity (v2.0 - row 0 is bottom) ===
-BoardModel.ts:339 Grid before gravity:
-BoardModel.ts:340 . . . . . . . . . 
-1 1 . . . . 1 1 . 
-1 . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-
-BoardModel.ts:375   findLowestPosition: block 17, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 1, stopping
-BoardModel.ts:409   Final targetRow: 2
-BoardModel.ts:353 Block 17 at row 2, width 1, lowest position: 2
-BoardModel.ts:375   findLowestPosition: block 20, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 6: gridValue=null, blockId=20
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 20 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 20 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 12, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=null, blockId=12
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 12 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 12 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 13, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 1: gridValue=null, blockId=13
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 13 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 13 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 21, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 7: gridValue=null, blockId=21
-BoardModel.ts:402     Can place at row 0, targetRow updated to 0
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 21 at row 1, width 1, lowest position: 0
-BoardModel.ts:361 Block 21 moved from row 1 to row 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 2, width 1
-BoardModel.ts:381     Checking row 1:
-BoardModel.ts:392       col 0: gridValue=null, blockId=17
-BoardModel.ts:402     Can place at row 1, targetRow updated to 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 17 at row 2, width 1, lowest position: 1
-BoardModel.ts:361 Block 17 moved from row 2 to row 1
-BoardModel.ts:375   findLowestPosition: block 20, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 20 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 12, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 12 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 13, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 13 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 21, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 21 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 17, current row 1, width 1
-BoardModel.ts:381     Checking row 0:
-BoardModel.ts:392       col 0: gridValue=12, blockId=17
-BoardModel.ts:395       blocked by block 12
-BoardModel.ts:404     Cannot place at row 0, stopping
-BoardModel.ts:409   Final targetRow: 1
-BoardModel.ts:353 Block 17 at row 1, width 1, lowest position: 1
-BoardModel.ts:375   findLowestPosition: block 20, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 20 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 12, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 12 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 13, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 13 at row 0, width 1, lowest position: 0
-BoardModel.ts:375   findLowestPosition: block 21, current row 0, width 1
-BoardModel.ts:409   Final targetRow: 0
-BoardModel.ts:353 Block 21 at row 0, width 1, lowest position: 0
-BoardModel.ts:366 Grid after gravity:
-BoardModel.ts:367 1 1 . . . . 1 1 . 
-1 . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-. . . . . . . . . 
-
-BoardModel.ts:82 === rebuildGrid called ===
-BoardModel.ts:83 Total blocks: 5
-BoardModel.ts:82 === rebuildGrid called ===
-BoardModel.ts:83 Total blocks: 9
-GameManager.ts:850 === renderPreviewRow called ===
-GameManager.ts:851 previewBlocksLayer: exists
-GameManager.ts:855 PreviewBlocksLayer position: Vec3
-GameManager.ts:856 PreviewBlocksLayer active: true
-GameManager.ts:859 PreviewBlocksLayer size: Size
-GameManager.ts:864 Next row blocks: Array(7)
-GameManager.ts:884 Creating preview block 0: width=2, col=0
-GameManager.ts:901 Preview block 0: position=(-255.5, 0), size=(146, 37)
-GameManager.ts:884 Creating preview block 1: width=1, col=2
-GameManager.ts:901 Preview block 1: position=(-146, 0), size=(73, 37)
-GameManager.ts:884 Creating preview block 3: width=2, col=4
-GameManager.ts:901 Preview block 3: position=(36.5, 0), size=(146, 37)
-GameManager.ts:884 Creating preview block 5: width=1, col=7
-GameManager.ts:901 Preview block 5: position=(219, 0), size=(73, 37)
-GameManager.ts:884 Creating preview block 6: width=1, col=8
-GameManager.ts:901 Preview block 6: position=(292, 0), size=(73, 37)
-GameManager.ts:907 Total preview blocks created: 7
-GameManager.ts:460 === Touch Start ===
-GameManager.ts:461 Screen Position: Vec2
-GameManager.ts:462 Block nodes count: 5
-GameManager.ts:499 No block touched
+gamePage.html:58 TypeError: t.initialize is not a function
+    at t.activate (_virtual_cc-DSsdqisG.js:2)
+    at i.e._activate (_virtual_cc-DSsdqisG.js:2)
+    at e.i.runSceneImmediate (_virtual_cc-DSsdqisG.js:2)
+    at _virtual_cc-DSsdqisG.js:2
+    at _virtual_cc-DSsdqisG.js:2
+    at _virtual_cc-DSsdqisG.js:2
+    at _virtual_cc-DSsdqisG.js:2
+    at Function.i (_virtual_cc-DSsdqisG.js:2)
+    at VM38 WAGameSubContext.js:1
+    at Function.cbWithTimeStamp (gamePage.html:58)(env: macOS,mg,2.01.2510280; lib: 3.15.0)
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+Ve @ _virtual_cc-DSsdqisG.js:2
+Ye @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+a @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+a @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+a @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+a @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+a @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+a @ _virtual_cc-DSsdqisG.js:2
+onComplete @ _virtual_cc-DSsdqisG.js:2
+e.dispatch @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+r @ _virtual_cc-DSsdqisG.js:2
+load (async)
+_w @ _virtual_cc-DSsdqisG.js:2
+e.parse @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+e._flow @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ _virtual_cc-DSsdqisG.js:2
+o @ _virtual_cc-DSsdqisG.js:2
+(anonymous) @ engine-adapter.js? [sm]:1
+success @ web-adapter.js? [sm]:1
+Show 25 more frames
+GameManager start
+findContainers: gameGridRoot= false blocksLayer= false
+findContainers: gameGridRoot= false blocksLayer= false
+index.js? [sm]:9 Cannot setup input handlers: blocksLayer not found
+r.setupInputHandlers @ index.js? [sm]:9
+(anonymous) @ index.js? [sm]:9
+e.trigger @ _virtual_cc-DSsdqisG.js:2
+e.update @ _virtual_cc-DSsdqisG.js:2
+i.update @ _virtual_cc-DSsdqisG.js:2
+i.tick @ _virtual_cc-DSsdqisG.js:2
+r._updateCallback @ _virtual_cc-DSsdqisG.js:2
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+setTimeout (async)
+wxRequestAnimationFrame @ gamePage.html:60
+_updateCallback @ _virtual_cc-DSsdqisG.js:2
+cbWithTimeStamp @ gamePage.html:58
+GameManager initUI
+Show home page
