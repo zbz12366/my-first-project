@@ -1,224 +1,31 @@
-gamePage.html:58 TypeError: t.initialize is not a function
-    at t.activate (_virtual_cc-DSsdqisG.js:2)
-    at i.e._activate (_virtual_cc-DSsdqisG.js:2)
-    at e.i.runSceneImmediate (_virtual_cc-DSsdqisG.js:2)
-    at _virtual_cc-DSsdqisG.js:2
-    at _virtual_cc-DSsdqisG.js:2
-    at _virtual_cc-DSsdqisG.js:2
-    at _virtual_cc-DSsdqisG.js:2
-    at Function.i (_virtual_cc-DSsdqisG.js:2)
-    at VM41 WAGameSubContext.js:1
-    at Function.cbWithTimeStamp (gamePage.html:58)(env: macOS,mg,2.01.2510280; lib: 3.15.0)
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-Ve @ _virtual_cc-DSsdqisG.js:2
-Ye @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-a @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-a @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-a @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-a @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-a @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-a @ _virtual_cc-DSsdqisG.js:2
-onComplete @ _virtual_cc-DSsdqisG.js:2
-e.dispatch @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-r @ _virtual_cc-DSsdqisG.js:2
-load (async)
-_w @ _virtual_cc-DSsdqisG.js:2
-e.parse @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-e._flow @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ _virtual_cc-DSsdqisG.js:2
-o @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ engine-adapter.js? [sm]:1
-success @ web-adapter.js? [sm]:1
-Show 25 more frames
-GameManager start
-findContainers: gameGridRoot= false blocksLayer= false
-findContainers: gameGridRoot= false blocksLayer= false
-index.js? [sm]:9 Cannot setup input handlers: blocksLayer not found
-r.setupInputHandlers @ index.js? [sm]:9
-(anonymous) @ index.js? [sm]:9
-e.trigger @ _virtual_cc-DSsdqisG.js:2
-e.update @ _virtual_cc-DSsdqisG.js:2
-i.update @ _virtual_cc-DSsdqisG.js:2
-i.tick @ _virtual_cc-DSsdqisG.js:2
-r._updateCallback @ _virtual_cc-DSsdqisG.js:2
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-_updateCallback @ _virtual_cc-DSsdqisG.js:2
-cbWithTimeStamp @ gamePage.html:58
-setTimeout (async)
-wxRequestAnimationFrame @ gamePage.html:60
-e.start @ _virtual_cc-DSsdqisG.js:2
-r.resume @ _virtual_cc-DSsdqisG.js:2
-r.run @ _virtual_cc-DSsdqisG.js:2
-(anonymous) @ application.js? [sm]:53
-Promise.then (async)
-start @ application.js? [sm]:52
-(anonymous) @ game.js? [sm]:74
-GameManager initUI
-Show home page
+Sat Apr 04 2026 13:02:15 GMT+0800 (中国标准时间) 插件 wx0446ba2621dda60a
+VM52:2 wx0446ba2621dda60a 插件未授权使用 添加插件(env: macOS,mg,2.01.2510280; lib: 3.15.1)
+(anonymous) @ VM52:2
+VM52:3 插件文档: https://mp.weixin.qq.com/wxopen/plugindevdoc?appid=wx0446ba2621dda60a&token=&lang=zh_CN(env: macOS,mg,2.01.2510280; lib: 3.15.1)
+(anonymous) @ VM52:3
+[] summer-compiler miss  js file, __context__/__plugin__/wx0446ba2621dda60a/plugin.js
+Error: summer-compiler miss  js file, __context__/__plugin__/wx0446ba2621dda60a/plugin.js
+    at SummerCompiler.compileJS (/Applications/wechatwebdevtools.app/Contents/Resources/package.nw/js/common/miniprogram-builder/modules/corecompiler/summerCompiler.js:2:14149)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async P (/Applications/wechatwebdevtools.app/Contents/Resources/package.nw/core.wxvpkg/f0875bf21bfc4bd87275b7e0fbe7c4f7.js:2:1468)
+    at async S (/Applications/wechatwebdevtools.app/Contents/Resources/package.nw/core.wxvpkg/f0875bf21bfc4bd87275b7e0fbe7c4f7.js:2:3460)
+    at async exports.getCompiledJS (/Applications/wechatwebdevtools.app/Contents/Resources/package.nw/core.wxvpkg/f0875bf21bfc4bd87275b7e0fbe7c4f7.js:2:4611)
+    at async exports.getRuntimeJS (/Applications/wechatwebdevtools.app/Contents/Resources/package.nw/core.wxvpkg/f0875bf21bfc4bd87275b7e0fbe7c4f7.js:2:5363)
+    at async module.exports (/Applications/wechatwebdevtools.app/Contents/Resources/package.nw/core.wxvpkg/bb2c2114b22d4af48ec81b0c1257b0f8.js:2:437)
+    at async /Applications/wechatwebdevtools.app/Contents/Resources/package.nw/core.wxvpkg/af7e7c98cbc5339efce1d7549388ba10.js:2:826
+    at async Proxy.module.exports (/Applications/wechatwebdevtools.app/Contents/Resources/package.nw/core.wxvpkg/af7e7c98cbc5339efce1d7549388ba10.js:2:705)(env: macOS,mg,2.01.2510280; lib: 3.15.1)
+{…}
+game.js? [sm]:64 Error: module '__plugin__/wx0446ba2621dda60a/2d.js' is not defined, require args is '__plugin__/wx0446ba2621dda60a/2d.js'
+    at E (VM42 WAGameSubContext.js:1)
+    at u (VM30 WAGame.js:1)
+    at d (VM30 WAGame.js:1)
+    at plugin (game.js? [sm]:45)
+    at O.<anonymous> (system.bundle.js? [sm]:1)
+    at O.M.instantiate (system.bundle.js? [sm]:1)
+    at O.M.instantiate (system.bundle.js? [sm]:1)
+    at system.bundle.js? [sm]:1(env: macOS,mg,2.01.2510280; lib: 3.15.1)
+(anonymous) @ game.js? [sm]:64
+Promise.catch (async)
+__initApp @ game.js? [sm]:63
+(anonymous) @ game.js? [sm]:85
