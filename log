@@ -1,4 +1,4 @@
-gamePage.html:58 TypeError: t.initialize is not a function
+TypeError: t.initialize is not a function
     at t.activate (_virtual_cc-DSsdqisG.js:2)
     at i.e._activate (_virtual_cc-DSsdqisG.js:2)
     at e.i.runSceneImmediate (_virtual_cc-DSsdqisG.js:2)
@@ -7,7 +7,7 @@ gamePage.html:58 TypeError: t.initialize is not a function
     at _virtual_cc-DSsdqisG.js:2
     at _virtual_cc-DSsdqisG.js:2
     at Function.i (_virtual_cc-DSsdqisG.js:2)
-    at VM38 WAGameSubContext.js:1
+    at VM42 WAGameSubContext.js:1
     at Function.cbWithTimeStamp (gamePage.html:58)(env: macOS,mg,2.01.2510280; lib: 3.15.0)
 cbWithTimeStamp @ gamePage.html:58
 setTimeout (async)
