@@ -29,7 +29,7 @@ export interface GameState {
 export class BoardModel {
     public static readonly GRID_COLS = 9;
     public static readonly GRID_ROWS = 11;
-    public static readonly INITIAL_ROWS = 5;
+    public static readonly INITIAL_ROWS = 1;
     
     private static readonly SCORE_MAP: Record<BlockWidth, number> = {
         [BlockWidth.ONE]: 10,
@@ -51,10 +51,78 @@ export class BoardModel {
     private energyProgress: number = 0;
     private nextEnergyTarget: number = BoardModel.INITIAL_ENERGY_TARGET;
     private nextRow: (BlockWidth | null)[] = [];
+    private longBlockProbability: number = 0.05;
+    private crocodileEnabled: boolean = false;
     
     constructor() {
         this.grid = this.createEmptyGrid();
         this.blocks = new Map();
+    }
+    
+    public setDifficultyParams(longBlockProbability: number, crocodileEnabled: boolean): void {
+        this.longBlockProbability = longBlockProbability;
+        this.crocodileEnabled = crocodileEnabled;
+    }
+
+    public getBoardDensity(): number {
+        let filledCells = 0;
+        const totalCells = BoardModel.GRID_COLS * BoardModel.GRID_ROWS;
+        for (let row = 0; row < BoardModel.GRID_ROWS; row++) {
+            for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+                if (this.grid[row][col] !== null) {
+                    filledCells++;
+                }
+            }
+        }
+        return filledCells / totalCells;
+    }
+
+    public generateEncounterRow(crocodileCount: number): (BlockWidth | null)[] {
+        const encounterRow: (BlockWidth | null)[] = [];
+        const crocodilePositions: number[] = [];
+
+        for (let i = 0; i < crocodileCount; i++) {
+            let pos: number;
+            let attempts = 0;
+            do {
+                pos = Math.floor(Math.random() * (BoardModel.GRID_COLS - BlockWidth.FIVE + 1));
+                attempts++;
+            } while (
+                crocodilePositions.some(p => Math.abs(p - pos) < BlockWidth.FIVE) &&
+                attempts < 50
+            );
+            crocodilePositions.push(pos);
+        }
+
+        crocodilePositions.sort((a, b) => a - b);
+
+        let col = 0;
+        let crocIdx = 0;
+
+        while (col < BoardModel.GRID_COLS && crocIdx < crocodilePositions.length) {
+            const nextCrocCol = crocodilePositions[crocIdx];
+
+            while (col < nextCrocCol && col < BoardModel.GRID_COLS) {
+                encounterRow.push(null);
+                col++;
+            }
+
+            if (col + BlockWidth.FIVE <= BoardModel.GRID_COLS) {
+                encounterRow.push(BlockWidth.FIVE);
+                col += BlockWidth.FIVE;
+            } else {
+                encounterRow.push(null);
+                col++;
+            }
+            crocIdx++;
+        }
+
+        while (col < BoardModel.GRID_COLS) {
+            encounterRow.push(null);
+            col++;
+        }
+
+        return encounterRow;
     }
     
     private createEmptyGrid(): (number | null)[][] {
@@ -164,6 +232,22 @@ export class BoardModel {
         return sys.localStorage.getItem('slide_puzzle_save') !== null;
     }
     
+    public saveHighScore(score: number): void {
+        const currentHighScore = this.getHighScore();
+        if (score > currentHighScore) {
+            sys.localStorage.setItem('slide_puzzle_high_score', score.toString());
+        }
+    }
+    
+    public getHighScore(): number {
+        const highScoreStr = sys.localStorage.getItem('slide_puzzle_high_score');
+        return highScoreStr ? parseInt(highScoreStr, 10) : 0;
+    }
+    
+    public clearHighScore(): void {
+        sys.localStorage.removeItem('slide_puzzle_high_score');
+    }
+    
     private generateRowBlocks(row: number): void {
         // 首先随机选择1-3个空隙位置
         const gapCount = Math.floor(Math.random() * 3) + 1; // 1-3个空隙
@@ -230,24 +314,24 @@ export class BoardModel {
     
     private generateRandomBlockWidth(): BlockWidth {
         const rand = Math.random();
-        
-        if (this.turns < 20) {
-            if (rand < 0.5) return BlockWidth.ONE;
-            if (rand < 0.8) return BlockWidth.TWO;
-            return BlockWidth.THREE;
-        } else if (this.turns < 40) {
-            if (rand < 0.35) return BlockWidth.ONE;
-            if (rand < 0.6) return BlockWidth.TWO;
-            if (rand < 0.8) return BlockWidth.THREE;
-            if (rand < 0.95) return BlockWidth.FOUR;
-            return BlockWidth.FIVE;
-        } else {
-            if (rand < 0.2) return BlockWidth.ONE;
-            if (rand < 0.4) return BlockWidth.TWO;
-            if (rand < 0.6) return BlockWidth.THREE;
-            if (rand < 0.85) return BlockWidth.FOUR;
-            return BlockWidth.FIVE;
-        }
+        const longProb = this.longBlockProbability;
+
+        const oneBlockProb = Math.max(0.02, 0.50 - longProb * 0.80);
+        const twoBlockProb = Math.max(0.10, 0.35 - longProb * 0.15);
+        const threeBlockProb = Math.max(0.05, 0.15 - longProb * 0.10);
+
+        const totalShortProb = oneBlockProb + twoBlockProb + threeBlockProb;
+        const adjustedLongProb = Math.min(longProb, 1 - totalShortProb);
+
+        if (rand < oneBlockProb) return BlockWidth.ONE;
+        if (rand < oneBlockProb + twoBlockProb) return BlockWidth.TWO;
+        if (rand < oneBlockProb + twoBlockProb + threeBlockProb) return BlockWidth.THREE;
+
+        const fourProb = adjustedLongProb * (this.crocodileEnabled ? 0.50 : 1.0);
+        if (rand < totalShortProb + fourProb) return BlockWidth.FOUR;
+
+        if (this.crocodileEnabled) return BlockWidth.FIVE;
+        return BlockWidth.FOUR;
     }
     
     private createBlock(width: BlockWidth, row: number, col: number): BlockData {
@@ -299,15 +383,67 @@ export class BoardModel {
             return false;
         }
         
-        for (let i = 0; i < block.width; i++) {
-            const checkCol = newCol + i;
-            const gridValue = this.grid[block.row][checkCol];
-            if (gridValue !== null && gridValue !== block.id) {
-                return false;
+        const currentCol = block.col;
+        
+        if (newCol === currentCol) {
+            return true;
+        }
+        
+        const step = newCol > currentCol ? 1 : -1;
+        
+        for (let col = currentCol + step; step > 0 ? col <= newCol : col >= newCol; col += step) {
+            for (let i = 0; i < block.width; i++) {
+                const checkCol = col + i;
+                if (checkCol < 0 || checkCol >= BoardModel.GRID_COLS) continue;
+                
+                const gridValue = this.grid[block.row][checkCol];
+                if (gridValue !== null && gridValue !== block.id) {
+                    return false;
+                }
             }
         }
         
         return true;
+    }
+    
+    public findMaxMovablePosition(blockId: number, targetCol: number): number {
+        const block = this.blocks.get(blockId);
+        if (!block) return block ? block.col : 0;
+        
+        const currentCol = block.col;
+        
+        if (targetCol === currentCol) {
+            return currentCol;
+        }
+        
+        const step = targetCol > currentCol ? 1 : -1;
+        let lastValidCol = currentCol;
+        
+        for (let col = currentCol + step; step > 0 ? col <= targetCol : col >= targetCol; col += step) {
+            let canMoveToCol = true;
+            
+            for (let i = 0; i < block.width; i++) {
+                const checkCol = col + i;
+                if (checkCol < 0 || checkCol >= BoardModel.GRID_COLS) {
+                    canMoveToCol = false;
+                    break;
+                }
+                
+                const gridValue = this.grid[block.row][checkCol];
+                if (gridValue !== null && gridValue !== block.id) {
+                    canMoveToCol = false;
+                    break;
+                }
+            }
+            
+            if (canMoveToCol) {
+                lastValidCol = col;
+            } else {
+                break;
+            }
+        }
+        
+        return lastValidCol;
     }
     
     public moveBlock(blockId: number, newCol: number): boolean {
@@ -466,13 +602,16 @@ export class BoardModel {
     }
     
     public checkEnergyActivation(): number {
-        let activations = 0;
-        while (this.energyProgress >= this.nextEnergyTarget) {
+        return this.energyProgress >= this.nextEnergyTarget ? 1 : 0;
+    }
+    
+    public useEnergy(): boolean {
+        if (this.energyProgress >= this.nextEnergyTarget) {
             this.energyProgress -= this.nextEnergyTarget;
             this.nextEnergyTarget += BoardModel.ENERGY_INCREMENT;
-            activations++;
+            return true;
         }
-        return activations;
+        return false;
     }
     
     public getEnergyProgress(): { current: number; target: number; percentage: number } {
@@ -483,12 +622,20 @@ export class BoardModel {
         };
     }
     
+    public addEnergyProgress(amount: number): void {
+        this.energyProgress += amount;
+    }
+    
     public activateFreeze(): void {
         this.freezeTurns = 3;
     }
     
     public isFrozen(): boolean {
         return this.freezeTurns > 0;
+    }
+    
+    public getFreezeTurns(): number {
+        return this.freezeTurns;
     }
     
     public decrementFreeze(): void {
@@ -504,9 +651,34 @@ export class BoardModel {
         }
         
         this.removeBlock(block.id);
+        
+        const originalCenterCol = block.col + Math.floor(block.width / 2);
         block.width = BlockWidth.ONE;
+        block.col = originalCenterCol;
         block.score = BoardModel.SCORE_MAP[BlockWidth.ONE];
         this.placeBlock(block);
+        
+        return true;
+    }
+    
+    public clearBottomRow(): boolean {
+        const bottomRow = 0;
+        const blockIdsToRemove: Set<number> = new Set();
+        
+        for (let col = 0; col < BoardModel.GRID_COLS; col++) {
+            const blockId = this.grid[bottomRow][col];
+            if (blockId !== null) {
+                blockIdsToRemove.add(blockId);
+            }
+        }
+        
+        if (blockIdsToRemove.size === 0) {
+            return false;
+        }
+        
+        blockIdsToRemove.forEach(id => {
+            this.removeBlock(id);
+        });
         
         return true;
     }
@@ -657,6 +829,10 @@ export class BoardModel {
     
     public getNextRow(): (BlockWidth | null)[] {
         return this.nextRow;
+    }
+
+    public setNextRow(row: (BlockWidth | null)[]): void {
+        this.nextRow = [...row];
     }
     
     public isGameOver(): boolean {
